@@ -12,11 +12,11 @@ public class Playlist {
 
     private String name;
 
-    @OneToMany(targetEntity = Song.class)
+    @ManyToMany
     private Set<Song> songs;
 
-    @ManyToOne(targetEntity = User.class)
-    private User userId;
+    @ManyToOne @JoinColumn( name = "userId")
+    private User user;
 
     public Integer getId() {
         return id;
@@ -42,11 +42,11 @@ public class Playlist {
         this.songs = songs;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

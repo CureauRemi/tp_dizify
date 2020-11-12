@@ -3,7 +3,10 @@ package com.ynov.nantes.rest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.ynov.nantes.rest.entity.Album;
+import com.ynov.nantes.rest.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import com.ynov.nantes.rest.entity.Artist;
@@ -13,11 +16,14 @@ import com.ynov.nantes.rest.repository.ArtistRepository;
 public class ArtistController {
 
     private ArtistRepository artistRepository;
+    private AlbumRepository albumRepository;
 
     @Autowired
-    public ArtistController(ArtistRepository artistRepository) {
+    public ArtistController(ArtistRepository artistRepository, AlbumRepository albumRepository) {
         this.artistRepository = artistRepository;
+        this.albumRepository = albumRepository;
     }
+
 
     @ResponseBody
     @GetMapping("/artist/{id}")
@@ -33,6 +39,12 @@ public class ArtistController {
     @GetMapping("/artist")
     public List<Artist> getArtists() {
         return artistRepository.findAll();
+    }
+
+    @GetMapping("/artist/{id}/album")
+    public List<Album> getArtists(Artist artist) {
+
+        return albumRepository.findByArtist(artist);
     }
 
     @PostMapping("/artist")

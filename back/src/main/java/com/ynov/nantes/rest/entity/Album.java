@@ -1,26 +1,19 @@
 package com.ynov.nantes.rest.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
-@Entity(name = "Album")
+@Entity
 @Table(name = "album")
 public class Album {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    /*
-    EXEMPLE DE MANY TO MANY RELATION
-    @ManyToMany
-    private Set<Artist> artists = new HashSet<>();
-
-     */
+    @ManyToOne
+    private Artist artist;
 
     private String name;
 
@@ -28,6 +21,9 @@ public class Album {
 
     private String image_album;
 
+    public Artist getArtist() { return artist; }
+
+    public void setArtist(Artist artist) { this.artist = artist; }
 
     public Integer getId() {
         return id;

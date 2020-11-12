@@ -17,6 +17,11 @@ public class User {
 
     private String avatar;
 
+    @OneToOne(targetEntity = Favorite.class)
+    private Favorite favorite;
+
+    public User() { }
+
     public User(String pseudo, String email, String password, String avatar) {
         this.pseudo = pseudo;
         this.email = email;

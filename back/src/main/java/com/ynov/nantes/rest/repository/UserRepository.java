@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query("SELECT u FROM user u WHERE u.pseudo LIKE %:pseudo%")
+    @Query("SELECT u FROM User u WHERE u.pseudo LIKE %:pseudo%")
     public User findByPseudo(@Param("pseudo") String pseudo);
 }

@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface SongRepository extends JpaRepository<Song, Integer> {
 
-    @Query("SELECT s FROM song s WHERE s.title LIKE %:title%")
+    @Query("SELECT s FROM Song s WHERE s.title LIKE %:title%")
     public List<Song> findByTitle(@Param("title") String title);
 }

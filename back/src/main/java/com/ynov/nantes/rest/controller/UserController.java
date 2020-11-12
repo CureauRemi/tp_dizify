@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/artist/{id}")
+    @GetMapping("/user/{id}")
     public User getUserById(final @PathVariable("id") String userId) {
         try {
             Optional<User> artist = userRepository.findById(Integer.valueOf(userId));
@@ -29,31 +29,31 @@ public class UserController {
         }
     }
 
-    @GetMapping("/artist")
+    @GetMapping("/user")
     public List<User> getUsers() {
         return userRepository.findAll();
     }
 
-    @PostMapping("/artist")
+    @PostMapping("/user")
     public User addArtist(@RequestBody User user) {
         User saved = userRepository.save(user);
         return saved;
     }
 
     @ResponseBody
-    @PutMapping("/artist/{id}")
+    @PutMapping("/user/{id}")
     public User editUser(@RequestBody User user) {
         User updated = userRepository.save(user);
         return updated;
     }
 
-    @DeleteMapping("/artist")
+    @DeleteMapping("/user")
     public String deleteUser(@RequestBody User user) {
         try{
             userRepository.delete(user);
         } catch (Exception e) {
             return "error : " + e;
         }
-        return "Artist deleted successfully !";
+        return "User deleted successfully !";
     }
 }

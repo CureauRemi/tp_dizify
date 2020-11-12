@@ -52,6 +52,6 @@ public class PlaylistController {
         } catch (Exception e) {
             return "error : " + e;
         }
-        return "Favorite Deleted Successfully !";
+        return "Playlist Deleted Successfully !";
     }
 }

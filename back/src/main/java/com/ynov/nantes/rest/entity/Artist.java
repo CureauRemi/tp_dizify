@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Artist")
+@Entity
 @Table(name = "artist")
 public class Artist {
     @Id
@@ -16,21 +16,11 @@ public class Artist {
     
     private String image_artist;
 
-    @OneToMany(mappedBy = "Artist")
-    private Set<Album> albums;
+    public Artist() { }
 
     public Artist(String alias, String image_artist, Set<Album> albums) {
         this.alias = alias;
         this.image_artist = image_artist;
-        this.albums = albums;
-    }
-
-    public Set<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(Set<Album> albums) {
-        this.albums = albums;
     }
 
     public Integer getId() {

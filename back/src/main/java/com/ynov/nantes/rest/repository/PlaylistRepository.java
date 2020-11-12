@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface PlaylistRepository extends JpaRepository<Playlist, Integer> {
 
-    @Query("SELECT p FROM playlist p WHERE p.name LIKE %:name%")
+    @Query("SELECT p FROM Playlist p WHERE p.name LIKE %:name%")
     public Optional<Playlist> findByName(@Param("name") String name);
 
 }

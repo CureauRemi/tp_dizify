@@ -20,7 +20,7 @@ public class Favorite {
     private Set<Song> playlistSongs;
 
     @OneToOne(targetEntity = User.class)
-    private User user;
+    private User userId;
 
 
 
@@ -57,10 +57,10 @@ public class Favorite {
     }
 
     public User getUser() {
-        return user;
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(User userId) {
+        this.userId = userId;
     }
 }

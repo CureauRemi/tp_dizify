@@ -20,50 +20,50 @@ public class SongController {
 
     @ResponseBody
     @RequestMapping(value = "/song", method = RequestMethod.GET, params = "name")
-    public List<Song> getAlbumsByTitle(@RequestParam(value = "name", defaultValue = "") String name) {
+    public List<Song> getSongByTitle(@RequestParam(value = "name", defaultValue = "") String name) {
         List<Song> songs = songRepository.findByTitle(name);
         return songs;
     }
 
     @ResponseBody
     @GetMapping("/song")
-    public List<Song> getAlbums() {
+    public List<Song> getSongs() {
         return songRepository.findAll();
     }
 
     @ResponseBody
     @GetMapping("/song/{id}")
-    public Song getAlbumById(final @PathVariable("id") String albumId) {
+    public Song getSongById(final @PathVariable("id") String songId) {
         try {
-            Optional<Song> album = songRepository.findById(Integer.valueOf(albumId));
-            return album.get();
+            Optional<Song> song = songRepository.findById(Integer.valueOf(songId));
+            return song.get();
         } catch (Exception e) {
             return null;
         }
     }
 
     @PostMapping("/song")
-    public Song addAlbum(@RequestBody Song album) {
-        Song saved = songRepository.save(album);
+    public Song addSong(@RequestBody Song song) {
+        Song saved = songRepository.save(song);
         return saved;
     }
 
     @PutMapping("/song/{id}")
-    public Song updateAlbum(final @PathVariable("id") String albumId, @RequestBody Song album) {
-        Song toUpdate = songRepository.getOne(Integer.valueOf(albumId));
-        if(toUpdate.getId() == Integer.valueOf(albumId)) {
-            toUpdate = songRepository.save(album);
+    public Song updateSong(final @PathVariable("id") String songId, @RequestBody Song song) {
+        Song toUpdate = songRepository.getOne(Integer.valueOf(songId));
+        if(toUpdate.getId() == Integer.valueOf(songId)) {
+            toUpdate = songRepository.save(song);
         }
         return toUpdate;
     }
 
     @DeleteMapping("/song")
-    public String deleteAlbum(@RequestBody Song album) {
+    public String deleteSong(@RequestBody Song song) {
         try{
-            songRepository.delete(album);
+            songRepository.delete(song);
         } catch (Exception e) {
             return "error : " + e;
         }
-        return "Album Deleted Successfully !";
+        return "Song Deleted Successfully !";
     }
 }

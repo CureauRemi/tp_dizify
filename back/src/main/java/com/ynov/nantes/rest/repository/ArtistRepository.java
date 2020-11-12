@@ -7,7 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface ArtistRepository extends JpaRepository<Artist, Integer> {
 
-    @Query("SELECT a FROM artist a WHERE a.alias LIKE %:alias%")
+    @Query("SELECT a FROM Artist a WHERE a.alias LIKE %:alias%")
     public Artist findByName(@Param("alias") String alias);
+
 
 }
