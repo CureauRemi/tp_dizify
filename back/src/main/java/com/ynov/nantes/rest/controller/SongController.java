@@ -57,13 +57,13 @@ public class SongController {
         return toUpdate;
     }
 
-    @DeleteMapping("/song")
-    public String deleteSong(@RequestBody Song song) {
-        try{
-            songRepository.delete(song);
-        } catch (Exception e) {
-            return "error : " + e;
+    @DeleteMapping("/song/{id}")
+    public String deleteSong(final @PathVariable("id") String songId) {
+        Song toDelete = songRepository.getOne(Integer.valueOf(songId));
+        if(toDelete.getId() == Integer.valueOf(songId)) {
+            songRepository.deleteById(Integer.valueOf(songId));
+            return "Song Deleted Successfully !";
         }
-        return "Song Deleted Successfully !";
+        return null;
     }
 }

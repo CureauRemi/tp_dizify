@@ -2,6 +2,7 @@ package com.ynov.nantes.rest.entity;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -14,6 +15,14 @@ public class Album {
 
     @ManyToOne
     private Artist artist;
+
+    @OneToMany
+    private Set<Song> songs;
+
+
+    public Set<Song> getSongs() { return songs; }
+
+    public void setSongs(Set<Song> songs) { this.songs = songs; }
 
     private String name;
 
