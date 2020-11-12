@@ -3,6 +3,10 @@ package com.ynov.nantes.rest.controller;
 import com.ynov.nantes.rest.entity.Song;
 import com.ynov.nantes.rest.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +23,16 @@ public class SongController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/song", method = RequestMethod.GET, params = "name")
-    public List<Song> getSongByTitle(@RequestParam(value = "name", defaultValue = "") String name) {
-        List<Song> songs = songRepository.findByTitle(name);
-        return songs;
+    @RequestMapping("/song")
+    public List<Song> getSongByTitle(@Param("name") String name) {
+        return songRepository.findByTitle(name);
     }
 
     @ResponseBody
-    @GetMapping("/song")
-    public List<Song> getSongs() {
-        return songRepository.findAll();
+    @GetMapping("/songs")
+    public Page<Song> getSongs(@Param("page") Integer page, @Param("nb") Integer nb) {
+        PageRequest paginationSize = PageRequest.of(page, nb);
+        return songRepository.findAll(paginationSize);
     }
 
     @ResponseBody
@@ -44,26 +48,21 @@ public class SongController {
 
     @PostMapping("/song")
     public Song addSong(@RequestBody Song song) {
-        Song saved = songRepository.save(song);
-        return saved;
+        return songRepository.save(song);
     }
 
-    @PutMapping("/song/{id}")
-    public Song updateSong(final @PathVariable("id") String songId, @RequestBody Song song) {
-        Song toUpdate = songRepository.getOne(Integer.valueOf(songId));
-        if(toUpdate.getId() == Integer.valueOf(songId)) {
-            toUpdate = songRepository.save(song);
-        }
-        return toUpdate;
+    @PutMapping("/song")
+    public Song updateSong(@RequestBody Song song) {
+        return songRepository.save(song);
     }
 
     @DeleteMapping("/song/{id}")
-    public String deleteSong(final @PathVariable("id") String songId) {
-        Song toDelete = songRepository.getOne(Integer.valueOf(songId));
-        if(toDelete.getId() == Integer.valueOf(songId)) {
-            songRepository.deleteById(Integer.valueOf(songId));
-            return "Song Deleted Successfully !";
+    public HttpStatus deleteSong(final @PathVariable("id") Integer songId) {
+        try {
+            songRepository.deleteById(songId);
+            return HttpStatus.OK;
+        }catch (Exception e) {
+            return HttpStatus.BAD_REQUEST;
         }
-        return null;
     }
 }

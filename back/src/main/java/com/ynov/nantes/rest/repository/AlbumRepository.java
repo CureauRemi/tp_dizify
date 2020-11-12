@@ -5,12 +5,12 @@ import java.util.Set;
 
 import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.entity.Artist;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 
-public interface AlbumRepository extends JpaRepository<Album, Integer> {
+public interface AlbumRepository extends PagingAndSortingRepository<Album, Integer> {
 
     @Query("SELECT a FROM Album a WHERE a.name LIKE %:name%")
     public List<Album> findByName(@Param("name") String name);

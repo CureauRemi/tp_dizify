@@ -3,6 +3,7 @@ package com.ynov.nantes.rest.controller;
 import com.ynov.nantes.rest.entity.User;
 import com.ynov.nantes.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,12 +30,13 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user")
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    @PostMapping("/login")
+    public String login(@Param("login") String email, @Param("password") String password) {
+        // Implémenter le JWT
+        return null;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/register")
     public User addArtist(@RequestBody User user) {
         User saved = userRepository.save(user);
         return saved;
