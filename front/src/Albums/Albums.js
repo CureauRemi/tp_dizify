@@ -7,6 +7,7 @@ import Alert from '@material-ui/lab/Alert'
 
 import Title from '../components/Title'
 import DialogAddAlbum from './DialogAddAlbum'
+import webservice from '../lib/webservice'
 // import { endpointAlbum, defaultHeaders } from '../config'
 
 export default function Albums() {
@@ -33,7 +34,8 @@ export default function Albums() {
       // const { response } = await soapRequest({ url: endpointAlbum, headers: defaultHeaders, xml })
       // const { body } = response
       // let xmlParser = new XMLParser().parseFromString(body)
-      let albums = [{id: 1, image_album: '../Machine_Gun_Kelly_Tickets_to_My_Downfall.png', name: "Tickets to my downfall", release_year: 2020}]
+      let albums = await webservice.getAlbums();
+      // let albums = [{id: 1, image_album: '../Machine_Gun_Kelly_Tickets_to_My_Downfall.png', name: "Tickets to my downfall", release_year: 2020}]
 
       // for (const album of xmlParser.getElementsByTagName('ns2:album')) {
       //   let id = '',
