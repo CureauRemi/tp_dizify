@@ -32,9 +32,9 @@ public class AlbumController {
     }
 
     @ResponseBody
-    @GetMapping("/album")
-    public Page<Album> getAlbums(@Param("page") Integer page, @Param("nb") Integer nb) {
-        PageRequest paginationSize = PageRequest.of(page, nb);
+    @GetMapping("/albums")
+    public Page<Album> getAlbums(@Param("page") Integer page, @Param("limit") Integer limit) {
+        PageRequest paginationSize = PageRequest.of(page, limit);
         return albumRepository.findAll(paginationSize);
     }
 
