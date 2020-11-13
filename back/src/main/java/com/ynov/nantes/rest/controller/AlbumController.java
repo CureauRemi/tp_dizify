@@ -13,6 +13,7 @@ import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.repository.AlbumRepository;
 
 @RestController
+@RequestMapping("album")
 public class AlbumController {
 
     private final AlbumRepository albumRepository;
@@ -23,21 +24,21 @@ public class AlbumController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/album", method = RequestMethod.GET, params = "name")
+    @RequestMapping("/{name}")
     public List<Album> getAlbumsByTitle(@RequestParam(value = "name", defaultValue = "") String name) {
         List<Album> albums = albumRepository.findByName(name);
         return albums;
     }
 
     @ResponseBody
-    @GetMapping("/albums")
+    @GetMapping("/all")
     public Page<Album> getAlbums(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
         PageRequest paginationSize = PageRequest.of(page, limit);
         return albumRepository.findAll(paginationSize);
     }
 
     @ResponseBody
-    @GetMapping("/album/{id}")
+    @GetMapping("/{id}")
     public Album getAlbumById(final @PathVariable("id") Integer albumId) {
         try {
             Optional<Album> album = albumRepository.findById(albumId);
@@ -47,18 +48,18 @@ public class AlbumController {
         }
     }
 
-    @PostMapping("/album")
+    @PostMapping()
     public Album addAlbum(@RequestBody Album album) {
         Album saved = albumRepository.save(album);
         return saved;
     }
 
-    @PutMapping("/album")
+    @PutMapping()
     public Album updateAlbum(@RequestBody Album album) {
             return albumRepository.save(album);
     }
 
-    @DeleteMapping("/album/{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus deleteAlbum(final @PathVariable("id") Integer albumId) {
         albumRepository.deleteById(albumId);
         return HttpStatus.OK;
