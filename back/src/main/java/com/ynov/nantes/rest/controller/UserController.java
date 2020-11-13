@@ -39,10 +39,9 @@ public class UserController {
         return null;
     }
 
-    @PostMapping("/sign-up")
-    public User addArtist(@RequestBody User user) {
-        User saved = userRepository.save(user);
-        return saved;
+    @PostMapping()
+    public User addUser(@RequestBody User user) {
+        return userRepository.save(user);
     }
 
     @ResponseBody

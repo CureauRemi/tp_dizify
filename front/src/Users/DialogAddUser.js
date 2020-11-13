@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import webservice from '../lib/webservice'
+import UserService from '../lib/userService'
 
 export default function DialogAddUser({ open, handleClose, reload }) {
   const [email, setEmail] = useState('')
@@ -12,7 +12,7 @@ export default function DialogAddUser({ open, handleClose, reload }) {
       return
     }
 
-    await webservice.addUser({email: email, password: password, pseudo: pseudo })
+    await UserService.add({avatar: "", email: email, password: password, pseudo: pseudo, favorite_id: ""})
     reload()
   }
   return (
