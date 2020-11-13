@@ -16,10 +16,11 @@ import com.ynov.nantes.rest.entity.Artist;
 import com.ynov.nantes.rest.repository.ArtistRepository;
 
 @RestController
+@RequestMapping("/artist")
 public class ArtistController {
 
-    private ArtistRepository artistRepository;
-    private AlbumRepository albumRepository;
+    private final ArtistRepository artistRepository;
+    private final AlbumRepository albumRepository;
 
     @Autowired
     public ArtistController(ArtistRepository artistRepository, AlbumRepository albumRepository) {
@@ -29,7 +30,7 @@ public class ArtistController {
 
 
     @ResponseBody
-    @GetMapping("/artist/{id}")
+    @GetMapping("/{id}")
     public Artist getArtistById(final @PathVariable("id") String artistId) {
         try {
             Optional<Artist> artist = artistRepository.findById(Integer.valueOf(artistId));
@@ -39,36 +40,27 @@ public class ArtistController {
         }
     }
 
-    @GetMapping("/artists")
-    public Page<Artist> getArtists(@Param("page") Integer page, @Param("limit") Integer nb) {
-        PageRequest paginationSize = PageRequest.of(page, nb);
+    @GetMapping("/all")
+    public Page<Artist> getArtists(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+        PageRequest paginationSize = PageRequest.of(page, limit);
         return artistRepository.findAll(paginationSize);
     }
 
-    @GetMapping("/artist/album")
-    public List<Album> getArtists(Artist artist) {
-        return albumRepository.findByArtist(artist);
-    }
-
-    @PostMapping("/artist")
+    @PostMapping()
     public Artist addArtist(@RequestBody Artist artist) {
         return artistRepository.save(artist);
     }
 
-    @ResponseBody
-    @PutMapping("/artist")
+
+    @PutMapping()
     public Artist editArtist(@RequestBody Artist artist) {
         return artistRepository.save(artist);
     }
 
-    @DeleteMapping("/artist/{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus deleteArtist(final @PathVariable("id") Integer artistId) {
-        try {
-            albumRepository.deleteById(artistId);
-            return HttpStatus.OK;
-        } catch (Exception e) {
-            return HttpStatus.BAD_REQUEST;
-        }
+       artistRepository.deleteById(artistId);
+       return HttpStatus.OK;
     }
 
 

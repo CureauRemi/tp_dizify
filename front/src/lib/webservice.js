@@ -3,49 +3,41 @@ axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
-module.exports = {
+export default class WebSersice {
 
-    async getAlbums(){
-        return await axios.get('/albums?page=0&limit=25')
-            .then(function (response) {
-                return response.data.content
-            });
-    },
+    entity_endpoint;
+    constructor(endpoint){
+        this.entity_endpoint = endpoint;
+    }
+    async getAll() {
+        console.log(this.entity_endpoint)
+        return await axios.get(this.entity_endpoint + '/all?page=0&limit=25').then(
+            function(r){
+                return r.data.content
+            }
+        );
 
-    async getArtists(){
-        return await axios.get('/artists?page=0&nb=25')
-            .then(function (response) {
-                console.log(response)
-                return response.data.content
-            });
-    },
+      }
 
-    async addArtist(body){
-        return await axios.post('/artist', body)
-            .then(function (response) {
-                return response
-            });
-    },
+    async getOne(id){
+        return await axios.get(this.entity_endpoint + '/' + id).then(
+            function(r){
+                return r.data.content
+            }
+        );
+      }
 
-    async deleteArtist(id){
-        return await axios.delete('/artist/' + id)
-            .then(function (response) {
-                return response
-            });
-    },
+    async add(entity) {
+        console.log('test : ', entity);
+        return axios.post(this.entity_endpoint, entity);
+      }
 
-    async updateArtist(artist){
-        return await axios.put('/artist/', artist)
-            .then(function (response) {
-                return response
-            });
-    },
+    async update(entity) {
+        return axios.put(this.entity_endpoint, entity);
+      }
 
-    async addArtist(body){
-        return await axios.post('/artist', body)
-            .then(function (response) {
-                return response
-            });
-    },
-    
+    async delete(id) {
+        return axios.delete(this.entity_endpoint + '/' + id);
+    }
+
 }

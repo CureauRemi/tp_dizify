@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface PlaylistRepository extends PagingAndSortingRepository<Playlist, Integer> {
 
     @Query("SELECT p FROM Playlist p WHERE p.name LIKE %:name%")
-    public Optional<Playlist> findByName(@Param("name") String name);
+    Optional<Playlist> findByName(@Param("name") String name);
 
 }

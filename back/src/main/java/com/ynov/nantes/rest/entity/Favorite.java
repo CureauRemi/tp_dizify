@@ -6,6 +6,11 @@ import java.util.Set;
 @Entity
 @Table(name = "favorite")
 public class Favorite {
+
+    // -------------------------------------------------
+    //                  FIELDS
+    // -------------------------------------------------
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,7 +27,9 @@ public class Favorite {
     @OneToOne(targetEntity = User.class)
     private User userId;
 
-
+    // -------------------------------------------------
+    //                  GETTERS AND SETTERS
+    // -------------------------------------------------
 
     public Integer getId() {
         return id;
@@ -40,9 +47,7 @@ public class Favorite {
         this.favoriteSongs = favoriteSongs;
     }
 
-    public Set<Song> getAlbumSongs() {
-        return albumSongs;
-    }
+    public Set<Song> getAlbumSongs() { return albumSongs; }
 
     public void setAlbumSongs(Set<Song> albumSongs) {
         this.albumSongs = albumSongs;

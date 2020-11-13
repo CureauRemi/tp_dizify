@@ -13,9 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/song")
 public class SongController {
 
-    private SongRepository songRepository;
+    private final SongRepository songRepository;
 
     @Autowired
     public SongController(SongRepository songRepository) {
@@ -23,20 +24,20 @@ public class SongController {
     }
 
     @ResponseBody
-    @RequestMapping("/song")
+    @RequestMapping()
     public List<Song> getSongByTitle(@Param("name") String name) {
         return songRepository.findByTitle(name);
     }
 
     @ResponseBody
-    @GetMapping("/songs")
-    public Page<Song> getSongs(@Param("page") Integer page, @Param("limit") Integer nb) {
+    @GetMapping("/all")
+    public Page<Song> getSongs(@RequestParam("page") Integer page, @RequestParam("limit") Integer nb) {
         PageRequest paginationSize = PageRequest.of(page, nb);
         return songRepository.findAll(paginationSize);
     }
 
     @ResponseBody
-    @GetMapping("/song/{id}")
+    @GetMapping("/{id}")
     public Song getSongById(final @PathVariable("id") String songId) {
         try {
             Optional<Song> song = songRepository.findById(Integer.valueOf(songId));
@@ -46,17 +47,17 @@ public class SongController {
         }
     }
 
-    @PostMapping("/song")
+    @PostMapping()
     public Song addSong(@RequestBody Song song) {
         return songRepository.save(song);
     }
 
-    @PutMapping("/song")
+    @PutMapping()
     public Song updateSong(@RequestBody Song song) {
         return songRepository.save(song);
     }
 
-    @DeleteMapping("/song/{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus deleteSong(final @PathVariable("id") Integer songId) {
         try {
             songRepository.deleteById(songId);

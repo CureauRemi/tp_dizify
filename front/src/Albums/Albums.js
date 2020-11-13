@@ -5,7 +5,8 @@ import Alert from '@material-ui/lab/Alert'
 
 import Title from '../components/Title'
 import DialogAddAlbum from './DialogAddAlbum'
-import webservice from '../lib/webservice'
+import AlbumService from '../lib/albumService'
+
 
 export default function Albums() {
   const [loading, setLoading] = useState(true)
@@ -20,7 +21,7 @@ export default function Albums() {
   const init = async () => {
 
     try {
-      let albums = await webservice.getAlbums();
+      let albums = await AlbumService.getAll();
       
       setAlbums(albums)
       setTimeout(function () {
@@ -43,7 +44,7 @@ export default function Albums() {
             <TableRow>
               <TableCell>Couverture</TableCell>
               <TableCell>Nom</TableCell>
-              <TableCell>Artiste</TableCell>
+              {/* <TableCell>Artiste</TableCell> */}
               <TableCell align="right">Année de publication</TableCell>
               <TableCell />
             </TableRow>
@@ -53,7 +54,7 @@ export default function Albums() {
               <TableRow key={album.name}>
                 <TableCell><img src={album.image_album} /></TableCell>
                 <TableCell>{album.name}</TableCell>
-                <TableCell>{album.artist.alias}</TableCell>
+                {/* <TableCell>{album.artist.alias}</TableCell> */}
                 <TableCell align="right">{album.release_year}</TableCell>
                 <TableCell>
                   <IconButton aria-label="Supprimer un album" onClick={() => console.log('todo')}>

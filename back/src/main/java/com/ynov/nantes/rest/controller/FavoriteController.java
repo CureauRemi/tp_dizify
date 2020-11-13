@@ -14,22 +14,13 @@ import java.util.Optional;
 @RestController
 public class FavoriteController {
 
-    private FavoriteRepository favoriteRepository;
+    private final FavoriteRepository favoriteRepository;
 
     @Autowired
     public FavoriteController(FavoriteRepository favoriteRepository) {
         this.favoriteRepository = favoriteRepository;
     }
 
-    /*
-    @ResponseBody
-    @RequestMapping(value = "/song", method = RequestMethod.GET, params = "name")
-    public List<Song> getAlbumsByTitle(@RequestParam(value = "name", defaultValue = "") String name) {
-        List<Song> songs = favoriteRepository.findByTitle(name);
-        return songs;
-    }
-
-     */
     @ResponseBody
     @GetMapping("/user/{id}/favorite")
     public Favorite getFavoriteByUserId(final @PathVariable("id") String favoriteId) {

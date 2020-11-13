@@ -1,31 +1,31 @@
 import React, { useState } from 'react'
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core'
 import AlbumService from '../lib/albumService'
 
-export default function DialogAddAlbum({ open, handleClose, reload }) {
+export default function DialogUpdateArtist({ open, handleClose, reload, album }) {
   const [name, setName] = useState('')
   const [image_album, setImage_Album] = useState('')
-  const [year, setYear] = useState('')
+  const [year, setYear] = useState('') 
   const [artistId, setArtistId] = useState('')
 
-  const addAlbum = async () => {
+
+  const updateAlbum = async () => {
     if (name === '' || year === '' || artistId === '') {
       return
     } else if (image_album === ''){
       setImage_Album(null)
     }
-
-    await AlbumService.add({name: name, image_album: image_album, release_year: year, artist_id: artistId})
+    
+    await AlbumService.update({id: album.id, name: name, image_album: image_album, year: year, artistId: artistId})
     reload()
   }
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Ajouter un nouveau album</DialogTitle>
+      <DialogTitle id="form-dialog-title">Modifier un nouveau album</DialogTitle>
       <DialogContent>
-        <DialogContentText>Pour ajouter un album, veuillez saisir les champs demandés</DialogContentText>
-        <TextField autoFocus margin="dense" id="name" label="Nom" fullWidth onChange={(e) => setName(e.target.value)} required />
-        <TextField margin="dense" id="image_album" label="Couverture" fullWidth onChange={(e) => setImage_Album(e.target.value)}/>
+        <TextField autoFocus margin="dense" id="name" label="Nom" defaultValue={album.name} fullWidth onChange={(e) => setName(e.target.value)} required />
+        <TextField margin="dense" id="image_album" label="Couverture" fullWidth defaultValue={album.image_album} onChange={(e) => setImage_Album(e.target.value)}/>
         <TextField
           margin="dense"
           id="year"
@@ -49,7 +49,7 @@ export default function DialogAddAlbum({ open, handleClose, reload }) {
         <Button onClick={handleClose} color="primary">
           Annuler
         </Button>
-        <Button variant="outlined" onClick={addAlbum} color="primary">
+        <Button variant="outlined" onClick={updateAlbum} color="primary">
           Ajouter
         </Button>
       </DialogActions>

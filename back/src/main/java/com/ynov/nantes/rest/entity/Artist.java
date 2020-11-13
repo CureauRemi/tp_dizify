@@ -2,12 +2,15 @@ package com.ynov.nantes.rest.entity;
 
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "artist")
 public class Artist {
+
+    // -------------------------------------------------
+    //                  FIELDS
+    // -------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -16,15 +19,23 @@ public class Artist {
     
     private String image_artist;
 
-    public Artist() { }
+    @OneToMany(targetEntity = Album.class, cascade = CascadeType.REMOVE)
+    private Set<Album> albums;
 
-    public Artist(String alias, String image_artist, Set<Album> albums) {
-        this.alias = alias;
-        this.image_artist = image_artist;
-    }
+    // -------------------------------------------------
+    //                  GETTERS AND SETTERS
+    // -------------------------------------------------
 
     public Integer getId() {
         return id;
+    }
+
+    public Set<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
     }
 
     public void setId(Integer id) {

@@ -13,7 +13,5 @@ import org.springframework.data.repository.query.Param;
 public interface AlbumRepository extends PagingAndSortingRepository<Album, Integer> {
 
     @Query("SELECT a FROM Album a WHERE a.name LIKE %:name%")
-    public List<Album> findByName(@Param("name") String name);
-
-    public List<Album> findByArtist(Artist artist);
+    List<Album> findByName(@Param("name") String name);
 }
