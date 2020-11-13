@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 public class FavoriteController {
 
-    private FavoriteRepository favoriteRepository;
+    private final FavoriteRepository favoriteRepository;
 
     @Autowired
     public FavoriteController(FavoriteRepository favoriteRepository) {

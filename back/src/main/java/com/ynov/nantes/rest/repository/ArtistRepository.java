@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface ArtistRepository extends PagingAndSortingRepository<Artist, Integer> {
 
     @Query("SELECT a FROM Artist a WHERE a.alias LIKE %:alias%")
-    public Artist findByName(@Param("alias") String alias);
+    Artist findByName(@Param("alias") String alias);
 
 
 

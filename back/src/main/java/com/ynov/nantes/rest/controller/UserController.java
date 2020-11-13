@@ -5,6 +5,7 @@ import com.ynov.nantes.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +13,13 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    // private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
+        // this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @ResponseBody
@@ -30,13 +33,13 @@ public class UserController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/sign-in")
     public String login(@Param("login") String email, @Param("password") String password) {
-        // Implémenter le JWT
+
         return null;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/sign-up")
     public User addArtist(@RequestBody User user) {
         User saved = userRepository.save(user);
         return saved;

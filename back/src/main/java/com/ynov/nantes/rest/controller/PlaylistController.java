@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/playlist")
 public class PlaylistController {
 
-    private PlaylistRepository playlistRepository;
+    private final PlaylistRepository playlistRepository;
 
     @Autowired
     public PlaylistController(PlaylistRepository playlistRepository) {
@@ -21,7 +22,7 @@ public class PlaylistController {
     }
 
     @ResponseBody
-    @GetMapping("/playlist/{name}")
+    @GetMapping("/{name}")
     public Playlist getPlaylistByName(final @PathVariable("name") String playlistName) {
         try {
             Optional<Playlist> playlist = playlistRepository.findByName(playlistName);
@@ -31,17 +32,17 @@ public class PlaylistController {
         }
     }
 
-    @PostMapping("/playlist")
+    @PostMapping()
     public Playlist addFavorite(@RequestBody Playlist playlist) {
         return playlistRepository.save(playlist);
     }
 
-    @PutMapping("/playlist")
+    @PutMapping()
     public Playlist updateAlbum(@RequestBody Playlist playlist) {
         return playlistRepository.save(playlist);
     }
 
-    @DeleteMapping("/playlist/{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus deletePlaylist(final @PathVariable("id") Integer playlistId) {
         try {
             playlistRepository.deleteById(playlistId);

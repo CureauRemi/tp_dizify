@@ -6,6 +6,10 @@ import java.util.Set;
 @Entity
 @Table(name = "playlist")
 public class Playlist {
+
+    // -------------------------------------------------
+    //                  FIELDS
+    // -------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -17,6 +21,10 @@ public class Playlist {
 
     @ManyToOne @JoinColumn( name = "userId")
     private User user;
+
+    // -------------------------------------------------
+    //                  GETTERS AND SETTERS
+    // -------------------------------------------------
 
     public Integer getId() {
         return id;

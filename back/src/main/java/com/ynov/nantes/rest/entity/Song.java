@@ -8,6 +8,10 @@ import java.util.Set;
 @Table(name = "song")
 public class Song {
 
+    // -------------------------------------------------
+    //                  FIELDS
+    // -------------------------------------------------
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -18,20 +22,9 @@ public class Song {
 
     private String image_song;
 
-    //@ManyToOne
-    //private Artist artist;
-
-    @ManyToMany @JoinColumn( name = "albumId")
-    private Set<Album> albums = new HashSet<>();
-
-    public Song() { }
-
-    public Song(String title, String duration, String image_song) {
-        this.title = title;
-        this.duration = duration;
-        this.image_song = image_song;
-        //this.artist = artist;
-    }
+    // -------------------------------------------------
+    //                  GETTERS AND SETTERS
+    // -------------------------------------------------
 
     public Integer getId() {
         return id;
@@ -64,6 +57,5 @@ public class Song {
     public void setImage_song(String image_song) {
         this.image_song = image_song;
     }
-
 
 }

@@ -10,5 +10,5 @@ import java.util.List;
 public interface SongRepository extends PagingAndSortingRepository<Song, Integer> {
 
     @Query("SELECT s FROM Song s WHERE s.title LIKE %:title%")
-    public List<Song> findByTitle(@Param("title") String title);
+    List<Song> findByTitle(@Param("title") String title);
 }

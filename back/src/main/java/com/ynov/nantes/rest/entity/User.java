@@ -5,6 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
+
+    // -------------------------------------------------
+    //                  FIELDS
+    // -------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -20,14 +24,9 @@ public class User {
     @OneToOne(targetEntity = Favorite.class)
     private Favorite favorite;
 
-    public User() { }
-
-    public User(String pseudo, String email, String password, String avatar) {
-        this.pseudo = pseudo;
-        this.email = email;
-        this.password = password;
-        this.avatar = avatar;
-    }
+    // -------------------------------------------------
+    //                  GETTERS AND SETTERS
+    // -------------------------------------------------
 
     public Integer getId() {
         return id;

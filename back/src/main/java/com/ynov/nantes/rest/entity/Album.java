@@ -1,6 +1,8 @@
 package com.ynov.nantes.rest.entity;
 
 
+import org.aspectj.lang.annotation.Before;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,20 +11,12 @@ import java.util.Set;
 @Table(name = "album")
 public class Album {
 
+    // -------------------------------------------------
+    //                  FIELDS
+    // -------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @ManyToOne
-    private Artist artist;
-
-    @OneToMany
-    private Set<Song> songs;
-
-
-    public Set<Song> getSongs() { return songs; }
-
-    public void setSongs(Set<Song> songs) { this.songs = songs; }
 
     private String name;
 
@@ -30,9 +24,16 @@ public class Album {
 
     private String image_album;
 
-    public Artist getArtist() { return artist; }
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private Set<Song> songs;
 
-    public void setArtist(Artist artist) { this.artist = artist; }
+    // -------------------------------------------------
+    //                  GETTERS AND SETTERS
+    // -------------------------------------------------
+
+    public Set<Song> getSongs() { return songs; }
+
+    public void setSongs(Set<Song> songs) { this.songs = songs; }
 
     public Integer getId() {
         return id;

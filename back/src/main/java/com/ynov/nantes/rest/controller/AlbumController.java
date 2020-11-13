@@ -3,21 +3,19 @@ package com.ynov.nantes.rest.controller;
 import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.repository.AlbumRepository;
 
 @RestController
 public class AlbumController {
 
-    private AlbumRepository albumRepository;
+    private final AlbumRepository albumRepository;
 
     @Autowired
     public AlbumController(AlbumRepository albumRepository) {
@@ -33,7 +31,7 @@ public class AlbumController {
 
     @ResponseBody
     @GetMapping("/albums")
-    public Page<Album> getAlbums(@Param("page") Integer page, @Param("limit") Integer limit) {
+    public Page<Album> getAlbums(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
         PageRequest paginationSize = PageRequest.of(page, limit);
         return albumRepository.findAll(paginationSize);
     }
