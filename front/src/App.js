@@ -12,9 +12,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { Album, Person, Home, Star, QueueMusic } from '@material-ui/icons'
+import { Album, Person, Home, Star, QueueMusic, LockOpen } from '@material-ui/icons'
 import Artists from './Artists/Artists'
 import Albums from './Albums/Albums'
+import Users from './Users/Users'
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -68,6 +69,9 @@ const MyAppBar = () => {
   return (
     <AppBar position="absolute" className={clsx(classes.appBar, classes.appBarShift)}>
       <Toolbar className={classes.toolbar}>
+        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          {title}
+        </Typography>
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           {title}
         </Typography>
@@ -135,6 +139,12 @@ export default function App() {
                   </ListItemIcon>
                   <ListItemText primary="Albums" />
                 </ListItem>
+                <ListItem component={Link} to="/user">
+                  <ListItemIcon>
+                    <LockOpen />
+                  </ListItemIcon>
+                  <ListItemText primary="users" />
+                </ListItem>
               </List>
             </div>
           </Drawer>
@@ -145,6 +155,7 @@ export default function App() {
             <Route exact path="/" render={() => <Homes />} />
             <Route path="/artists" render={() => <Artists />} />
             <Route path="/albums" render={() => <Albums />} />
+            <Route path="/users" render={() => <Users />} />
           </Switch>
         </main>
       </div>
