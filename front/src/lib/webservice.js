@@ -5,17 +5,53 @@ axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 module.exports = {
 
-    async getAlbums(){
-        return await axios.get('/albums?page=0&limit=25')
+    async get(URL){
+        return await axios.get(URL)
             .then(function (response) {
                 return response.data.content
             });
     },
 
-    async getArtists(){
-        return await axios.get('/artists?page=0&nb=25')
+    async add(URL, body){
+        return await axios.post(URL, body)
             .then(function (response) {
-                console.log(response)
+                return response
+            });
+    },
+
+    async delete(URL){
+        return await axios.delete(URL)
+            .then(function (response) {
+                return response
+            });
+    },
+
+    async update(URL, body){
+        return await axios.put(URL, body)
+            .then(function (response) {
+                return response
+            });
+    },
+
+    // Albums
+    async getAlbums(){
+        return await axios.get('/album/all?page=0&limit=25')
+            .then(function (response) {
+                return response.data.content
+            });
+    },
+
+    async addArtist(body){
+        return await axios.post('/album', body)
+            .then(function (response) {
+                return response
+            });
+    },
+
+    //Artist
+    async getArtists(){
+        return await axios.get('/artist/all?page=0&limit=25')
+            .then(function (response) {
                 return response.data.content
             });
     },
@@ -30,6 +66,7 @@ module.exports = {
     async deleteArtist(id){
         return await axios.delete('/artist/' + id)
             .then(function (response) {
+                console.log(response)
                 return response
             });
     },

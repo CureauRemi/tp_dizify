@@ -13,7 +13,7 @@ export default function DialogAddArtist({ open, handleClose, reload }) {
       setImage_Artist(null)
     }
     
-    await webservice.addArtist({alias: alias, image_artist: image_artist})
+    await webservice.add('/album', {alias: alias, image_artist: image_artist})
     reload()
   }
 
