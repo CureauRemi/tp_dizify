@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import webservice from '../lib/webservice'
+import AlbumService from '../lib/albumService'
 
 export default function DialogAddAlbum({ open, handleClose, reload }) {
   const [name, setName] = useState('')
@@ -15,7 +15,7 @@ export default function DialogAddAlbum({ open, handleClose, reload }) {
       setImage_Album(null)
     }
 
-    await webservice.add('/album',{name: name, image_album: image_album, release_year: year, artist_id: artistId})
+    await AlbumService.add({name: name, image_album: image_album, release_year: year, artist_id: artistId})
     reload()
   }
 

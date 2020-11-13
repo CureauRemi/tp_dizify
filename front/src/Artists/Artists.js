@@ -7,7 +7,7 @@ import Title from '../components/Title'
 import DialogAddArtist from './DialogAddArtist'
 import DialogDeleteArtist from './DialogDeleteArtist'
 import DialogUpdateArtist from './DialogUpdateArtist'
-import webservice from '../lib/webservice'
+import artistService from '../lib/artistService'
 
 export default function Artists() {
   const [loading, setLoading] = useState(true)
@@ -26,7 +26,8 @@ export default function Artists() {
   const init = async () => {
     try {
       let artists = []
-      artists = await webservice.getArtists();
+      artists = await artistService.getAll();
+      console.log(artists)
       setArtists(artists)
       setTimeout(function () {
         setLoading(false)

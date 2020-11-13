@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import webservice from '../lib/webservice'
+import artistService from '../lib/artistService'
 
 export default function DialogAddArtist({ open, handleClose, reload }) {
   const [alias, setAlias] = useState('')
@@ -13,7 +13,7 @@ export default function DialogAddArtist({ open, handleClose, reload }) {
       setImage_Artist(null)
     }
     
-    await webservice.add('/album', {alias: alias, image_artist: image_artist})
+    await artistService.add({alias: alias, image_artist: image_artist})
     reload()
   }
 

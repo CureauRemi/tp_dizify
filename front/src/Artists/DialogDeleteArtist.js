@@ -1,11 +1,11 @@
 import React from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import webservice from '../lib/webservice'
+import artistService from '../lib/artistService'
 
 export default function DialogDeleteArtist({ open, handleClose, reload, artist}) {
 
   const deleteArtist = async () => {
-    await webservice.deleteArtist(artist.id)
+    await artistService.delete(artist.id)
     reload()
   }
 
