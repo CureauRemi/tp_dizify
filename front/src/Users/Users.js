@@ -5,6 +5,7 @@ import Alert from '@material-ui/lab/Alert'
 
 import DialogAddUser from './DialogAddUser'
 import LoginForm from '../components/LoginForm'
+import UserService from '../lib/userService'
 
 export default function Users() {
   const [loading, setLoading] = useState(true)

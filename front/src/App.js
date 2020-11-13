@@ -154,6 +154,7 @@ export default function App() {
             <Route exact path="/" render={() => <Homes />} />
             <Route path="/artists" render={() => <Artists />} />
             <Route path="/albums" render={() => <Albums />} />
+            <Route path="/users" render={() => <Users />}  />
             <Route path="/favory" render={() => <Favory />} />
           </Switch>
         </main>

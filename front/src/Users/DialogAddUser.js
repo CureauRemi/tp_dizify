@@ -12,7 +12,7 @@ export default function DialogAddUser({ open, handleClose, reload }) {
       return
     }
 
-    await UserService.add({avatar: "", email: email, password: password, pseudo: pseudo, favorite_id: ""})
+    await UserService.add({avatar: null, email: email, password: password, pseudo: pseudo, favorite_id: null})
     reload()
   }
   return (
