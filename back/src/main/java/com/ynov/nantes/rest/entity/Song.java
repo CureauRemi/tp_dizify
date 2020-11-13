@@ -18,29 +18,19 @@ public class Song {
 
     private String image_song;
 
-    @ManyToOne
-    private Artist artist;
-
-
+    //@ManyToOne
+    //private Artist artist;
 
     @ManyToMany @JoinColumn( name = "albumId")
     private Set<Album> albums = new HashSet<>();
 
     public Song() { }
 
-    public Song(String title, String duration, String image_song, Artist artist) {
+    public Song(String title, String duration, String image_song) {
         this.title = title;
         this.duration = duration;
         this.image_song = image_song;
-        this.artist = artist;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
+        //this.artist = artist;
     }
 
     public Integer getId() {

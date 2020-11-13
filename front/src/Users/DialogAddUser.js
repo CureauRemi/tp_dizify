@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
-import soapRequest from 'easy-soap-request'
-import XMLParser from 'react-xml-parser'
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-
-import { endpointUser, defaultHeaders } from '../config'
+import webservice from '../lib/webservice'
 
 export default function DialogAddUser({ open, handleClose, reload }) {
   const [email, setEmail] = useState('')
@@ -14,8 +11,10 @@ export default function DialogAddUser({ open, handleClose, reload }) {
     if (email === '' || password === '' || pseudo === '') {
       return
     }
-  }
 
+    await webservice.addUser({email: email, password: password, pseudo: pseudo })
+    reload()
+  }
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Ajouter un nouvelle utilisateur </DialogTitle>

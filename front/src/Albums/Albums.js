@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import soapRequest from 'easy-soap-request'
-// import XMLParser from 'react-xml-parser'
 import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
 import { Add, Delete } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
@@ -8,7 +6,6 @@ import Alert from '@material-ui/lab/Alert'
 import Title from '../components/Title'
 import DialogAddAlbum from './DialogAddAlbum'
 import webservice from '../lib/webservice'
-// import { endpointAlbum, defaultHeaders } from '../config'
 
 export default function Albums() {
   const [loading, setLoading] = useState(true)
@@ -21,47 +18,10 @@ export default function Albums() {
   }, [])
 
   const init = async () => {
-  //   let xml = `<soapenv:Envelope
-  //   xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-  //   xmlns:ynov="http://nantes.ynov.com/soap/album">
-  //   <soapenv:Header />
-  //   <soapenv:Body>
-  //     <ynov:getAlbumsRequest />
-  //   </soapenv:Body>
-  // </soapenv:Envelope>`
 
     try {
-      // const { response } = await soapRequest({ url: endpointAlbum, headers: defaultHeaders, xml })
-      // const { body } = response
-      // let xmlParser = new XMLParser().parseFromString(body)
       let albums = await webservice.getAlbums();
-      // let albums = [{id: 1, image_album: '../Machine_Gun_Kelly_Tickets_to_My_Downfall.png', name: "Tickets to my downfall", release_year: 2020}]
-
-      // for (const album of xmlParser.getElementsByTagName('ns2:album')) {
-      //   let id = '',
-      //     title = '',
-      //     isbn = '',
-      //     year = ''
-      //   for (const c of album.children) {
-      //     switch (c.name) {
-      //       default:
-      //         break
-      //       case 'ns2:id':
-      //         id = c.value
-      //         break
-      //       case 'ns2:title':
-      //         title = c.value
-      //         break
-      //       case 'ns2:isbn':
-      //         isbn = c.value
-      //         break
-      //       case 'ns2:year':
-      //         year = c.value
-      //         break
-      //     }
-      //   }
-      //   albums.push({ id, title, isbn, year })
-      // }
+      
       setAlbums(albums)
       setTimeout(function () {
         setLoading(false)
@@ -81,8 +41,9 @@ export default function Albums() {
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Cover</TableCell>
-              <TableCell>Name</TableCell>
+              <TableCell>Couverture</TableCell>
+              <TableCell>Nom</TableCell>
+              <TableCell>Artiste</TableCell>
               <TableCell align="right">Année de publication</TableCell>
               <TableCell />
             </TableRow>
@@ -92,6 +53,7 @@ export default function Albums() {
               <TableRow key={album.name}>
                 <TableCell><img src={album.image_album} /></TableCell>
                 <TableCell>{album.name}</TableCell>
+                <TableCell>{album.artist.alias}</TableCell>
                 <TableCell align="right">{album.release_year}</TableCell>
                 <TableCell>
                   <IconButton aria-label="Supprimer un album" onClick={() => console.log('todo')}>

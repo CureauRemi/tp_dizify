@@ -12,10 +12,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import button from '@material-ui/core/Button'
 import { Album, Person, Home, Star, QueueMusic, LockOpen } from '@material-ui/icons'
 import Artists from './Artists/Artists'
 import Albums from './Albums/Albums'
 import Users from './Users/Users'
+import Button from '@material-ui/core/Button'
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -72,9 +74,7 @@ const MyAppBar = () => {
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           {title}
         </Typography>
-        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          {title}
-        </Typography>
+        <Button component={Link} to="/users" style={{left: "85%"}}>Connexion</Button>
       </Toolbar>
     </AppBar>
   )
@@ -138,12 +138,6 @@ export default function App() {
                     <Album />
                   </ListItemIcon>
                   <ListItemText primary="Albums" />
-                </ListItem>
-                <ListItem component={Link} to="/user">
-                  <ListItemIcon>
-                    <LockOpen />
-                  </ListItemIcon>
-                  <ListItemText primary="users" />
                 </ListItem>
               </List>
             </div>

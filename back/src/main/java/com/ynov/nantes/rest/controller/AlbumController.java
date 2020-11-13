@@ -1,9 +1,14 @@
 package com.ynov.nantes.rest.controller;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import com.ynov.nantes.rest.entity.Album;
@@ -27,16 +32,17 @@ public class AlbumController {
     }
 
     @ResponseBody
-    @GetMapping("/album")
-    public List<Album> getAlbums() {
-        return albumRepository.findAll();
+    @GetMapping("/albums")
+    public Page<Album> getAlbums(@Param("page") Integer page, @Param("limit") Integer limit) {
+        PageRequest paginationSize = PageRequest.of(page, limit);
+        return albumRepository.findAll(paginationSize);
     }
 
     @ResponseBody
     @GetMapping("/album/{id}")
-    public Album getAlbumById(final @PathVariable("id") String albumId) {
+    public Album getAlbumById(final @PathVariable("id") Integer albumId) {
         try {
-            Optional<Album> album = albumRepository.findById(Integer.valueOf(albumId));
+            Optional<Album> album = albumRepository.findById(albumId);
             return album.get();
         } catch (Exception e) {
             return null;
@@ -49,22 +55,14 @@ public class AlbumController {
         return saved;
     }
 
-    @PutMapping("/album/{id}")
-    public Album updateAlbum(final @PathVariable("id") String albumId, @RequestBody Album album) {
-        Album toUpdate = albumRepository.getOne(Integer.valueOf(albumId));
-        if(toUpdate.getId() == Integer.valueOf(albumId)) {
-            toUpdate = albumRepository.save(album);
-        }
-        return toUpdate;
+    @PutMapping("/album")
+    public Album updateAlbum(@RequestBody Album album) {
+            return albumRepository.save(album);
     }
 
-    @DeleteMapping("/album")
-    public String deleteAlbum(@RequestBody Album album) {
-        try{
-            albumRepository.delete(album);
-        } catch (Exception e) {
-            return "error : " + e;
-        }
-        return "Album Deleted Successfully !";
+    @DeleteMapping("/album/{id}")
+    public HttpStatus deleteAlbum(final @PathVariable("id") Integer albumId) {
+        albumRepository.deleteById(albumId);
+        return HttpStatus.OK;
     }
 }

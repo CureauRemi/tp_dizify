@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import webservice from '../lib/webservice'
 
-export default function DialogAddArtist({ open, handleClose, reload }) {
+export default function DialogUpdateArtist({ open, handleClose, reload, artist }) {
   const [alias, setAlias] = useState('')
   const [image_artist, setImage_Artist] = useState('')
 
@@ -13,24 +13,23 @@ export default function DialogAddArtist({ open, handleClose, reload }) {
       setImage_Artist(null)
     }
     
-    await webservice.addArtist({alias: alias, image_artist: image_artist})
+    await webservice.addArtist({id: artist.id, alias: alias, image_artist: image_artist})
     reload()
   }
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Ajouter un nouvel artiste</DialogTitle>
+      <DialogTitle id="form-dialog-title">Modifier un nouvel artiste</DialogTitle>
       <DialogContent>
-        <DialogContentText>Pour ajouter un artiste, veuillez saisir les champs demandés</DialogContentText>
-        <TextField autoFocus margin="dense" id="alias" label="Alias" fullWidth onChange={(e) => setAlias(e.target.value)} required />
-        <TextField margin="dense" id="image_artist" label="Image" fullWidth onChange={(e) => setImage_Artist(e.target.value)} />
+        <TextField autoFocus id="alias_edit" label="Alias" value={artist.alias} fullWidth onChange={(e) => setAlias(e.target.value)} required/>
+        <TextField id="image_artist_edit" label="Image" value={artist.image_artist} fullWidth onChange={(e) => setImage_Artist(e.target.value)}/>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
           Annuler
         </Button>
         <Button variant="outlined" onClick={addArtist} color="primary">
-          Ajouter
+          Modifier
         </Button>
       </DialogActions>
     </Dialog>
