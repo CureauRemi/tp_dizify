@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography'
 import { Album, Person, Home, Star, QueueMusic } from '@material-ui/icons'
 import Artists from './Artists/Artists'
 import Albums from './Albums/Albums'
+import Favory from './Favorie/Favory'
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -58,11 +59,14 @@ const MyAppBar = () => {
     case '/':
       title = "Page d'accueil"
       break
-    case '/auteurs':
-      title = 'Auteurs'
+    case '/albums':
+      title = 'Albums'
       break
-    case '/livres':
-      title = 'Livres'
+    case '/artists':
+      title = 'Artistes'
+      break
+    case '/favory':
+      title = 'Favories'
       break
   }
   return (
@@ -111,7 +115,7 @@ export default function App() {
               {/* <div className={classes.toolbar} /> */}
               <Divider />
               <List>
-                <ListItem>
+                <ListItem component={Link} to="/favory">
                   <ListItemIcon>
                     <Star />
                   </ListItemIcon>
@@ -145,6 +149,7 @@ export default function App() {
             <Route exact path="/" render={() => <Homes />} />
             <Route path="/artists" render={() => <Artists />} />
             <Route path="/albums" render={() => <Albums />} />
+            <Route path="/favory" render={() => <Favory />} />
           </Switch>
         </main>
       </div>
