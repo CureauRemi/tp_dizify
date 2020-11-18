@@ -2,4 +2,9 @@
 
 front/node_modules/
 
+.idea
+.idea/workspace.xml
+.project
 back/src/main/resources/application.properties
+
+workspace.xml

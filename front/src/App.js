@@ -12,9 +12,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { Album, Person, Home, Star, QueueMusic } from '@material-ui/icons'
+import button from '@material-ui/core/Button'
+import { Album, Person, Home, Star, QueueMusic, LockOpen } from '@material-ui/icons'
 import Artists from './Artists/Artists'
 import Albums from './Albums/Albums'
+import Users from './Users/Users'
+import Favory from './Favorie/Favory'
+import Button from '@material-ui/core/Button'
+
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
@@ -58,11 +63,14 @@ const MyAppBar = () => {
     case '/':
       title = "Page d'accueil"
       break
-    case '/auteurs':
-      title = 'Auteurs'
+    case '/albums':
+      title = 'Albums'
       break
-    case '/livres':
-      title = 'Livres'
+    case '/artists':
+      title = 'Artistes'
+      break
+    case '/favory':
+      title = 'Favories'
       break
   }
   return (
@@ -71,6 +79,7 @@ const MyAppBar = () => {
         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           {title}
         </Typography>
+        <Button component={Link} to="/users" style={{left: "85%"}}>Connexion</Button>
       </Toolbar>
     </AppBar>
   )
@@ -111,7 +120,7 @@ export default function App() {
               {/* <div className={classes.toolbar} /> */}
               <Divider />
               <List>
-                <ListItem>
+                <ListItem component={Link} to="/favory">
                   <ListItemIcon>
                     <Star />
                   </ListItemIcon>
@@ -145,6 +154,8 @@ export default function App() {
             <Route exact path="/" render={() => <Homes />} />
             <Route path="/artists" render={() => <Artists />} />
             <Route path="/albums" render={() => <Albums />} />
+            <Route path="/users" render={() => <Users />}  />
+            <Route path="/favory" render={() => <Favory />} />
           </Switch>
         </main>
       </div>
