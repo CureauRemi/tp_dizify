@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
-import { Add, Delete, Edit } from '@material-ui/icons'
+import { Add, Delete } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
 
 import Title from '../components/Title'
 import DialogAddAlbum from './DialogAddAlbum'
-import DialogUpdateAlbum from './DialogUpdateAlbum'
-import DialogDeleteAlbum from './DialogDeleteAlbum'
-import AlbumService from '../lib/albumService'
-
+import webservice from '../lib/webservice'
 
 export default function Albums() {
   const [loading, setLoading] = useState(true)
   const [albums, setAlbums] = useState([])
   const [openAddDialog, setOpenAddDialog] = useState(false)
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [albumDeleted, setAlbumDeleted] = useState({})
-  const [openUpdateDialog, setOpenUpdateDialog] = useState(false)
-  const [albumUpdate, setAlbumUpdate] = useState({})
   const [openAlert, setOpenAlert] = useState(false)
 
   useEffect(() => {
@@ -27,7 +20,7 @@ export default function Albums() {
   const init = async () => {
 
     try {
-      let albums = await AlbumService.getAll();
+      let albums = await webservice.getAlbums();
       
       setAlbums(albums)
       setTimeout(function () {
@@ -63,17 +56,7 @@ export default function Albums() {
                 {/* <TableCell>{album.artist.alias}</TableCell> */}
                 <TableCell align="right">{album.release_year}</TableCell>
                 <TableCell>
-                  <IconButton aria-label="Modifier un album" onClick={() => {
-                    setAlbumUpdate(album)
-                    console.log(album)
-                    setOpenUpdateDialog(true)
-                    }}>
-                    <Edit />
-                  </IconButton>
-                  <IconButton aria-label="Supprimer un album" onClick={() => {
-                    setAlbumDeleted(album)
-                    setOpenDeleteDialog(true)
-                    }}>
+                  <IconButton aria-label="Supprimer un album" onClick={() => console.log('todo')}>
                     <Delete />
                   </IconButton>
                 </TableCell>
@@ -87,37 +70,12 @@ export default function Albums() {
           <Add />
         </Fab>
       </Box>
-      {/* Add */}
       {openAddDialog && (
         <DialogAddAlbum
           open={openAddDialog}
           handleClose={() => setOpenAddDialog(false)}
           reload={() => {
             setOpenAddDialog(false)
-            init()
-          }}
-        />
-      )}
-      {/* Update */}
-      {openUpdateDialog && (
-        <DialogUpdateAlbum
-          open={openUpdateDialog}
-          album={albumUpdate}
-          handleClose={() => setOpenUpdateDialog(false)}
-          reload={() => {
-            setOpenUpdateDialog(false)
-            init()
-          }}
-        />
-      )}
-      {/* Delete */}
-      {openDeleteDialog && (
-        <DialogDeleteAlbum
-          open={openDeleteDialog}
-          album={albumDeleted}
-          handleClose={() => setOpenDeleteDialog(false)}
-          reload={() => {
-            setOpenDeleteDialog(false)
             init()
           }}
         />

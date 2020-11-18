@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core'
-import AlbumService from '../lib/albumService'
+import webservice from '../lib/webservice'
 
-export default function DialogUpdateAlbum({ open, handleClose, reload, album }) {
+export default function DialogUpdateArtist({ open, handleClose, reload, album }) {
   const [name, setName] = useState('')
   const [image_album, setImage_Album] = useState('')
   const [year, setYear] = useState('') 
@@ -16,7 +16,7 @@ export default function DialogUpdateAlbum({ open, handleClose, reload, album }) 
       setImage_Album(null)
     }
     
-    await AlbumService.update({id: album.id, name: name, image_album: image_album, release_year: year})
+    await webservice.updateArtist({id: album.id, name: name, image_album: image_album, year: year, artistId: artistId})
     reload()
   }
 
@@ -32,7 +32,6 @@ export default function DialogUpdateAlbum({ open, handleClose, reload, album }) 
           label="Année de sortie"
           type="number"
           fullWidth
-          defaultValue={album.release_year}
           onChange={(e) => setYear(e.target.value)}
           required
         />
@@ -42,7 +41,6 @@ export default function DialogUpdateAlbum({ open, handleClose, reload, album }) 
           label="Artist ID"
           type="number"
           fullWidth
-          defaultValue={album.artist_id}
           onChange={(e) => setArtistId(e.target.value)}
           required
         />
