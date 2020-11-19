@@ -34,12 +34,14 @@ public class UserController {
     }
 
     @PostMapping("/sign-in")
-    public String login(@Param("login") String email, @Param("password") String password) {
-
-        return null;
+    public User login(@RequestBody User user) {
+        System.out.println(user);
+        User userFind= userRepository.findByEmailAndPassWord(user.getEmail(), user.getPassword());
+       System.out.println(userFind);
+        return userFind;
     }
 
-    @PostMapping()
+    @PostMapping("/user")
     public User addUser(@RequestBody User user) {
         return userRepository.save(user);
     }
