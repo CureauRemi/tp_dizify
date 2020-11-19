@@ -5,6 +5,7 @@ import Alert from '@material-ui/lab/Alert'
 
 import Title from '../components/Title'
 import favoryService from '../lib/favoryService'
+import userService from '../lib/userService'
 
 export default function Favory() {
     const [loading, setLoading] = useState(true)
@@ -18,7 +19,11 @@ export default function Favory() {
     const init = async () => {
   
       try {
-        let favorites = await favoryService.getAll();
+        
+          // let userID = await 
+          let favorites = await favoryService.getAll();
+        
+       
         
         setFavorites(favorites)
         setTimeout(function () {

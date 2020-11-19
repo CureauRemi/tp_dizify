@@ -1,13 +1,13 @@
 const axios = require('axios');
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = 'http://localhost:8080/';
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 class FavoryService {
 
-    async getAll() {
-        console.log(this.entity_endpoint)
-        return await axios.get(this.entity_endpoint + '/all?page=0&limit=25').then(
+    async getAll(idUser) {
+        
+        return await axios.get(`user/${idUser}/favorite`).then(
             function(r){
                 return r.data.content
             }
@@ -15,13 +15,13 @@ class FavoryService {
     
     }
 
-    async add(entity) {
+    async addFavorite(entity) {
         console.log('test : ', entity);
-        return axios.post(this.entity_endpoint, entity);
+        return axios.post(`user/${this.idUser}/favorite`, entity);
       }
 
-    async delete(id) {
-        return axios.delete(this.entity_endpoint + '/' + id);
+    async deleteFavoriteAlbum(entity) {
+        return axios.delete(`user/${this.idUser}/favorite`, entity);
     }
 }
 
