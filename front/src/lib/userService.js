@@ -1,9 +1,16 @@
-import webservice from '../lib/webservice'
+const axios = require('axios');
+axios.defaults.baseURL = 'http://localhost:8080';
 
-class UserService extends webservice {
 
-    constructor(){
-        super('user')
+class UserService {
+    
+    async add(entity) {
+        console.log('test : ', entity);
+        return axios.post('user', entity);
+    }
+
+    async login(pseudo, mdp){
+        return axios.post('sign-in', pseudo, mdp)
     }
 }
 
