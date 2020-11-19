@@ -20,7 +20,7 @@ public class Playlist {
     private Set<Song> songs;
 
     @ManyToOne @JoinColumn( name = "userId")
-    private User user;
+    private Utilisateur user;
 
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
@@ -50,11 +50,11 @@ public class Playlist {
         this.songs = songs;
     }
 
-    public User getUser() {
+    public Utilisateur getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Utilisateur user) {
         this.user = user;
     }
 }

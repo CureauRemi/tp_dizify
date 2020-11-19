@@ -6,5 +6,6 @@ front/node_modules/
 .idea/workspace.xml
 .project
 back/src/main/resources/application.properties
+back/src/main/resources/application.properties
 
 workspace.xml

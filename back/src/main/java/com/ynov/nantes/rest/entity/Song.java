@@ -22,6 +22,12 @@ public class Song {
 
     private String image_song;
 
+    @OneToOne(targetEntity = Album.class)
+    private Album album;
+
+    @OneToOne(targetEntity = Artist.class)
+    private Artist artist;
+
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
     // -------------------------------------------------

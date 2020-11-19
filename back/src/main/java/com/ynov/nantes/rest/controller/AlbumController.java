@@ -3,6 +3,8 @@ package com.ynov.nantes.rest.controller;
 import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
+
+import com.ynov.nantes.rest.entity.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +37,16 @@ public class AlbumController {
     public Page<Album> getAlbums(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
         PageRequest paginationSize = PageRequest.of(page, limit);
         return albumRepository.findAll(paginationSize);
+    }
+
+    @ResponseBody
+    @GetMapping("/artist/{id}")
+    public List<Album> getAlbumByArtistId(final @PathVariable("id") Artist artist) {
+        try {
+            return albumRepository.findByArtist(artist);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @ResponseBody

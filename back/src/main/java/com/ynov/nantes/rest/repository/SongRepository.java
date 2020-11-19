@@ -6,9 +6,13 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SongRepository extends PagingAndSortingRepository<Song, Integer> {
 
     @Query("SELECT s FROM Song s WHERE s.title LIKE %:title%")
     List<Song> findByTitle(@Param("title") String title);
+
+    Optional<Song> findById(Integer Id);
+
 }

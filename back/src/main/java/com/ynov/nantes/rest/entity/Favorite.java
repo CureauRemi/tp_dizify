@@ -24,8 +24,8 @@ public class Favorite {
     @OneToMany(targetEntity = Playlist.class)
     private Set<Song> playlistSongs;
 
-    @OneToOne(targetEntity = User.class)
-    private User userId;
+    @OneToOne(targetEntity = Utilisateur.class)
+    private Utilisateur userId;
 
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
@@ -61,11 +61,11 @@ public class Favorite {
         this.playlistSongs = playlistSongs;
     }
 
-    public User getUser() {
+    public Utilisateur getUser() {
         return userId;
     }
 
-    public void setUser(User userId) {
+    public void setUser(Utilisateur userId) {
         this.userId = userId;
     }
 }

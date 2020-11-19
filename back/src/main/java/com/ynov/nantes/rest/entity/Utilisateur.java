@@ -4,7 +4,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class Utilisateur {
+
+    public Utilisateur(String pseudo, String email, String password, String avatar) {
+        this.pseudo = pseudo;
+        this.email = email;
+        this.password = password;
+        this.avatar = avatar;
+    }
+
+    public Utilisateur() { }
 
     @Override
     public String toString() {
