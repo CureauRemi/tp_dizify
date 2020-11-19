@@ -21,7 +21,7 @@ export default class WebSersice {
     async getOne(id){
         return await axios.get(this.entity_endpoint + '/' + id).then(
             function(r){
-                return r.data.content
+                return r.data
             }
         );
       }

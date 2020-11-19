@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
+import { Box, CircularProgress, Fab, IconButton, Snackbar } from '@material-ui/core'
 import { Card, CardContent, CardMedia, Typography, Grid, makeStyles, Avatar} from '@material-ui/core'
 import { Add, Delete, Edit } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Title from '../components/Title'
-import DialogAddArtist from './DialogAddArtist'
-import DialogDeleteArtist from './DialogDeleteArtist'
-import DialogUpdateArtist from './DialogUpdateArtist'
+import DialogAddArtist from '../Artists/DialogAddArtist'
+import DialogDeleteAlbum from './DialogDeleteAlbum'
+import DialogUpdateAlbum from './DialogUpdateAlbum'
+import albumService from '../lib/albumService'
 import artistService from '../lib/artistService'
 
 const useStyles = makeStyles((theme) => ({
@@ -31,17 +32,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Artists() {
+export default function Artist_Albums() {
   const [loading, setLoading] = useState(true)
-  const [artists, setArtists] = useState([])
+  const [albums, setAlbums] = useState([])
+  const [artist, setArtist] = useState({})
   const [openAddDialog, setOpenAddDialog] = useState(false)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [artistDeleted, setArtistDeleted] = useState({})
+  const [albumDeleted, setAlbumDeleted] = useState({})
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false)
-  const [artistUpdate, setArtistUpdate] = useState({})
+  const [albumUpdate, setAlbumUpdate] = useState({})
   const [openAlert, setOpenAlert] = useState(false)
   const classes = useStyles();
   const isAdmin = false;
+  let { id } = useParams();
 
   useEffect(() => { 
     init()
@@ -49,10 +52,14 @@ export default function Artists() {
 
   const init = async () => {
     try {
-      let artists = []
-      artists = await artistService.getAll();
-      console.log(artists)
-      setArtists(artists)
+      let albums = [];
+      let artist = []
+      albums = await albumService.getAll();
+      console.log(id)
+      artist = await artistService.getOne(id);
+      console.log(albums)
+      setAlbums(albums)
+      setArtist(artist)
       setTimeout(function () {
         setLoading(false)
       }, 1500)
@@ -62,43 +69,21 @@ export default function Artists() {
     }
   }
   
-  return (
+  return (-
     <>
-      <Title>Liste des artistes</Title>
+      <Title>{artist.alias}</Title>
+      {artist.image_alias != null &&
+        <CardMedia
+          image={artist.image_alias}
+          title={artist.alias}
+        />
+      }
+      {artist.image_alias == null &&
+        <Avatar className={classes.avatar}>{artist.alias.substring(0,1)}</Avatar>
+      }
       {loading ? (
         <CircularProgress />
       ) : (
-        // <Table size="small">
-        //   <TableHead>
-        //     <TableRow>
-        //       <TableCell>Nom</TableCell>
-        //       <TableCell></TableCell>
-        //       <TableCell/>
-        //     </TableRow>
-        //   </TableHead>
-        //   <TableBody>
-            // {artists.map((artist) => (
-        //       <TableRow key={artist.alias}>
-        //         <TableCell>{artist.alias}</TableCell>
-        //         <TableCell><img src={artist.image_artist}/></TableCell>
-        //         <TableCell>
-        //           <IconButton aria-label="Modifier un artiste" onClick={() => {
-        //             setArtistUpdate(artist)
-        //             setOpenUpdateDialog(true)
-        //             }}>
-        //             <Edit />
-        //           </IconButton>
-        //           <IconButton aria-label="Supprimer un artiste" onClick={() => {
-        //             setArtistDeleted(artist)
-        //             setOpenDeleteDialog(true)
-        //             }}>
-        //             <Delete />
-        //           </IconButton>
-        //         </TableCell>
-        //       </TableRow>
-        //     ))}
-        //   </TableBody>
-        // </Table>
         <Grid
           container
           spacing={2}
@@ -107,34 +92,34 @@ export default function Artists() {
           alignItems="flex-start"
           className={classes.root}
         >
-          {artists.map((artist) => (
-            <Grid item xs={12} sm={6} md={3} key={artists.indexOf(artist)}>
-              <Card className={classes.card} key={artist.alias} component={Link} to={"/artist/"+artist.id}>
-                {artist.image_alias != null &&
+          {albums.map((album) => (
+            <Grid item xs={12} sm={6} md={3} key={albums.indexOf(album)}>
+              <Card className={classes.card} key={album.name}>
+                {album.image_album != null &&
                   <CardMedia
-                    image={artist.image_alias}
-                    title={artist.alias}
+                    image={album.image_album}
+                    title={album.name}
                   />
                 }
-                {artist.image_alias == null &&
-                  <Avatar className={classes.avatar}>{artist.alias.substring(0,1)}</Avatar>
+                {album.image_album == null &&
+                  <Avatar className={classes.avatar}>{album.name.substring(0,1)}</Avatar>
                 }
                 <div>
                   <CardContent>
                     <Typography>
-                      {artist.alias}
+                      {album.name}
                     </Typography>
                   </CardContent>
                   {isAdmin != false && 
                     <div>
                       <IconButton aria-label="Modifier un artiste" onClick={() => {
-                        setArtistUpdate(artist)
+                        setAlbumUpdate(album)
                         setOpenUpdateDialog(true)
                         }}>
                         <Edit />
                       </IconButton>
                       <IconButton aria-label="Supprimer un artiste" onClick={() => {
-                        setArtistDeleted(artist)
+                        setAlbumDeleted(album)
                         setOpenDeleteDialog(true)
                         }}>
                         <Delete />
@@ -165,9 +150,9 @@ export default function Artists() {
       )}
       {/* Update */}
       {openUpdateDialog && (
-        <DialogUpdateArtist
+        <DialogUpdateAlbum
           open={openUpdateDialog}
-          artist={artistUpdate}
+          album={albumUpdate}
           handleClose={() => setOpenUpdateDialog(false)}
           reload={() => {
             setOpenUpdateDialog(false)
@@ -177,9 +162,9 @@ export default function Artists() {
       )}
       {/* Delete */}
       {openDeleteDialog && (
-        <DialogDeleteArtist
+        <DialogDeleteAlbum
           open={openDeleteDialog}
-          artist={artistDeleted}
+          album={albumDeleted}
           handleClose={() => setOpenDeleteDialog(false)}
           reload={() => {
             setOpenDeleteDialog(false)

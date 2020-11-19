@@ -16,13 +16,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import button from '@material-ui/core/Button'
-import { Album, Person, Home, Star, QueueMusic, LockOpen, AccountCircle } from '@material-ui/icons'
+import { Album, Person, Home, Star, QueueMusic, AccountCircle } from '@material-ui/icons'
 import Artists from './Artists/Artists'
 import Albums from './Albums/Albums'
+import Artist_Albums from './Albums/Artist_Albums'
 import Users from './Users/Users'
 import Favory from './Favorie/Favory'
-import Button from '@material-ui/core/Button'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -259,6 +258,7 @@ export default function App(props) {
           <Switch>
             <Route exact path="/" render={() => <Homes />} />
             <Route path="/artists" render={() => <Artists />} />
+            <Route path="/artist/:id" render={() => <Artist_Albums />} />
             <Route path="/albums" render={() => <Albums />} />
             <Route path="/users" render={() => <Users />}  />
             <Route path="/favory" render={() => <Favory />} />
