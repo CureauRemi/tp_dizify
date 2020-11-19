@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Box, CircularProgress, Fab, Snackbar, Input, Typography, FormControl, FormGroup, Button } from '@material-ui/core'
+import {Input, Typography, FormControl, FormGroup, Button } from '@material-ui/core'
 import Title from '../components/Title'
 import { Form } from 'react-bootstrap'
 import UserService from '../lib/userService'
-import { Redirect } from 'react-router-dom'
-import { Router } from '@material-ui/icons'
+import { Redirect} from 'react-router-dom'
 import Home from '../App'
 
 export default class LoginForm extends React.Component {
     
     static user;
+    
     constructor(props) {
       super(props);
       this.state = {
         email: '',
         password: null,
+        redirect: false
       };
     }
     myChangeHandler = (event) => {
@@ -37,14 +37,17 @@ export default class LoginForm extends React.Component {
         localStorage.setItem('id', this.user.data.id)
         localStorage.setItem('email', this.user.data.email)
         localStorage.setItem('pseudo',this.user.data.pseudo)
-     
+
+        this.setState({ redirect: true })
       }
-
-
     }
 
     render() {
-
+      const { redirect } = this.state;
+    
+      if (redirect) {
+        return <Redirect to='/'/>;
+      }
       return (
         <Form >
           <FormGroup>
