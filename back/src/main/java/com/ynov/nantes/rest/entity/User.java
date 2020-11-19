@@ -6,6 +6,11 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User {
 
+    @Override
+    public String toString() {
+        return "User [email=" + email + ", password=" + password + "]";
+    }
+
     // -------------------------------------------------
     //                  FIELDS
     // -------------------------------------------------

@@ -20,8 +20,9 @@ export default function Favory() {
   
       try {
         
-          // let userID = await 
-          let favorites = await favoryService.getAll();
+          let userIdLocal = localStorage.getItem('id');
+          console.log(userIdLocal)
+          let favorites = await favoryService.getAll(userIdLocal);
         
        
         

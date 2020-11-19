@@ -9,6 +9,7 @@ class FavoryService {
         
         return await axios.get(`user/${idUser}/favorite`).then(
             function(r){
+                console.log(r.data)
                 return r.data.content
             }
         );
