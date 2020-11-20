@@ -37,6 +37,7 @@ export default class LoginForm extends React.Component {
         localStorage.setItem('id', this.user.data.id)
         localStorage.setItem('email', this.user.data.email)
         localStorage.setItem('pseudo',this.user.data.pseudo)
+        localStorage.setItem('token', this.user.data.token)
 
         this.setState({ redirect: true })
       }

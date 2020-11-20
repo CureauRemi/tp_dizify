@@ -6,12 +6,15 @@ axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 export default class WebSersice {
 
     entity_endpoint;
+    static token = localStorage.getItem('token')
     constructor(endpoint){
         this.entity_endpoint = endpoint;
     }
     async getAll() {
         console.log(this.entity_endpoint)
-        return await axios.get(this.entity_endpoint + '/all?page=0&limit=25').then(
+        return await axios.get(this.entity_endpoint + '/all?page=0&limit=25',{headers:{
+            'Authorization': `Bearer ${token}` 
+        }}).then(
             function(r){
                 return r.data.content
             }
