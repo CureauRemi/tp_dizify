@@ -4,6 +4,7 @@ import com.ynov.nantes.rest.entity.Utilisateur;
 import com.ynov.nantes.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -15,10 +16,13 @@ public class UserController {
     @Autowired
     private final UserRepository userRepository;
 
-
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+    // --------------
+    // REQUETES
+    // --------------
 
     @ResponseBody
     @GetMapping("{id}")
@@ -38,13 +42,14 @@ public class UserController {
         return updated;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("{id}")
-    public String deleteUser(@Param("id") Integer id) {
+    public HttpStatus deleteUser(@Param("id") Integer id) {
         try{
             userRepository.deleteById(id);
+            return HttpStatus.OK;
         } catch (Exception e) {
-            return "error : " + e;
+            return HttpStatus.BAD_REQUEST;
         }
-        return "User deleted successfully !";
     }
 }

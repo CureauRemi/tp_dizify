@@ -38,6 +38,7 @@ public class AuthController {
         private UtilisateurMapper utilisateurMapper;
         @Autowired
         private ServiceFindUserEmailAuthenticate serviceFindUserEmailAuthenticate;
+        @Autowired
         private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public AuthController(AuthenticationManager authenticationManager, ServiceFindUserEmail serviceFindUserEmail, ConfJWT jwtTokenUtil, UserRepository utilisateurRepository, UtilisateurMapper utilisateurMapper, ServiceFindUserEmailAuthenticate serviceFindUserEmailAuthenticate, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -50,10 +51,12 @@ public class AuthController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    // -----------------------
+    // REQUÊTE DE CONNECTION
+    // -----------------------
 
     @PostMapping("/sign-in")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationIn authentificationIn) throws Exception {
-
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authentificationIn.getEmail(), authentificationIn.getPassword())
@@ -62,24 +65,22 @@ public class AuthController {
         catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
-
-
+        Utilisateur utilisateurCourant = utilisateurRepository.findByEmail(authentificationIn.getEmail());
         final UserDetails userDetails = serviceFindUserEmailAuthenticate.loadUserByUsername(authentificationIn.getEmail());
         UserDetails userConnected = serviceFindUserEmail.loadUserByEmail(authentificationIn.getEmail());
 
-        UtilisateurAuthenticateOut response = new UtilisateurAuthenticateOut(userConnected.getUsername(),jwtTokenUtil.generateToken(userDetails), userConnected.getPassword());
-
+        UtilisateurAuthenticateOut response = new UtilisateurAuthenticateOut(utilisateurCourant.getId(), userConnected.getUsername(),jwtTokenUtil.generateToken(userDetails), utilisateurCourant.getPseudo());
         return ResponseEntity.ok(response);
     }
-
+    // -----------------------
+    // REQUÊTE D'INSCRIPTION
+    // -----------------------
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody UtilisateurIn utilisateurIn) {
         Utilisateur utilisateur = utilisateurRepository.findByEmail(utilisateurIn.getEmail());
         if (utilisateur == null) {
             utilisateur = new Utilisateur();
             utilisateur.setEmail(utilisateurIn.getEmail());
-            utilisateur.setPassword(bCryptPasswordEncoder.encode(utilisateurIn.getPassword()));
-            utilisateur.setPseudo(utilisateurIn.getPseudo());
             utilisateurRepository.save(utilisateur);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(utilisateurMapper.map(utilisateur, UtilisateurOut.class));
