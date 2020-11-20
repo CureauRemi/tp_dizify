@@ -6,13 +6,14 @@ axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 export default class WebSersice {
 
     entity_endpoint;
-    static token = localStorage.getItem('token')
+    
     constructor(endpoint){
         this.entity_endpoint = endpoint;
     }
     async getAll() {
+        const token = localStorage.getItem('token')
         console.log(this.entity_endpoint)
-        return await axios.get(this.entity_endpoint + '/all?page=0&limit=25',{headers:{
+        return await axios.get(this.entity_endpoint + '/all?page=0&limit=25',"",{headers:{
             'Authorization': `Bearer ${token}` 
         }}).then(
             function(r){
@@ -22,7 +23,10 @@ export default class WebSersice {
 
       }
     async getOne(id){
-        return await axios.get(this.entity_endpoint + '/' + id).then(
+        const token = localStorage.getItem('token')
+        return await axios.get(this.entity_endpoint + '/' + id,"",{headers:{
+            'Authorization': `Bearer ${token}` 
+        }}).then(
             function(r){
                 return r.data
             }
@@ -30,16 +34,23 @@ export default class WebSersice {
       }
 
     async add(entity) {
-        console.log('test : ', entity);
-        return axios.post(this.entity_endpoint, entity);
+        const token = localStorage.getItem('token')
+        return axios.post(this.entity_endpoint, entity,{headers:{
+            'Authorization': `Bearer ${token}` 
+        }});
       }
 
     async update(entity) {
-        return axios.put(this.entity_endpoint, entity);
+        const token = localStorage.getItem('token')
+        return axios.put(this.entity_endpoint, entity,{headers:{
+            'Authorization': `Bearer ${token}` 
+        }});
       }
 
     async delete(id) {
-        return axios.delete(this.entity_endpoint + '/' + id);
+        return axios.delete(this.entity_endpoint + '/' + id,{headers:{
+            'Authorization': `Bearer ${token}` 
+        }});
     }
 
 }
