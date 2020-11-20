@@ -4,8 +4,10 @@ import lombok.Data;
 
 @Data
 public class UtilisateurOut {
+
     private int id;
     private String email;
+    private String pseudo;
 
     public int getId() {
         return id;
@@ -23,4 +25,11 @@ public class UtilisateurOut {
         this.email = email;
     }
 
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
 }

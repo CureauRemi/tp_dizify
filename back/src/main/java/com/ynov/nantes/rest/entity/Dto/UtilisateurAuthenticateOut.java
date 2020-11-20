@@ -6,13 +6,15 @@ import lombok.Data;
 public class UtilisateurAuthenticateOut {
 
         private int id;
-        private String username;
+        private String email;
         private String token;
+        private String pseudo;
 
-        public UtilisateurAuthenticateOut(int id, String username, String token) {
+        public UtilisateurAuthenticateOut(int id, String email, String token, String pseudo) {
             this.id = id;
-            this.username = username;
+            this.email = email;
             this.token = token;
+            this.pseudo = pseudo;
         }
 
 }

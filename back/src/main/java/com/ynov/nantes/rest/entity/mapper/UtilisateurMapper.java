@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UtilisateurMapper extends ConfigurableMapper {
+
     protected void configure(MapperFactory factory) {
         factory.classMap(Utilisateur.class, UtilisateurOut.class)
                 .field("id", "id")
                 .field("email", "email")
+                .field("pseudo", "pseudo")
                 .byDefault()
                 .register();
     }

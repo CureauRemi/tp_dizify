@@ -8,7 +8,6 @@ import com.ynov.nantes.rest.entity.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.ynov.nantes.rest.entity.Album;
@@ -33,7 +32,7 @@ public class AlbumController {
     }
 
     @ResponseBody
-    @GetMapping("/all")
+    @GetMapping
     public Page<Album> getAlbums(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
         PageRequest paginationSize = PageRequest.of(page, limit);
         return albumRepository.findAll(paginationSize);
@@ -49,9 +48,9 @@ public class AlbumController {
         }
     }
 
+
     @ResponseBody
     @GetMapping("/{id}")
-    
     public Album getAlbumById(final @PathVariable("id") Integer albumId) {
         try {
             Optional<Album> album = albumRepository.findById(albumId);
@@ -61,6 +60,8 @@ public class AlbumController {
         }
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     @PostMapping()
     public Album addAlbum(@RequestBody Album album) {
         Album saved = albumRepository.save(album);
@@ -72,9 +73,9 @@ public class AlbumController {
             return albumRepository.save(album);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
-    public HttpStatus deleteAlbum(final @PathVariable("id") Integer albumId) {
+    public void deleteAlbum(final @PathVariable("id") Integer albumId) {
         albumRepository.deleteById(albumId);
-        return HttpStatus.OK;
     }
 }

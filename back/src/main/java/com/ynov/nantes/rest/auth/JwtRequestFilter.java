@@ -2,6 +2,7 @@ package com.ynov.nantes.rest.auth;
 
 import com.ynov.nantes.rest.jwt.ConfJWT;
 import com.ynov.nantes.rest.service.ServiceFindUserEmail;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,17 +32,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         final String authorizationHeader = request.getHeader("Authorization");
 
+
         String email = null;
         String jwt = null;
 
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
             email = confJWT.extractEmail(jwt);
+
         }
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-             UserDetails userDetails = (UserDetails) this.userDetailsService.loadUserByEmail(email);
+            System.out.println(email);
+            UserDetails userDetails = (UserDetails) this.userDetailsService.loadUserByEmail(email);
 
             if(confJWT.validateToken(jwt, userDetails)) {
 

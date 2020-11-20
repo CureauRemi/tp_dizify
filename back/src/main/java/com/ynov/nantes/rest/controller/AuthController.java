@@ -51,7 +51,7 @@ public class AuthController {
     }
 
 
-    @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
+    @PostMapping("/sign-in")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationIn authentificationIn) throws Exception {
 
         try {
@@ -67,7 +67,7 @@ public class AuthController {
         final UserDetails userDetails = serviceFindUserEmailAuthenticate.loadUserByUsername(authentificationIn.getEmail());
         UtilisateurOut utilisateurOut = serviceFindUserEmail.loadUserByEmail(authentificationIn.getEmail());
         UtilisateurAuthenticateOut response = new UtilisateurAuthenticateOut(utilisateurOut.getId(),utilisateurOut.getEmail(),
-                jwtTokenUtil.generateToken(userDetails));
+                jwtTokenUtil.generateToken(userDetails), utilisateurOut.getPseudo());
 
         return ResponseEntity.ok(response);
     }
@@ -79,6 +79,7 @@ public class AuthController {
             utilisateur = new Utilisateur();
             utilisateur.setEmail(utilisateurIn.getEmail());
             utilisateur.setPassword(bCryptPasswordEncoder.encode(utilisateurIn.getPassword()));
+            utilisateur.setPseudo(utilisateurIn.getPseudo());
             utilisateurRepository.save(utilisateur);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(utilisateurMapper.map(utilisateur, UtilisateurOut.class));

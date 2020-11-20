@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<Utilisateur, Integer> {
     @Query("SELECT u FROM Utilisateur u WHERE u.email = :email AND u.password = :password")
     Utilisateur findByEmailAndPassWord(@Param("email") String email, @Param("password") String password);
 
-    Utilisateur findByEmail(String email);
+    Utilisateur findByEmail( String email);
 
 }
