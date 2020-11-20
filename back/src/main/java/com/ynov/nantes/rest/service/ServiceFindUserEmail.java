@@ -17,9 +17,9 @@ public class ServiceFindUserEmail {
     private UtilisateurMapper utilisateurMapper;
 
 
-    public UtilisateurOut loadUserByUsername(String email) {
+    public UtilisateurOut loadUserByEmail(String email) {
         Utilisateur user = userRepository.findByEmail(email);
-        return Utilisateur.map(userRepository.findByEmail(email), UtilisateurOut.class);
+        return utilisateurMapper.map(userRepository.findByEmail(email), UtilisateurOut.class);
     }
 
 }

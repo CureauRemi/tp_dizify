@@ -65,7 +65,7 @@ public class AuthController {
 
 
         final UserDetails userDetails = serviceFindUserEmailAuthenticate.loadUserByUsername(authentificationIn.getEmail());
-        UtilisateurOut utilisateurOut = serviceFindUserEmail.loadUserByUsername(authentificationIn.getEmail());
+        UtilisateurOut utilisateurOut = serviceFindUserEmail.loadUserByEmail(authentificationIn.getEmail());
         UtilisateurAuthenticateOut response = new UtilisateurAuthenticateOut(utilisateurOut.getId(),utilisateurOut.getEmail(),
                 jwtTokenUtil.generateToken(userDetails));
 

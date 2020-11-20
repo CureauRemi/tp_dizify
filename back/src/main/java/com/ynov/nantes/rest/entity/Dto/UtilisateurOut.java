@@ -6,7 +6,6 @@ import lombok.Data;
 public class UtilisateurOut {
     private int id;
     private String email;
-    private String description;
 
     public int getId() {
         return id;
@@ -24,11 +23,4 @@ public class UtilisateurOut {
         this.email = email;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

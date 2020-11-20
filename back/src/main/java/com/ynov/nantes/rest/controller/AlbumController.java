@@ -51,6 +51,7 @@ public class AlbumController {
 
     @ResponseBody
     @GetMapping("/{id}")
+    
     public Album getAlbumById(final @PathVariable("id") Integer albumId) {
         try {
             Optional<Album> album = albumRepository.findById(albumId);
