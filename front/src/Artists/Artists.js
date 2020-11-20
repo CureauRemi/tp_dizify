@@ -22,8 +22,12 @@ const useStyles = makeStyles((theme) => ({
     
   },
   card: {
-    height: 200,
-    width: 150
+    display: 'block',
+    height: '100%',
+    width: 300,
+    'padding-top': 25,
+    'text-decoration': 'none',
+    color: 'black',
   },
   avatar: {
     'margin-left': 'auto',
@@ -31,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
     'margin-top': '5px',
     color: theme.palette.getContrastText('#42ab9e'),
     backgroundColor: '#42ab9e',
-    width: 80,
-    height: 80
+    width: 200,
+    height: 200
   }
 }));
 
@@ -119,7 +123,7 @@ export default function Artists() {
                   <CardMedia
                     image={process.env.PUBLIC_URL + '/img/'+ artist.image_artist}        
                     title={artist.alias}
-                    style={{ height: '200px', width: '200px', 'border-radius': '100px'}}
+                    style={{ height: '200px', width: '200px', 'border-radius': '100px', 'margin-top': '5px', 'margin-left': 'auto', 'margin-right': 'auto'}}
                   />
                 }
                 {artist.image_artist == null &&
@@ -127,7 +131,7 @@ export default function Artists() {
                 }
                 <div>
                   <CardContent>
-                    <Typography>
+                    <Typography style={{ 'text-align': 'center', 'font-weight': 'bold'}}>
                       {artist.alias}
                     </Typography>
                   </CardContent>
@@ -153,7 +157,7 @@ export default function Artists() {
           ))}
         </Grid>
       )}
-      <Box display="flex" alignItems="center" justifyContent="center" style={{ height: '100%' }}>
+      <Box display="flex" alignItems="center" justifyContent="center" style={{ height: '35%' }}>
         <Fab color="primary" aria-label="add" onClick={() => setOpenAddDialog(true)}>
           <Add />
         </Fab>
