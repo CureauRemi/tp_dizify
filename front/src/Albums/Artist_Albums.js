@@ -77,10 +77,13 @@ export default function Artist_Albums() {
         <CardMedia
           image={process.env.PUBLIC_URL + '/img/'+ artist.image_artist}
           title={artist.alias}
+          style={{ height: '200px', width: '200px', 'border-radius': '100px', margin: '5px auto 40px auto'}}
         />
       }
       {artist.image_artist == null &&
-        <Avatar className={classes.avatar}>{artist.alias}</Avatar>
+        <Avatar className={classes.avatar} style={{ height: '200px', width: '200px', 'border-radius': '100px', margin: '5px auto 40px auto'}}>
+          {artist.alias}
+          </Avatar>
       }
       {loading ? (
         <CircularProgress />
@@ -98,16 +101,22 @@ export default function Artist_Albums() {
               <Card className={classes.card} key={album.name}>
                 {album.image_album != null &&
                   <CardMedia
-                    image={process.env.PUBLIC_URL + '/img/'+ album.image_album} 
+                    image={process.env.PUBLIC_URL + album.image_album} 
                     title={album.name}
+                    style={{ height: '140px', width: '140px', 'margin-top': '5px', 'margin-left': 'auto', 'margin-right': 'auto'}}
                   />
                 }
                 {album.image_album == null &&
-                  <Avatar className={classes.avatar}>{album.name.substring(0,1)}</Avatar>
+                  //<Avatar className={classes.avatar}>{album.name.substring(0,1)}</Avatar>
+                  <CardMedia
+                    image={process.env.PUBLIC_URL + '/img/défault_album.jpg'} 
+                    title={album.name}
+                    style={{ height: '140px', width: '140px', 'margin-top': '5px', 'margin-left': 'auto', 'margin-right': 'auto'}}
+                  />
                 }
                 <div>
                   <CardContent>
-                    <Typography>
+                    <Typography style={{ 'text-align': 'center', 'font-weight': 'bold'}}>
                       {album.name}
                     </Typography>
                   </CardContent>
