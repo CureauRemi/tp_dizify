@@ -14,4 +14,6 @@ public interface AlbumRepository extends PagingAndSortingRepository<Album, Integ
 
     @Query("SELECT a FROM Album a WHERE a.name LIKE %:name%")
     List<Album> findByName(@Param("name") String name);
+
+    List<Album> findByArtist(Artist artist);
 }

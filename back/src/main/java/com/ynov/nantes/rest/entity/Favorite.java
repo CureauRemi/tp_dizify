@@ -19,13 +19,13 @@ public class Favorite {
     private Set<Song> favoriteSongs;
 
     @OneToMany(targetEntity = Album.class)
-    private Set<Song> albumSongs;
+    private Set<Album> favoriteAlbums;
 
     @OneToMany(targetEntity = Playlist.class)
-    private Set<Song> playlistSongs;
+    private Set<Playlist> favoritePlaylist;
 
-    @OneToOne(targetEntity = User.class)
-    private User userId;
+    @ManyToOne(targetEntity = Utilisateur.class)
+    private Utilisateur userId;
 
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
@@ -47,25 +47,25 @@ public class Favorite {
         this.favoriteSongs = favoriteSongs;
     }
 
-    public Set<Song> getAlbumSongs() { return albumSongs; }
+    public Set<Album> getFavoriteAlbums() { return favoriteAlbums; }
 
-    public void setAlbumSongs(Set<Song> albumSongs) {
-        this.albumSongs = albumSongs;
+    public void setFavoriteAlbums(Set<Album> favoriteAlbums) {
+        this.favoriteAlbums = favoriteAlbums;
     }
 
-    public Set<Song> getPlaylistSongs() {
-        return playlistSongs;
+    public Set<Playlist> getFavoritePlaylists() {
+        return favoritePlaylist;
     }
 
-    public void setPlaylistSongs(Set<Song> playlistSongs) {
-        this.playlistSongs = playlistSongs;
+    public void setFavoritePlaylists(Set<Playlist> favoritePlaylist) {
+        this.favoritePlaylist = favoritePlaylist;
     }
 
-    public User getUser() {
+    public Utilisateur getUser() {
         return userId;
     }
 
-    public void setUser(User userId) {
+    public void setUser(Utilisateur userId) {
         this.userId = userId;
     }
 }

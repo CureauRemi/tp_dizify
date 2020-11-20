@@ -1,6 +1,8 @@
 package com.ynov.nantes.rest.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.aspectj.lang.annotation.Before;
 
 import javax.persistence.*;
@@ -15,7 +17,7 @@ public class Album {
     //                  FIELDS
     // -------------------------------------------------
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -26,6 +28,9 @@ public class Album {
 
     @OneToMany(cascade = CascadeType.REMOVE)
     private Set<Song> songs;
+    
+    @ManyToOne(targetEntity = Artist.class)
+    private Artist artist;
 
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
@@ -66,4 +71,8 @@ public class Album {
     public void setImage_album(String image_album) {
         this.image_album = image_album;
     }
+
+    public Artist getArtist() { return artist; }
+
+    public void setArtist(Artist artist) { this.artist = artist; }
 }

@@ -1,62 +1,47 @@
 package com.ynov.nantes.rest.controller;
 
-import com.ynov.nantes.rest.entity.User;
+import com.ynov.nantes.rest.entity.Utilisateur;
 import com.ynov.nantes.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("user")
 public class UserController {
 
-    private final UserRepository userRepository;
-    // private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Autowired
+    private final UserRepository userRepository;
+
+
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
-        // this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @ResponseBody
-    @GetMapping("/user/{id}")
-    public User getUserById(final @PathVariable("id") String userId) {
+    @GetMapping("{id}")
+    public Utilisateur getUserById(final @PathVariable("id") String userId) {
         try {
-            Optional<User> artist = userRepository.findById(Integer.valueOf(userId));
+            Optional<Utilisateur> artist = userRepository.findById(Integer.valueOf(userId));
             return artist.get();
         } catch (Exception e) {
             return null;
         }
     }
 
-    @PostMapping("/sign-in")
-    public User login(@RequestBody User user) {
-        System.out.println(user);
-        User userFind= userRepository.findByEmailAndPassWord(user.getEmail(), user.getPassword());
-       System.out.println(userFind);
-        return userFind;
-    }
-
-    @PostMapping("/user")
-    public User addUser(@RequestBody User user) {
-        return userRepository.save(user);
-    }
-
     @ResponseBody
-    @PutMapping("/user/{id}")
-    public User editUser(@RequestBody User user) {
-        User updated = userRepository.save(user);
+    @PutMapping
+    public Utilisateur editUser(@RequestBody Utilisateur user) {
+        Utilisateur updated = userRepository.save(user);
         return updated;
     }
 
-    @DeleteMapping("/user")
-    public String deleteUser(@RequestBody User user) {
+    @DeleteMapping("{id}")
+    public String deleteUser(@Param("id") Integer id) {
         try{
-            userRepository.delete(user);
+            userRepository.deleteById(id);
         } catch (Exception e) {
             return "error : " + e;
         }

@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
 
     @Query("SELECT f FROM Favorite f WHERE f.userId = :userIdm")
-    Optional<Favorite> findByUserId(@Param("userId") Integer userId);
+    Favorite findByUserId(@Param("userId") Integer userId);
 
-
+    Favorite getById(Integer Id);
 }
