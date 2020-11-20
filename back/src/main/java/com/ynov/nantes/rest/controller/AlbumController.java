@@ -8,6 +8,7 @@ import com.ynov.nantes.rest.entity.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.ynov.nantes.rest.entity.Album;
@@ -17,16 +18,17 @@ import com.ynov.nantes.rest.repository.AlbumRepository;
 @RequestMapping("album")
 public class AlbumController {
 
+    @Autowired
     private final AlbumRepository albumRepository;
 
-    @Autowired
+
     public AlbumController(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
     }
 
     @ResponseBody
-    @RequestMapping("/{name}")
-    public List<Album> getAlbumsByTitle(@RequestParam(value = "name", defaultValue = "") String name) {
+    @GetMapping("SearchByName")
+    public List<Album> getAlbumsByTitle(@Param("name") String name) {
         List<Album> albums = albumRepository.findByName(name);
         return albums;
     }
@@ -48,7 +50,7 @@ public class AlbumController {
         }
     }
 
-
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @GetMapping("/{id}")
     public Album getAlbumById(final @PathVariable("id") Integer albumId) {
@@ -62,20 +64,27 @@ public class AlbumController {
 
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @PostMapping()
+    @PostMapping
     public Album addAlbum(@RequestBody Album album) {
         Album saved = albumRepository.save(album);
         return saved;
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     @PutMapping()
     public Album updateAlbum(@RequestBody Album album) {
             return albumRepository.save(album);
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
-    public void deleteAlbum(final @PathVariable("id") Integer albumId) {
-        albumRepository.deleteById(albumId);
+    public HttpStatus deleteAlbum(final @PathVariable("id") Integer albumId) {
+        try{
+            albumRepository.deleteById(albumId);
+            return HttpStatus.OK;
+        } catch (Exception e) {
+            return HttpStatus.BAD_REQUEST;
+        }
+
     }
 }

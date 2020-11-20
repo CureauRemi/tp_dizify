@@ -5,11 +5,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ArtistRepository extends PagingAndSortingRepository<Artist, Integer> {
 
     @Query("SELECT a FROM Artist a WHERE a.alias LIKE %:alias%")
-    Artist findByName(@Param("alias") String alias);
+    List<Artist> findByName(@Param("alias") String alias);
 
+    Artist getById(Integer Id);
 
 
 }
