@@ -26,10 +26,10 @@ public class Album {
 
     private String image_album;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Song> songs;
     
-    @ManyToOne(targetEntity = Artist.class)
+    @ManyToOne(targetEntity = Artist.class, fetch = FetchType.LAZY)
     private Artist artist;
     
     // -------------------------------------------------

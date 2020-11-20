@@ -8,10 +8,12 @@ import com.ynov.nantes.rest.repository.SongRepository;
 import com.ynov.nantes.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
@@ -42,10 +44,8 @@ public class FavoriteController {
     }
 
 
-
-
     @ResponseBody
-    @GetMapping
+    @GetMapping("{id}")
     public Favorite getFavoriteByUserId(final @PathVariable("id") Utilisateur user) {
         try {
             return favoriteRepository.findByUserId(user.getId());
@@ -130,14 +130,14 @@ public class FavoriteController {
         return updated;
     }
 
-
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("{id}")
-    public String deleteAlbum(@PathVariable("id") Favorite favorite) {
+    public HttpStatus deleteAlbum(@PathVariable("id") Favorite favorite) {
         try{
             favoriteRepository.deleteById(favorite.getId());
+            return HttpStatus.OK;
         } catch (Exception e) {
-            return "error : " + e;
+            return HttpStatus.BAD_REQUEST;
         }
-        return "Favorite Deleted Successfully !";
     }
 }

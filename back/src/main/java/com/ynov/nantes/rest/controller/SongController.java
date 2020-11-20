@@ -16,21 +16,22 @@ import java.util.Optional;
 @RequestMapping("/song")
 public class SongController {
 
+    @Autowired
     private final SongRepository songRepository;
 
-    @Autowired
+
     public SongController(SongRepository songRepository) {
         this.songRepository = songRepository;
     }
 
     @ResponseBody
-    @RequestMapping()
+    @RequestMapping("getByName")
     public List<Song> getSongByTitle(@Param("name") String name) {
         return songRepository.findByTitle(name);
     }
 
     @ResponseBody
-    @GetMapping("/all")
+    @GetMapping
     public Page<Song> getSongs(@RequestParam("page") Integer page, @RequestParam("limit") Integer nb) {
         PageRequest paginationSize = PageRequest.of(page, nb);
         return songRepository.findAll(paginationSize);
@@ -47,15 +48,19 @@ public class SongController {
         }
     }
 
-    @PostMapping()
+    @ResponseBody
+    @PostMapping
     public Song addSong(@RequestBody Song song) {
         return songRepository.save(song);
     }
 
-    @PutMapping()
+    @ResponseBody
+    @PutMapping
     public Song updateSong(@RequestBody Song song) {
         return songRepository.save(song);
     }
+
+
 
     @DeleteMapping("/{id}")
     public HttpStatus deleteSong(final @PathVariable("id") Integer songId) {

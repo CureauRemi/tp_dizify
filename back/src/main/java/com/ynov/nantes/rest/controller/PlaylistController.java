@@ -14,9 +14,10 @@ import java.util.Optional;
 @RequestMapping("/playlist")
 public class PlaylistController {
 
+    @Autowired
     private final PlaylistRepository playlistRepository;
 
-    @Autowired
+
     public PlaylistController(PlaylistRepository playlistRepository) {
         this.playlistRepository = playlistRepository;
     }
@@ -32,16 +33,20 @@ public class PlaylistController {
         }
     }
 
-    @PostMapping()
+    @ResponseBody
+    @PostMapping
     public Playlist addFavorite(@RequestBody Playlist playlist) {
         return playlistRepository.save(playlist);
     }
 
-    @PutMapping()
+
+    @ResponseBody
+    @PutMapping
     public Playlist updateAlbum(@RequestBody Playlist playlist) {
         return playlistRepository.save(playlist);
     }
 
+    @ResponseStatus
     @DeleteMapping("/{id}")
     public HttpStatus deletePlaylist(final @PathVariable("id") Integer playlistId) {
         try {

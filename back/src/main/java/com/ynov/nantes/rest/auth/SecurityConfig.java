@@ -59,7 +59,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtRequestFilter oncePerRequestFilter() { return new JwtRequestFilter(); }
 
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().antMatchers("/sign-in", "/sign-up", "/swagger-ui.html", "/v2/api-docs").permitAll()
+        httpSecurity.authorizeRequests().antMatchers(
+                "/sign-in",
+                "/sign-up",
+                "/swagger-ui.html",
+                "/webjars**",
+                "/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
