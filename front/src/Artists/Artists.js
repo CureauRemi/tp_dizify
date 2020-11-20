@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 0,
     padding: theme.spacing(2)
   },
+  media: {
+    height: 80,
+    width: 80
+    
+  },
   card: {
     height: 200,
     width: 150
@@ -110,13 +115,14 @@ export default function Artists() {
           {artists.map((artist) => (
             <Grid item xs={12} sm={6} md={3} key={artists.indexOf(artist)}>
               <Card className={classes.card} key={artist.alias} component={Link} to={"/artist/"+artist.id}>
-                {artist.image_alias != null &&
+                    {artist.image_artist != null &&
                   <CardMedia
-                    image={artist.image_alias}
+                    image={process.env.PUBLIC_URL + '/img/'+ artist.image_artist}        
                     title={artist.alias}
+                    style={{ height: '200px', width: '200px', 'border-radius': '100px'}}
                   />
                 }
-                {artist.image_alias == null &&
+                {artist.image_artist == null &&
                   <Avatar className={classes.avatar}>{artist.alias.substring(0,1)}</Avatar>
                 }
                 <div>

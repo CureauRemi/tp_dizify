@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     'margin-left': 'auto',
     'margin-right': 'auto',
     'margin-top': '5px',
+    'margin-bottom': '40px',
     color: theme.palette.getContrastText('#42ab9e'),
     backgroundColor: '#42ab9e',
     width: 80,
@@ -57,7 +58,7 @@ export default function Artist_Albums() {
       albums = await albumService.getAll();
       console.log(id)
       artist = await artistService.getOne(id);
-      console.log(albums)
+      console.log(artist)
       setAlbums(albums)
       setArtist(artist)
       setTimeout(function () {
@@ -69,17 +70,17 @@ export default function Artist_Albums() {
     }
   }
   
-  return (-
+  return (
     <>
       <Title>{artist.alias}</Title>
-      {artist.image_alias != null &&
+      {artist.image_artist != null &&
         <CardMedia
-          image={artist.image_alias}
+          image={process.env.PUBLIC_URL + '/img/'+ artist.image_artist}
           title={artist.alias}
         />
       }
-      {artist.image_alias == null &&
-        <Avatar className={classes.avatar}>{artist.alias.substring(0,1)}</Avatar>
+      {artist.image_artist == null &&
+        <Avatar className={classes.avatar}>{artist.alias}</Avatar>
       }
       {loading ? (
         <CircularProgress />
@@ -97,7 +98,7 @@ export default function Artist_Albums() {
               <Card className={classes.card} key={album.name}>
                 {album.image_album != null &&
                   <CardMedia
-                    image={album.image_album}
+                    image={process.env.PUBLIC_URL + '/img/'+ album.image_album} 
                     title={album.name}
                   />
                 }
