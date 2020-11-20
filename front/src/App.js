@@ -16,7 +16,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { Album, Person, Home, Star, QueueMusic, AccountCircle } from '@material-ui/icons'
+import { Album, Person, Home, Star, QueueMusic, AccountCircle, SingleBedOutlined, DirectionsRun } from '@material-ui/icons'
 import Artists from './Artists/Artists'
 import Albums from './Albums/Albums'
 import Artist_Albums from './Albums/Artist_Albums'
@@ -26,6 +26,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import userService from './lib/userService';
 
 const drawerWidth = 240
 
@@ -98,6 +99,12 @@ export default function App(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const signOut = () =>{
+    console.log(localStorage.getItem('isConnect'))
+    userService.signOut();
+    console.log(localStorage.getItem('isConnect'))
+
+  }
   const location = useLocation()
   let title = ''
   switch (location.pathname) {
@@ -160,7 +167,7 @@ export default function App(props) {
         <FormGroup>
           <FormControlLabel
             control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-            label={auth ? 'Logout' : 'Login'}
+            label={localStorage.getItem('isConnect') ? 'Logout' : 'Login'}
           />
         </FormGroup>
         <AppBar position="absolute" className={clsx(classes.appBar, classes.appBarShift)}>
@@ -178,7 +185,7 @@ export default function App(props) {
               {title}
             </Typography>
             {/* <Button component={Link} to="/users" color="inherit">Connexion</Button> */}
-            {auth && (
+            {localStorage.getItem('isConnect') == null && (
               <div>
                 <IconButton
                   aria-label="account of current user"
@@ -207,6 +214,20 @@ export default function App(props) {
                   <MenuItem onClick={handleClose} component={Link} to="/users">Connexion</MenuItem>
                   {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                 </Menu>
+              </div>
+            )}
+              {localStorage.getItem('isConnect') == true && (
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-deconnexion"
+                  aria-haspopup="true"
+                  onClick={signOut()}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+
               </div>
             )}
           </Toolbar>

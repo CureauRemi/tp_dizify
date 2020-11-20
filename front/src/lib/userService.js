@@ -16,6 +16,10 @@ class UserService {
         console.log("je suis dans le service : ",entity)
         return axios.post('sign-in', entity)
     }
+
+    async signOut(){
+        localStorage.clear();
+    }
 }
 
 const userService = new UserService();
