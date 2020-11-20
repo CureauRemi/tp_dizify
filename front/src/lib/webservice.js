@@ -12,8 +12,9 @@ export default class WebSersice {
     }
     async getAll() {
         const token = localStorage.getItem('token')
+        console.log(token)
         console.log(this.entity_endpoint)
-        return await axios.get(this.entity_endpoint + '/all?page=0&limit=25',"",{headers:{
+        return await axios.get(this.entity_endpoint + '?page=0&limit=25',{headers:{
             'Authorization': `Bearer ${token}` 
         }}).then(
             function(r){
@@ -24,7 +25,7 @@ export default class WebSersice {
       }
     async getOne(id){
         const token = localStorage.getItem('token')
-        return await axios.get(this.entity_endpoint + '/' + id,"",{headers:{
+        return await axios.get(this.entity_endpoint + '/' + id,{headers:{
             'Authorization': `Bearer ${token}` 
         }}).then(
             function(r){
@@ -48,6 +49,7 @@ export default class WebSersice {
       }
 
     async delete(id) {
+        const token = localStorage.getItem('token')
         return axios.delete(this.entity_endpoint + '/' + id,{headers:{
             'Authorization': `Bearer ${token}` 
         }});

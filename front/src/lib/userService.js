@@ -8,7 +8,7 @@ class UserService {
     
     async add(entity) {
         console.log('test : ', entity);
-        return axios.post('user', entity);
+        return axios.post('sign-up', entity);
     }
 
     async login(entity){
