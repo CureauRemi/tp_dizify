@@ -40,7 +40,7 @@ public class ArtistController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public Page<Artist> getArtists(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
         PageRequest paginationSize = PageRequest.of(page, limit);
         return artistRepository.findAll(paginationSize);

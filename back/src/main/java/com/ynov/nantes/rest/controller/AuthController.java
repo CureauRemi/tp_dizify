@@ -65,9 +65,9 @@ public class AuthController {
 
 
         final UserDetails userDetails = serviceFindUserEmailAuthenticate.loadUserByUsername(authentificationIn.getEmail());
-        UtilisateurOut utilisateurOut = serviceFindUserEmail.loadUserByEmail(authentificationIn.getEmail());
-        UtilisateurAuthenticateOut response = new UtilisateurAuthenticateOut(utilisateurOut.getId(),utilisateurOut.getEmail(),
-                jwtTokenUtil.generateToken(userDetails), utilisateurOut.getPseudo());
+        UserDetails userConnected = serviceFindUserEmail.loadUserByEmail(authentificationIn.getEmail());
+
+        UtilisateurAuthenticateOut response = new UtilisateurAuthenticateOut(userConnected.getUsername(),jwtTokenUtil.generateToken(userDetails), userConnected.getPassword());
 
         return ResponseEntity.ok(response);
     }

@@ -16,7 +16,7 @@ public class Playlist {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Song> songs;
 
     @ManyToOne @JoinColumn( name = "userId")

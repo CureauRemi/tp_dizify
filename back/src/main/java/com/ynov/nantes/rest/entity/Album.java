@@ -26,12 +26,12 @@ public class Album {
 
     private String image_album;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Song> songs;
     
     @ManyToOne(targetEntity = Artist.class)
     private Artist artist;
-
+    
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
     // -------------------------------------------------

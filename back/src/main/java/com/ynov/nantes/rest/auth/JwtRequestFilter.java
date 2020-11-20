@@ -5,6 +5,7 @@ import com.ynov.nantes.rest.service.ServiceFindUserEmail;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,13 +44,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            System.out.println(email);
-            UserDetails userDetails = (UserDetails) this.userDetailsService.loadUserByEmail(email);
+            UserDetails userDetails = this.userDetailsService.loadUserByEmail(email);
 
             if(confJWT.validateToken(jwt, userDetails)) {
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken
-                        (userDetails,null, userDetails.getAuthorities());
+                        (userDetails,null, null);
 
                 usernamePasswordAuthenticationToken.setDetails
                         (new WebAuthenticationDetailsSource().buildDetails(request));

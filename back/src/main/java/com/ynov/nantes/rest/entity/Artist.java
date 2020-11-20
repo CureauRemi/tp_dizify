@@ -19,7 +19,7 @@ public class Artist {
     
     private String image_artist;
 
-    @OneToMany(targetEntity = Album.class, cascade = CascadeType.REMOVE)
+    @OneToMany(targetEntity = Album.class, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Album> albums;
 
     // -------------------------------------------------

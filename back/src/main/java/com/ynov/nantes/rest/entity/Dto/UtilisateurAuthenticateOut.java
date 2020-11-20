@@ -10,8 +10,7 @@ public class UtilisateurAuthenticateOut {
         private String token;
         private String pseudo;
 
-        public UtilisateurAuthenticateOut(int id, String email, String token, String pseudo) {
-            this.id = id;
+        public UtilisateurAuthenticateOut(String email, String token, String pseudo) {
             this.email = email;
             this.token = token;
             this.pseudo = pseudo;

@@ -15,13 +15,13 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(targetEntity = Song.class)
+    @OneToMany(targetEntity = Song.class, fetch = FetchType.EAGER)
     private Set<Song> favoriteSongs;
 
-    @OneToMany(targetEntity = Album.class)
+    @OneToMany(targetEntity = Album.class, fetch = FetchType.EAGER)
     private Set<Album> favoriteAlbums;
 
-    @OneToMany(targetEntity = Playlist.class)
+    @OneToMany(targetEntity = Playlist.class, fetch = FetchType.EAGER)
     private Set<Playlist> favoritePlaylist;
 
     @ManyToOne(targetEntity = Utilisateur.class)
