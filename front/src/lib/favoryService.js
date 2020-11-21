@@ -7,11 +7,12 @@ class FavoryService {
 
     async getAll() {
         const token = localStorage.getItem('token');
-        return await axios.get(`favorite/`, {headers:{
+        return await axios.get(`favorite`, {headers:{
             'Authorization': `Bearer ${token}` 
         }}).then(
             function(r){
-                return r.data.content
+                console.log(r.data)
+                return r.data
             }
         );
     

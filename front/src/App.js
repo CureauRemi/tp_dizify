@@ -22,7 +22,7 @@ import Artist from './Artists/Artist'
 import Albums from './Albums/Albums'
 import Albuma from './Albums/Album'
 import Users from './Users/Users'
-import Favory from './Favorie/Favory'
+import Favory from './Favori/Favory'
 import userService from './lib/userService';
 import { createHashHistory } from "history"
 
