@@ -1,13 +1,15 @@
 package com.ynov.nantes.rest.controller;
 
 
-import com.ynov.nantes.rest.entity.Dto.AuthenticationIn;
-import com.ynov.nantes.rest.entity.Dto.UtilisateurAuthenticateOut;
-import com.ynov.nantes.rest.entity.Dto.UtilisateurIn;
-import com.ynov.nantes.rest.entity.Dto.UtilisateurOut;
+import com.ynov.nantes.rest.entity.dto.AuthenticationIn;
+import com.ynov.nantes.rest.entity.dto.UtilisateurAuthenticateOut;
+import com.ynov.nantes.rest.entity.dto.UtilisateurIn;
+import com.ynov.nantes.rest.entity.dto.UtilisateurOut;
+import com.ynov.nantes.rest.entity.Favorite;
 import com.ynov.nantes.rest.entity.Utilisateur;
 import com.ynov.nantes.rest.entity.mapper.UtilisateurMapper;
 import com.ynov.nantes.rest.jwt.ConfJWT;
+import com.ynov.nantes.rest.repository.FavoriteRepository;
 import com.ynov.nantes.rest.repository.UserRepository;
 import com.ynov.nantes.rest.service.ServiceFindUserEmail;
 import com.ynov.nantes.rest.service.ServiceFindUserEmailAuthenticate;
@@ -27,29 +29,21 @@ public class AuthController {
 
 
         @Autowired
-        private final AuthenticationManager authenticationManager;
+        private  AuthenticationManager authenticationManager;
         @Autowired
-        private final ServiceFindUserEmail serviceFindUserEmail;
+        private  ServiceFindUserEmail serviceFindUserEmail;
         @Autowired
-        private final ConfJWT jwtTokenUtil;
+        private  ConfJWT jwtTokenUtil;
         @Autowired
-        private final UserRepository utilisateurRepository;
+        private  UserRepository utilisateurRepository;
         @Autowired
         private UtilisateurMapper utilisateurMapper;
         @Autowired
         private ServiceFindUserEmailAuthenticate serviceFindUserEmailAuthenticate;
         @Autowired
-        private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public AuthController(AuthenticationManager authenticationManager, ServiceFindUserEmail serviceFindUserEmail, ConfJWT jwtTokenUtil, UserRepository utilisateurRepository, UtilisateurMapper utilisateurMapper, ServiceFindUserEmailAuthenticate serviceFindUserEmailAuthenticate, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.authenticationManager = authenticationManager;
-        this.serviceFindUserEmail = serviceFindUserEmail;
-        this.jwtTokenUtil = jwtTokenUtil;
-        this.utilisateurRepository = utilisateurRepository;
-        this.utilisateurMapper = utilisateurMapper;
-        this.serviceFindUserEmailAuthenticate = serviceFindUserEmailAuthenticate;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+        private BCryptPasswordEncoder bCryptPasswordEncoder;
+        @Autowired
+        private FavoriteRepository favoriteRepository;
 
     // -----------------------
     // REQUÊTE DE CONNECTION
@@ -70,6 +64,8 @@ public class AuthController {
         UserDetails userConnected = serviceFindUserEmail.loadUserByEmail(authentificationIn.getEmail());
 
         UtilisateurAuthenticateOut response = new UtilisateurAuthenticateOut(utilisateurCourant.getId(), userConnected.getUsername(),jwtTokenUtil.generateToken(userDetails), utilisateurCourant.getPseudo());
+
+
         return ResponseEntity.ok(response);
     }
     // -----------------------
@@ -79,11 +75,16 @@ public class AuthController {
     public ResponseEntity<?> signUp(@RequestBody UtilisateurIn utilisateurIn) {
         Utilisateur utilisateur = utilisateurRepository.findByEmail(utilisateurIn.getEmail());
         if (utilisateur == null) {
-            utilisateur = new Utilisateur();
-            utilisateur.setEmail(utilisateurIn.getEmail());
-            utilisateurRepository.save(utilisateur);
+            Utilisateur newUtilisateur = new Utilisateur();
+            newUtilisateur.setEmail(utilisateurIn.getEmail());
+            newUtilisateur.setPassword(bCryptPasswordEncoder.encode(utilisateurIn.getPassword()));
+            newUtilisateur.setPseudo(utilisateurIn.getPseudo());
+            Utilisateur currentUser = utilisateurRepository.save(newUtilisateur);
+            Favorite fav = new Favorite();
+            fav.setUser(currentUser);
+            favoriteRepository.save(fav);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(utilisateurMapper.map(utilisateur, UtilisateurOut.class));
+                    .body(utilisateurMapper.map(newUtilisateur, UtilisateurOut.class));
         } else {
             return ResponseEntity.status(403)
                     .body("Username already use");

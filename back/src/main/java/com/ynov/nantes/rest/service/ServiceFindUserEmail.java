@@ -1,6 +1,6 @@
 package com.ynov.nantes.rest.service;
 
-import com.ynov.nantes.rest.entity.Dto.UtilisateurOut;
+import com.ynov.nantes.rest.entity.dto.UtilisateurOut;
 import com.ynov.nantes.rest.entity.Utilisateur;
 import com.ynov.nantes.rest.entity.mapper.UtilisateurMapper;
 import com.ynov.nantes.rest.repository.UserRepository;

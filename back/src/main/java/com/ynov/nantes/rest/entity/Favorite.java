@@ -25,7 +25,7 @@ public class Favorite {
     private Set<Playlist> favoritePlaylist;
 
     @ManyToOne(targetEntity = Utilisateur.class)
-    private Utilisateur userId;
+    private Utilisateur user;
 
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
@@ -62,10 +62,10 @@ public class Favorite {
     }
 
     public Utilisateur getUser() {
-        return userId;
+        return user;
     }
 
-    public void setUser(Utilisateur userId) {
-        this.userId = userId;
+    public void setUser(Utilisateur user) {
+        this.user = user;
     }
 }

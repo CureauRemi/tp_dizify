@@ -1,6 +1,7 @@
 package com.ynov.nantes.rest.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,7 @@ public class Playlist {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Song> songs;
+    private List<Song> songs;
 
     @ManyToOne @JoinColumn( name = "userId")
     private Utilisateur user;
@@ -42,11 +43,11 @@ public class Playlist {
         this.name = name;
     }
 
-    public Set<Song> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(Set<Song> songs) {
+    public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
 

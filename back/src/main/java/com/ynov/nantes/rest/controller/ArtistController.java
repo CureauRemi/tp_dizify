@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ynov.nantes.rest.entity.Album;
+import com.ynov.nantes.rest.entity.dto.artist.ArtistDto;
+import com.ynov.nantes.rest.entity.dto.artist.getArtistDto;
 import com.ynov.nantes.rest.repository.AlbumRepository;
+import com.ynov.nantes.rest.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,63 +23,45 @@ import com.ynov.nantes.rest.repository.ArtistRepository;
 public class ArtistController {
 
     @Autowired
-    private final ArtistRepository artistRepository;
-    @Autowired
-    private final AlbumRepository albumRepository;
+    ArtistService artistService;
 
 
-    public ArtistController(ArtistRepository artistRepository, AlbumRepository albumRepository) {
-        this.artistRepository = artistRepository;
-        this.albumRepository = albumRepository;
+    @ResponseBody
+    @PostMapping
+    public Artist addArtist(@RequestBody ArtistDto artist) {
+        return artistService.addArtist(artist);
     }
-
 
 
     @ResponseBody
     @GetMapping("SearchByName")
     public List<Artist> getArtistsByTitle(@Param("name") String name) {
-        List<Artist> artists = artistRepository.findByName(name);
-        return artists;
+        return artistService.getArtistsByTitle(name);
     }
 
     @ResponseBody
     @GetMapping("/{id}")
-    public Artist getArtistById(final @PathVariable("id") String artistId) {
-        try {
-            Optional<Artist>  artist = artistRepository.findById(Integer.valueOf(artistId));
-            return artist.get();
-        } catch (Exception e) {
-            return null;
-        }
+    public Artist getArtistById(final @PathVariable("id") Integer artistId) {
+       return artistService.getById(artistId);
     }
 
     @ResponseBody
     @GetMapping
-    public Page<Artist> getArtists(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
-        PageRequest paginationSize = PageRequest.of(page, limit);
-        return artistRepository.findAll(paginationSize);
-    }
-    @ResponseBody
-    @PostMapping
-    public Artist addArtist(@RequestBody Artist artist) {
-        return artistRepository.save(artist);
+    public Page<getArtistDto> getArtists(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+       return  artistService.getAllArtists(page, limit);
     }
 
     @ResponseBody
     @PutMapping
     public Artist editArtist(@RequestBody Artist artist) {
-        return artistRepository.save(artist);
+        return artistService.updateArtist(artist);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @DeleteMapping("/{id}")
     public HttpStatus deleteArtist(final @PathVariable("id") Integer artistId) {
-        try{
-            artistRepository.deleteById(artistId);
-            return HttpStatus.OK;
-        } catch (Exception e) {
-            return HttpStatus.BAD_REQUEST;
-        }
+       return artistService.deleteArtist(artistId);
 
     }
 

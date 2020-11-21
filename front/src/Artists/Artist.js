@@ -3,12 +3,12 @@ import { Box, CircularProgress, Fab, IconButton, Snackbar } from '@material-ui/c
 import { Card, CardContent, CardMedia, Typography, Grid, makeStyles, Avatar} from '@material-ui/core'
 import { Add, Delete, Edit } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import Title from '../components/Title'
-import DialogAddArtist from '../Artists/DialogAddArtist'
-import DialogDeleteAlbum from './DialogDeleteAlbum'
-import DialogUpdateAlbum from './DialogUpdateAlbum'
+import DialogAddArtist from './DialogAddArtist'
+import DialogDeleteAlbum from '../Albums/DialogDeleteAlbum'
+import DialogUpdateAlbum from '../Albums/DialogUpdateAlbum'
 import albumService from '../lib/albumService'
 import artistService from '../lib/artistService'
 
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Artist_Albums() {
+export default function Artist() {
   const [loading, setLoading] = useState(true)
   const [albums, setAlbums] = useState([])
   const [artist, setArtist] = useState({})
@@ -96,7 +96,7 @@ export default function Artist_Albums() {
         >
           {albums.map((album) => (
             <Grid item xs={12} sm={6} md={3} key={albums.indexOf(album)}>
-              <Card className={classes.card} key={album.name}>
+              <Card className={classes.card} key={album.name} component={Link} to={"/album/"+album.id}>
                 {album.image_album != null &&
                   <CardMedia
                     image={process.env.PUBLIC_URL + album.image_album} 
