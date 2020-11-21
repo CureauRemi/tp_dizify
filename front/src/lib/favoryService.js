@@ -7,8 +7,7 @@ class FavoryService {
 
     async getAll() {
         const token = localStorage.getItem('token');
-        const idUser = localStorage.getItem('id');
-        return await axios.get(`favorite/${idUser}`,{headers:{
+        return await axios.get(`favorite/`, {headers:{
             'Authorization': `Bearer ${token}` 
         }}).then(
             function(r){
@@ -20,9 +19,9 @@ class FavoryService {
 
     async addFavorite(root,id) {
         console.log(root, '', id)
-        const token = localStorage.getItem('token') 
+        const token = await localStorage.getItem('token') 
         console.log(token)
-        return axios.post(`favorite/add/${root}/${id}`,{headers:{
+        return axios.post(`favorite/add/${root}/${id}`,{},{headers:{
             'Authorization': `Bearer ${token}` 
         }});
       }
