@@ -5,9 +5,12 @@ axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 class FavoryService {
 
-    async getAll(idUser) {
-        
-        return await axios.get(`user/${idUser}/favorite`).then(
+    async getAll() {
+        const token = localStorage.getItem('token');
+        const idUser = localStorage.getItem('id');
+        return await axios.get(`favorite/${idUser}`,{headers:{
+            'Authorization': `Bearer ${token}` 
+        }}).then(
             function(r){
                 return r.data.content
             }
@@ -15,12 +18,20 @@ class FavoryService {
     
     }
 
-    async addFavorite(entity) {
-        return axios.post(`user/${this.idUser}/favorite`, entity);
+    async addFavorite(root,id) {
+        console.log(root, '', id)
+        const token = localStorage.getItem('token') 
+        console.log(token)
+        return axios.post(`favorite/add/${root}/${id}`,{headers:{
+            'Authorization': `Bearer ${token}` 
+        }});
       }
 
-    async deleteFavoriteAlbum(entity) {
-        return axios.delete(`user/${this.idUser}/favorite`, entity);
+    async deleteFavorite(root,id) {
+        const token = localStorage.getItem('token') 
+        return axios.delete(`favorite/delete/${root}`, id,{headers:{
+            'Authorization': `Bearer ${token}` 
+        }});
     }
 }
 
