@@ -1,6 +1,6 @@
 package com.ynov.nantes.rest.entity.mapper;
 
-import com.ynov.nantes.rest.entity.Dto.UtilisateurOut;
+import com.ynov.nantes.rest.entity.dto.UtilisateurOut;
 import com.ynov.nantes.rest.entity.Utilisateur;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.ConfigurableMapper;

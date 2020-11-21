@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AlbumService {
@@ -44,7 +45,7 @@ public class AlbumService {
         }
     }
 
-    public List<Album> getAlbumByArtist(Artist artist){
+    public Set<Album> getAlbumByArtist(Artist artist){
         try {
             Artist artistByIdFound = artistRepository.getById(artist.getId());
             if(artistByIdFound != null) {

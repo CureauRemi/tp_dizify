@@ -1,6 +1,8 @@
 package com.ynov.nantes.rest.controller;
 
 import java.util.List;
+import java.util.Set;
+
 import com.ynov.nantes.rest.entity.Artist;
 import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
 import com.ynov.nantes.rest.entity.dto.album.getAlbumDto;
@@ -34,7 +36,7 @@ public class AlbumController {
 
     @ResponseBody
     @GetMapping("/artist/{id}")
-    public List<Album> getAlbumByArtistId(final @PathVariable("id") Artist artist) {
+    public Set<Album> getAlbumByArtistId(final @PathVariable("id") Artist artist) {
         return albumService.getAlbumByArtist(artist);
     }
 

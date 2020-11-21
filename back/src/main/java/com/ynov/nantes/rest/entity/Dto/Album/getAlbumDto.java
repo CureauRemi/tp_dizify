@@ -1,14 +1,8 @@
 package com.ynov.nantes.rest.entity.dto.album;
 
 import com.ynov.nantes.rest.entity.Album;
-import com.ynov.nantes.rest.entity.Artist;
-import com.ynov.nantes.rest.entity.Song;
 import com.ynov.nantes.rest.entity.dto.artist.ArtistBasicDto;
-import com.ynov.nantes.rest.entity.dto.artist.ArtistDto;
-import com.ynov.nantes.rest.service.AlbumService;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Set;
 
 public class getAlbumDto {
 
