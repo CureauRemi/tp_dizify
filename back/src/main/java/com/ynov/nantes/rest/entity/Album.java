@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.aspectj.lang.annotation.Before;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -26,19 +27,21 @@ public class Album {
 
     private String image_album;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private Set<Song> songs;
-    
-    @ManyToOne(targetEntity = Artist.class, fetch = FetchType.LAZY)
+    private List<Song> songs;
+
+
+    @ManyToOne(targetEntity = Artist.class, fetch = FetchType.EAGER)
     private Artist artist;
     
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
     // -------------------------------------------------
 
-    public Set<Song> getSongs() { return songs; }
+    public List<Song> getSongs() { return songs; }
 
-    public void setSongs(Set<Song> songs) { this.songs = songs; }
+    public void setSongs(List<Song> songs) { this.songs = songs; }
 
     public Integer getId() {
         return id;

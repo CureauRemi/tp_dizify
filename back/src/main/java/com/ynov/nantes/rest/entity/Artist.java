@@ -1,7 +1,10 @@
 package com.ynov.nantes.rest.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +23,7 @@ public class Artist {
     private String image_artist;
 
     @OneToMany(targetEntity = Album.class, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private Set<Album> albums;
+    private List<Album> albums;
 
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
@@ -30,11 +33,11 @@ public class Artist {
         return id;
     }
 
-    public Set<Album> getAlbums() {
+    public List<Album> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(Set<Album> albums) {
+    public void setAlbums(List<Album> albums) {
         this.albums = albums;
     }
 

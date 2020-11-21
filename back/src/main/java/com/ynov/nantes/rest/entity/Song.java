@@ -1,8 +1,8 @@
 package com.ynov.nantes.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "song")
@@ -22,10 +22,11 @@ public class Song {
 
     private String image_song;
 
-    @OneToOne(targetEntity = Album.class)
+    @JsonIgnore
+    @OneToOne(targetEntity = Album.class, fetch = FetchType.EAGER)
     private Album album;
 
-    @OneToOne(targetEntity = Artist.class)
+    @OneToOne(targetEntity = Artist.class, fetch = FetchType.EAGER)
     private Artist artist;
 
     // -------------------------------------------------
