@@ -38,7 +38,7 @@ public class FavoriteService {
         }
     }
 
-    public Favorite addFavoriteToUser() {
+    public Favorite addFavoriteSongToUser() {
         try {
             return null;
         } catch(Exception e) {
@@ -68,6 +68,8 @@ public class FavoriteService {
             throw new FavoriteErrorException(e.getMessage());
         }
     }
+
+
 
 
 

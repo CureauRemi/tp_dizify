@@ -2,6 +2,7 @@ package com.ynov.nantes.rest.entity.dto.artist;
 
 import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.entity.Artist;
+import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
 
 import java.util.List;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class ArtistDto {
 
     private String image_artist;
 
-    private Set<Album> albums;
+    private List<AlbumDto> albums;
 
 
     public ArtistDto(Artist artist) {
@@ -22,7 +23,9 @@ public class ArtistDto {
         this.alias = artist.getAlias();
         this.image_artist = artist.getImage_artist();
         if(artist.getAlbums() != null) {
-            this.albums = artist.getAlbums();
+            for(Album a: artist.getAlbums()){
+              this.albums.add(new AlbumDto(a));
+            }
         }
     }
 
@@ -50,11 +53,11 @@ public class ArtistDto {
         this.image_artist = image_artist;
     }
 
-    public Set<Album> getAlbums() {
+    public List<AlbumDto> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(Set<Album> albums) {
+    public void setAlbums(List<AlbumDto> albums) {
         this.albums = albums;
     }
 
