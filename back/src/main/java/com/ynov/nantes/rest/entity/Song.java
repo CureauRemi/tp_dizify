@@ -22,7 +22,6 @@ public class Song {
 
     private String image_song;
 
-    @JsonIgnore
     @OneToOne(targetEntity = Album.class, fetch = FetchType.EAGER)
     private Album album;
 
@@ -65,4 +64,19 @@ public class Song {
         this.image_song = image_song;
     }
 
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
 }

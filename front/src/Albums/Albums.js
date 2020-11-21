@@ -59,24 +59,24 @@ export default function Albums() {
           </TableHead>
           <TableBody>
             {albums.map((album) => (
-              <TableRow key={album.name} component={Link} to={"/album/"+album.id}>
+              <TableRow key={album.name}>
                 {album.image_album != null &&
-                  <TableCell><img
+                  <TableCell component={Link} to={"/album/"+album.id}><img
                       src={process.env.PUBLIC_URL + '/img/'+ album.image_album}
                       alt={album.name}
                       style={{ height: '50px', width: '50px', 'border-radius': '100px'}}
                     /></TableCell>
                 }
                 {album.image_album == null &&
-                  <TableCell><img
+                  <TableCell component={Link} to={"/album/"+album.id}><img
                       src={process.env.PUBLIC_URL + '/img/default_album.jpg'}
                       alt={album.name}
                       style={{ height: '50px', width: '50px', 'border-radius': '100px'}}
                     /></TableCell>
                 }
-                <TableCell>{album.name}</TableCell>
+                <TableCell component={Link} to={"/album/"+album.id}>{album.name}</TableCell>
                 {/* <TableCell>{album.artist.alias}</TableCell> */}
-                <TableCell align="right">{album.release_year}</TableCell>
+                <TableCell align="right" component={Link} to={"/album/"+album.id}>{album.release_year}</TableCell>
                 <TableCell>
                   <IconButton aria-label="Modifier un album" onClick={() => {
                     setAlbumUpdate(album)

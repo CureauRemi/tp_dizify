@@ -68,9 +68,9 @@ public class AlbumService {
         return albumRepository.findAll(paginationSize).map(album -> new getAlbumDto(album));
     }
 
-    public Album getById(Integer id) {
+    public AlbumDto getById(Integer id) {
         try {
-            return albumRepository.getById(id);
+            return new AlbumDto(albumRepository.getById(id));
         } catch (Exception e) {
             throw new AlbumErrorException(e.getMessage());
         }

@@ -13,6 +13,7 @@ public interface SongRepository extends PagingAndSortingRepository<Song, Integer
     @Query("SELECT s FROM Song s WHERE s.title LIKE %:title%")
     List<Song> findByTitle(@Param("title") String title);
 
-    Optional<Song> findById(Integer Id);
+    @Query("SELECT s FROM Song s WHERE s.id = :id")
+    Song getById(@Param("id") Integer Id);
 
 }

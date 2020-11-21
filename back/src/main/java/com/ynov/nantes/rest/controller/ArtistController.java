@@ -41,7 +41,7 @@ public class ArtistController {
 
     @ResponseBody
     @GetMapping("/{id}")
-    public Artist getArtistById(final @PathVariable("id") Integer artistId) {
+    public ArtistDto getArtistById(final @PathVariable("id") Integer artistId) {
        return artistService.getById(artistId);
     }
 

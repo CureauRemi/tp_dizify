@@ -1,7 +1,9 @@
 package com.ynov.nantes.rest.controller;
 
 import com.ynov.nantes.rest.entity.Song;
+import com.ynov.nantes.rest.entity.dto.song.SongDto;
 import com.ynov.nantes.rest.repository.SongRepository;
+import com.ynov.nantes.rest.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,58 +19,42 @@ import java.util.Optional;
 public class SongController {
 
     @Autowired
-    private final SongRepository songRepository;
+    private SongService songService;
 
 
-    public SongController(SongRepository songRepository) {
-        this.songRepository = songRepository;
-    }
 
     @ResponseBody
     @RequestMapping("getByName")
-    public List<Song> getSongByTitle(@Param("name") String name) {
-        return songRepository.findByTitle(name);
+    public List<SongDto> getSongByTitle(@Param("name") String name) {
+        return songService.getSongByTitle(name);
     }
 
     @ResponseBody
     @GetMapping
-    public Page<Song> getSongs(@RequestParam("page") Integer page, @RequestParam("limit") Integer nb) {
-        PageRequest paginationSize = PageRequest.of(page, nb);
-        return songRepository.findAll(paginationSize);
+    public Page<SongDto> getSongs(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+       return songService.getAllSongs(page, limit);
     }
 
     @ResponseBody
     @GetMapping("/{id}")
-    public Song getSongById(final @PathVariable("id") String songId) {
-        try {
-            Optional<Song> song = songRepository.findById(Integer.valueOf(songId));
-            return song.get();
-        } catch (Exception e) {
-            return null;
-        }
+    public SongDto getSongById(final @PathVariable("id") Integer id) {
+        return songService.getSongById(id);
     }
 
     @ResponseBody
     @PostMapping
     public Song addSong(@RequestBody Song song) {
-        return songRepository.save(song);
+        return songService.addSong(song);
     }
 
     @ResponseBody
     @PutMapping
     public Song updateSong(@RequestBody Song song) {
-        return songRepository.save(song);
+        return songService.updateSong(song);
     }
-
-
 
     @DeleteMapping("/{id}")
     public HttpStatus deleteSong(final @PathVariable("id") Integer songId) {
-        try {
-            songRepository.deleteById(songId);
-            return HttpStatus.OK;
-        }catch (Exception e) {
-            return HttpStatus.BAD_REQUEST;
-        }
+        return songService.deleteSong(songId);
     }
 }

@@ -29,75 +29,24 @@ public class FavoriteController {
         return favoriteService.getAllFavoriteByUser();
     }
 
-//    @ResponseBody
-//    @PostMapping("add/song")
-//    public Favorite addFavoriteSong(@Param("idSong") Integer idSong) {
-//        Utilisateur user =  userService.getCurrentUser();
-//        Favorite favToUpdate = favoriteService.addFavoriteToUser();
-//        Set<Song> songs  = favToUpdate.getFavoriteSongs();
-//        Boolean isAlreadyInTheList = false;
-//        for(Song s : songs) {
-//            if(s.getId()  == idSong && !isAlreadyInTheList) {
-//                isAlreadyInTheList = true;
-//            }
-//        }
-//        if(!isAlreadyInTheList) {
-//            Optional<Song> songFound = songRepository.findById(idSong);
-//            Song songToAdd = songFound.get();
-//            songs.add(songToAdd);
-//            favToUpdate.setFavoriteSongs(songs);
-//        }
-//
-//        Favorite saved = favoriteRepository.save(favToUpdate);
-//        return saved;
-//    }
+    @ResponseBody
+    @PostMapping("add/song/{id}")
+    public Favorite addFavoriteSong(@PathVariable("id") Integer idSong) {
+        //return favoriteService.
+        return null;
+    }
 
     @ResponseBody
-    @PostMapping("add/album")
-    public Favorite addFavoriteAlbum(@RequestParam("id") Integer albumId) {
+    @PostMapping("add/album/{id}")
+    public Favorite addFavoriteAlbum(@PathVariable("id") Integer albumId) {
         return favoriteService.addFavoriteAlbumToUser(albumId);
     }
-//
-//
-//    @ResponseBody
-//    @PostMapping("add/playlist")
-//    public Favorite addFavoriteArtist(@RequestBody Playlist playlist) {
-//        Utilisateur user =  userService.getCurrentUser();
-//        Favorite favToUpdate = favoriteRepository.findByUserId(user.getId());
-//        Set<Playlist> playlists  = favToUpdate.getFavoritePlaylists();
-//        Boolean isAlreadyInTheList = false;
-//        for(Playlist p : playlists) {
-//            if(p.getId()  == playlist.getId() && !isAlreadyInTheList) {
-//                isAlreadyInTheList = true;
-//            }
-//        }
-//        if(!isAlreadyInTheList) {
-//            Optional<Playlist> playlistFound = playlistRepository.findById(playlist.getId());
-//            Playlist playlistToAdd = playlistFound.get();
-//            playlists.add(playlistToAdd);
-//            favToUpdate.setFavoritePlaylists(playlists);
-//        }
-//
-//        Favorite saved = favoriteRepository.save(favToUpdate);
-//        return saved;
-//    }
-//
-//
-//    @ResponseBody
-//    @PutMapping("{id}")
-//    public Favorite updateAlbum(@RequestBody Favorite favoriteToUpdate) {
-//        Favorite updated = favoriteRepository.save(favoriteToUpdate);
-//        return updated;
-//    }
-//
-//    @ResponseStatus(HttpStatus.OK)
-//    @DeleteMapping("{id}")
-//    public HttpStatus deleteAlbum(@PathVariable("id") Favorite favorite) {
-//        try{
-//            favoriteRepository.deleteById(favorite.getId());
-//            return HttpStatus.OK;
-//        } catch (Exception e) {
-//            return HttpStatus.BAD_REQUEST;
-//        }
-//    }
+
+
+    @ResponseBody
+    @PostMapping("add/playlist/{id}")
+    public Favorite addFavoriteArtist(@PathVariable("id") Playlist playlist) {
+        return null;
+    }
+
 }

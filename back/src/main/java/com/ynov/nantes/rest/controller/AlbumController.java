@@ -43,7 +43,7 @@ public class AlbumController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @GetMapping("/{id}")
-    public Album getAlbumById(final @PathVariable("id") Integer albumId) {
+    public AlbumDto getAlbumById(final @PathVariable("id") Integer albumId) {
         return albumService.getById(albumId);
     }
 

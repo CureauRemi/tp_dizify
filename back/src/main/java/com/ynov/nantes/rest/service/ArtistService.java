@@ -1,6 +1,7 @@
 package com.ynov.nantes.rest.service;
 
 import com.ynov.nantes.rest.entity.Artist;
+import com.ynov.nantes.rest.entity.dto.artist.ArtistBasicDto;
 import com.ynov.nantes.rest.entity.dto.artist.ArtistDto;
 import com.ynov.nantes.rest.entity.dto.artist.getArtistDto;
 import com.ynov.nantes.rest.exception.artist.ArtistErrorException;
@@ -45,10 +46,9 @@ public class ArtistService {
         }
     }
 
-    public Artist getById(Integer id) {
+    public ArtistDto getById(Integer id) {
         try {
-            Optional<Artist> artist = artistRepository.findById(Integer.valueOf(id));
-            return artist.get();
+             return new ArtistDto(artistRepository.getById(id));
         } catch (Exception e) {
             throw new ArtistNotFoundException();
         }
