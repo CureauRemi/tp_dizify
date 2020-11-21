@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {Input, Typography, FormControl, FormGroup, Button } from '@material-ui/core'
 import Title from '../components/Title'
 import { Form } from 'react-bootstrap'
 import UserService from '../lib/userService'
 import { Redirect} from 'react-router-dom'
-import Home from '../App'
 
 export default class LoginForm extends React.Component {
     
@@ -28,12 +27,9 @@ export default class LoginForm extends React.Component {
       if (this.state.email === '' || this.state.password === '') {
         return
       }
-      console.log(this.state)
-      console.log('useravant : ',this.user)
-      this.user = await UserService.login(this.state)
-      console.log('userapres : ',this.user)
-  
-      if(this.user != undefined ){
+      this.user = await UserService.login(this.state);
+
+      if(this.user !== undefined ){
         localStorage.setItem('id', this.user.data.id)
         localStorage.setItem('email', this.user.data.email)
         localStorage.setItem('pseudo',this.user.data.pseudo)

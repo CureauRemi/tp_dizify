@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
+import { Box, CircularProgress, Fab, IconButton, Snackbar } from '@material-ui/core'
 import { Card, CardContent, CardMedia, Typography, Grid, makeStyles, Avatar} from '@material-ui/core'
 import { Add, Delete, Edit } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
@@ -60,7 +60,6 @@ export default function Artists() {
     try {
       let artists = []
       artists = await artistService.getAll();
-      console.log(artists)
       setArtists(artists)
       setTimeout(function () {
         setLoading(false)
@@ -119,7 +118,7 @@ export default function Artists() {
           {artists.map((artist) => (
             <Grid item xs={12} sm={6} md={3} key={artists.indexOf(artist)}>
               <Card className={classes.card} key={artist.alias} component={Link} to={"/artist/"+artist.id}>
-                    {artist.image_artist != null &&
+                    {artist.image_artist !== null &&
                   <CardMedia
                     image={process.env.PUBLIC_URL + '/img/'+ artist.image_artist}        
                     title={artist.alias}
@@ -135,7 +134,7 @@ export default function Artists() {
                       {artist.alias}
                     </Typography>
                   </CardContent>
-                  {isAdmin != false && 
+                  {isAdmin !== false && 
                     <div>
                       <IconButton aria-label="Modifier un artiste" onClick={() => {
                         setArtistUpdate(artist)

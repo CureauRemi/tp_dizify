@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
+import { CircularProgress, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
 import { Add, Delete } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
 
 import Title from '../components/Title'
 import favoryService from '../lib/favoryService'
-import userService from '../lib/userService'
 
 export default function Favory() {
     const [loading, setLoading] = useState(true)
@@ -21,7 +20,6 @@ export default function Favory() {
       try {
         
           let userIdLocal = localStorage.getItem('id');
-          console.log(userIdLocal)
           let favorites = await favoryService.getAll(userIdLocal);
         
        

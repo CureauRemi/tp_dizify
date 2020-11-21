@@ -65,7 +65,6 @@ export default function Albums() {
                 <TableCell>
                   <IconButton aria-label="Modifier un album" onClick={() => {
                     setAlbumUpdate(album)
-                    console.log(album)
                     setOpenUpdateDialog(true)
                     }}>
                     <Edit />

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Box, CircularProgress, Fab, Snackbar, Input, Typography, FormControl  } from '@material-ui/core'
-import { Add, Delete } from '@material-ui/icons'
+import { Box, CircularProgress, Fab, Snackbar, Typography } from '@material-ui/core'
+import { Add } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
 
 import DialogAddUser from './DialogAddUser'
 import LoginForm from '../components/LoginForm'
-import UserService from '../lib/userService'
 
 export default function Users() {
   const [loading, setLoading] = useState(true)
-  const [users, setUsers] = useState([])
   const [openAddDialog, setOpenAddDialog] = useState(false)
   const [openAlert, setOpenAlert] = useState(false)
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation, Switch, Route, Link, Redirect } from 'react-router-dom'
+import { useLocation, Switch, Route, Link } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Hidden from '@material-ui/core/Hidden';
@@ -16,7 +16,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { Album, Person, Home, Star, QueueMusic, AccountCircle, SingleBedOutlined, DirectionsRun } from '@material-ui/icons'
+import { Album, Person, Home, Star, QueueMusic, AccountCircle, DirectionsRun } from '@material-ui/icons'
 import Artists from './Artists/Artists'
 import Albums from './Albums/Albums'
 import Artist_Albums from './Albums/Artist_Albums'
@@ -174,7 +174,7 @@ export default function App(props) {
                 </IconButton>
               </div>
             )}
-            {new Boolean(localStorage.getItem('isConnect')) == true && (
+            {new Boolean(localStorage.getItem('isConnect')) === true && (
               <div>
                 <IconButton
                   aria-label="account of current user"

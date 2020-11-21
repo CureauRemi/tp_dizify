@@ -56,9 +56,7 @@ export default function Artist_Albums() {
       let albums = [];
       let artist = []
       albums = await albumService.getAll();
-      console.log(id)
       artist = await artistService.getOne(id);
-      console.log(artist)
       setAlbums(albums)
       setArtist(artist)
       setTimeout(function () {
@@ -120,7 +118,7 @@ export default function Artist_Albums() {
                       {album.name}
                     </Typography>
                   </CardContent>
-                  {isAdmin != false && 
+                  {isAdmin !== false && 
                     <div>
                       <IconButton aria-label="Modifier un artiste" onClick={() => {
                         setAlbumUpdate(album)

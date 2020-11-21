@@ -9,7 +9,6 @@ class FavoryService {
         
         return await axios.get(`user/${idUser}/favorite`).then(
             function(r){
-                console.log(r.data)
                 return r.data.content
             }
         );
@@ -17,7 +16,6 @@ class FavoryService {
     }
 
     async addFavorite(entity) {
-        console.log('test : ', entity);
         return axios.post(`user/${this.idUser}/favorite`, entity);
       }
 

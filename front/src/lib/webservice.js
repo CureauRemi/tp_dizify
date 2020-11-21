@@ -12,8 +12,6 @@ export default class WebSersice {
     }
     async getAll() {
         const token = localStorage.getItem('token')
-        console.log(token)
-        console.log(this.entity_endpoint)
         return await axios.get(this.entity_endpoint + '?page=0&limit=25',{headers:{
             'Authorization': `Bearer ${token}` 
         }}).then(
