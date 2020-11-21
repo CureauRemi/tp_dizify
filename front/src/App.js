@@ -177,7 +177,7 @@ export default function App(props) {
                 </IconButton>
               </div>
             )}
-            {new Boolean(localStorage.getItem('isConnect')) === true && (
+            {new Boolean(localStorage.getItem('isConnect')) == true && (
               <div>
                 <IconButton
                   aria-label="account of current user"
