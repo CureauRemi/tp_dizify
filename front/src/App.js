@@ -18,8 +18,9 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { Album, Person, Home, Star, QueueMusic, AccountCircle, DirectionsRun } from '@material-ui/icons'
 import Artists from './Artists/Artists'
+import Artist from './Artists/Artist'
 import Albums from './Albums/Albums'
-import Artist_Albums from './Albums/Artist_Albums'
+import Albuma from './Albums/Album'
 import Users from './Users/Users'
 import Favory from './Favorie/Favory'
 import userService from './lib/userService';
@@ -92,6 +93,8 @@ export default function App(props) {
   let title = ''
   switch (location.pathname) {
     default:
+      title= ""
+      break
     case '/':
       title = "Page d'accueil"
       break
@@ -235,8 +238,9 @@ export default function App(props) {
           <Switch>
             <Route exact path="/" render={() => <Homes />} />
             <Route path="/artists" render={() => <Artists />} />
-            <Route path="/artist/:id" render={() => <Artist_Albums />} />
+            <Route path="/artist/:id" render={() => <Artist />} />
             <Route path="/albums" render={() => <Albums />} />
+            <Route path="/album/:id" render={() => <Albuma />} />
             <Route path="/users" render={() => <Users />}  />
             <Route path="/favory" render={() => <Favory />} />
           </Switch>

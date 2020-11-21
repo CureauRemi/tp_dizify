@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
+import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow, Grid, Typography } from '@material-ui/core'
 import { Add, Delete, Edit } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
-import { Link } from 'react-router-dom'
+import { useParams, Link } from "react-router-dom";
 
 import Title from '../components/Title'
-import DialogAddAlbum from './DialogAddAlbum'
-import DialogUpdateAlbum from './DialogUpdateAlbum'
-import DialogDeleteAlbum from './DialogDeleteAlbum'
+import DialogAddSong from './DialogAddSong'
+import DialogUpdateSong from './DialogUpdateSong'
+import DialogDeleteSong from './DialogDeleteSong'
 import AlbumService from '../lib/albumService'
+import SongService from '../lib/songService'
 
 
-export default function Albums() {
+export default function Album() {
   const [loading, setLoading] = useState(true)
-  const [albums, setAlbums] = useState([])
+  const [album, setAlbum] = useState({})
+  const [songs, setSongs] = useState([])
   const [openAddDialog, setOpenAddDialog] = useState(false)
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false)
-  const [albumDeleted, setAlbumDeleted] = useState({})
+  const [songDeleted, setSongDeleted] = useState({})
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false)
-  const [albumUpdate, setAlbumUpdate] = useState({})
+  const [songUpdate, setSongUpdate] = useState({})
   const [openAlert, setOpenAlert] = useState(false)
+  let { id } = useParams();
 
   useEffect(() => {
     init()
@@ -28,9 +31,10 @@ export default function Albums() {
   const init = async () => {
 
     try {
-      let albums = await AlbumService.getAll();
-      
-      setAlbums(albums)
+      let album = await AlbumService.getOne(id);
+      let songs = await SongService.getAll();
+      setAlbum(album)
+      setSongs(songs)
       setTimeout(function () {
         setLoading(false)
       }, 1500)
@@ -42,49 +46,58 @@ export default function Albums() {
 
   return (
     <>
-      <Title>Liste des albums</Title>
+      <Grid container>
+        <Grid item>
+          {album.image_album != null &&
+            <img
+                src={process.env.PUBLIC_URL + '/img/'+ album.image_album}
+                alt={album.name}
+                style={{ height: '200px', width: '200px', 'border-radius': '100px', margin: '5px auto 40px auto'}}
+              />
+          }
+          {album.image_album == null &&
+            <img
+                src={process.env.PUBLIC_URL + '/img/default_album.jpg'}
+                alt={album.name}
+                style={{ height: '200px', width: '200px', 'border-radius': '100px', margin: '5px auto 40px auto'}}
+              />
+          }
+        </Grid>
+        <Grid item style={{padding: '0 0 0 15px'}}>
+          <div>
+            <Typography component="h1" variant="h4" color="black" gutterBottom>Tickets to my downfall</Typography>
+            <Typography component="h1" variant="h6" color="black" gutterBottom component={Link} to={"/artist/1"}>Machine Gun Kelly</Typography>
+            <Typography component="h1" color="black" gutterBottom>2020</Typography>
+          </div>
+        </Grid>
+      </Grid>
+      <Title>Liste des Chansons</Title>
       {loading ? (
         <CircularProgress />
       ) : (
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Couverture</TableCell>
               <TableCell>Nom</TableCell>
-              {/* <TableCell>Artiste</TableCell> */}
-              <TableCell align="right">Année de publication</TableCell>
+              <TableCell>durée</TableCell>
               <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
-            {albums.map((album) => (
-              <TableRow key={album.name} component={Link} to={"/album/"+album.id}>
-                {album.image_album != null &&
-                  <TableCell><img
-                      src={process.env.PUBLIC_URL + '/img/'+ album.image_album}
-                      alt={album.name}
-                      style={{ height: '50px', width: '50px', 'border-radius': '100px'}}
-                    /></TableCell>
-                }
-                {album.image_album == null &&
-                  <TableCell><img
-                      src={process.env.PUBLIC_URL + '/img/default_album.jpg'}
-                      alt={album.name}
-                      style={{ height: '50px', width: '50px', 'border-radius': '100px'}}
-                    /></TableCell>
-                }
-                <TableCell>{album.name}</TableCell>
-                {/* <TableCell>{album.artist.alias}</TableCell> */}
-                <TableCell align="right">{album.release_year}</TableCell>
+            {songs.map((song) => (
+              <TableRow key={song.title}>
+                <TableCell>{song.title}</TableCell>
+                <TableCell>{song.duration}</TableCell>
                 <TableCell>
-                  <IconButton aria-label="Modifier un album" onClick={() => {
-                    setAlbumUpdate(album)
+                  <IconButton aria-label="Modifier un song" onClick={() => {
+                    setSongUpdate(song)
                     setOpenUpdateDialog(true)
                     }}>
                     <Edit />
                   </IconButton>
-                  <IconButton aria-label="Supprimer un album" onClick={() => {
-                    setAlbumDeleted(album)
+                  <IconButton aria-label="Supprimer un song" onClick={() => {
+                    console.log(song)
+                    setSongDeleted(song)
                     setOpenDeleteDialog(true)
                     }}>
                     <Delete />
@@ -102,7 +115,7 @@ export default function Albums() {
       </Box>
       {/* Add */}
       {openAddDialog && (
-        <DialogAddAlbum
+        <DialogAddSong
           open={openAddDialog}
           handleClose={() => setOpenAddDialog(false)}
           reload={() => {
@@ -113,9 +126,9 @@ export default function Albums() {
       )}
       {/* Update */}
       {openUpdateDialog && (
-        <DialogUpdateAlbum
+        <DialogUpdateSong
           open={openUpdateDialog}
-          album={albumUpdate}
+          song={songUpdate}
           handleClose={() => setOpenUpdateDialog(false)}
           reload={() => {
             setOpenUpdateDialog(false)
@@ -125,9 +138,9 @@ export default function Albums() {
       )}
       {/* Delete */}
       {openDeleteDialog && (
-        <DialogDeleteAlbum
+        <DialogDeleteSong
           open={openDeleteDialog}
-          album={albumDeleted}
+          song={songDeleted}
           handleClose={() => setOpenDeleteDialog(false)}
           reload={() => {
             setOpenDeleteDialog(false)
