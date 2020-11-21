@@ -36,8 +36,8 @@ public class AlbumController {
 
     @ResponseBody
     @GetMapping("/artist/{id}")
-    public Set<Album> getAlbumByArtistId(final @PathVariable("id") Artist artist) {
-        return albumService.getAlbumByArtist(artist);
+    public Set<Album> getAlbumByArtistId(final @PathVariable("id") Integer artistId) {
+        return albumService.getAlbumByArtist(artistId);
     }
 
     @ResponseStatus(HttpStatus.OK)

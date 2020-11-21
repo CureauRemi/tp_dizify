@@ -45,9 +45,9 @@ public class AlbumService {
         }
     }
 
-    public Set<Album> getAlbumByArtist(Artist artist){
+    public Set<Album> getAlbumByArtist(Integer artistId){
         try {
-            Artist artistByIdFound = artistRepository.getById(artist.getId());
+            Artist artistByIdFound = artistRepository.getById(artistId);
             if(artistByIdFound != null) {
                 return artistByIdFound.getAlbums();
             } else {
