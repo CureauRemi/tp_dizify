@@ -16,14 +16,16 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import button from '@material-ui/core/Button'
-import { Album, Person, Home, Star, QueueMusic, LockOpen, AccountCircle } from '@material-ui/icons'
+import { Album, Person, Home, Star, QueueMusic, LockOpen, AccountCircle, DirectionsRun  } from '@material-ui/icons'
+import Artist from './Artists/Artist'
 import Artists from './Artists/Artists'
+import Albuma from './Albums/Album'
 import Albums from './Albums/Albums'
+import userService from './lib/userService';
+import { createHashHistory } from "history"
 import Users from './Users/Users'
 import Favory from './Favori/Favory'
 import Playlist from './Playlist/Playlists'
-import Button from '@material-ui/core/Button'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -76,34 +78,27 @@ const Homes = () => {
 }
 
 export default function App(props) {
+  const history = createHashHistory();
   const classes = useStyles()
   const { window } = props;
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const container = window !== undefined ? () => window().document.body : undefined;
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const signOut = () => {
+    userService.signOut()
+    history.go("users");
+  }
   const location = useLocation()
   let title = ''
   switch (location.pathname) {
     default:
+      title= ""
+      break
     case '/':
       title = "Page d'accueil"
       break
@@ -162,12 +157,6 @@ export default function App(props) {
     <>
       <div className={classes.root}>
         <CssBaseline />
-        <FormGroup>
-          <FormControlLabel
-            control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-            label={auth ? 'Logout' : 'Login'}
-          />
-        </FormGroup>
         <AppBar position="absolute" className={clsx(classes.appBar, classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <IconButton
@@ -182,36 +171,29 @@ export default function App(props) {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               {title}
             </Typography>
-            {/* <Button component={Link} to="/users" color="inherit">Connexion</Button> */}
-            {auth && (
+            {localStorage.getItem('isConnect') == null && (
               <div>
                 <IconButton
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
-                  onClick={handleMenu}
+                  component={Link} to="/users"
                   color="inherit"
                 >
                   <AccountCircle />
                 </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose} component={Link} to="/users">Connexion</MenuItem>
-                  {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
-                </Menu>
+              </div>
+            )}
+            {new Boolean(localStorage.getItem('isConnect')) == true && (
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-deconnexion"
+                  aria-haspopup="true"
+                  onClick={signOut}
+                  color="inherit">
+                  <DirectionsRun />
+                </IconButton>
               </div>
             )}
           </Toolbar>
@@ -263,7 +245,9 @@ export default function App(props) {
           <Switch>
             <Route exact path="/" render={() => <Homes />} />
             <Route path="/artists" render={() => <Artists />} />
+            <Route path="/artist/:id" render={() => <Artist />} />
             <Route path="/albums" render={() => <Albums />} />
+            <Route path="/album/:id" render={() => <Albuma />} />
             <Route path="/users" render={() => <Users />}  />
             <Route path="/favory" render={() => <Favory />} />
             <Route path="/playlist" render={() => <Playlist />} />
