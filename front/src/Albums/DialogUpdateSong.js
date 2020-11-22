@@ -7,11 +7,19 @@ export default function DialogUpdateSong({ open, handleClose, reload, song }) {
   const [duration, setDuration] = useState('')
 
   const updateSong = async () => {
-    if (title === '' || duration === '') {
-      return
+    let res = {}
+    res.id = song.id
+    if (title === '') {
+      res.title = song.title
+    } else {
+      res.title = title
     }
-
-    await SongService.update({id: song, title: title, duration: duration})
+    if(duration === '') {
+      res.duration = song.duration
+    } else {
+      res.duration = duration
+    }
+    await SongService.update(res)
     reload()
   }
 

@@ -9,12 +9,12 @@ import DialogAddSong from './DialogAddSong'
 import DialogUpdateSong from './DialogUpdateSong'
 import DialogDeleteSong from './DialogDeleteSong'
 import AlbumService from '../lib/albumService'
-import SongService from '../lib/songService'
 import favoryService from '../lib/favoryService'
 
 
 export default function Album() {
   const [loading, setLoading] = useState(true)
+  const [artist, setArtist] = useState({})
   const [album, setAlbum] = useState({})
   const [songs, setSongs] = useState([])
   const [openAddDialog, setOpenAddDialog] = useState(false)
@@ -33,9 +33,9 @@ export default function Album() {
 
     try {
       let album = await AlbumService.getOne(id);
-      let songs = await SongService.getAll();
+      setArtist(album.artist)
       setAlbum(album)
-      setSongs(songs)
+      setSongs(album.songs)
       setTimeout(function () {
         setLoading(false)
       }, 1500)
@@ -66,9 +66,9 @@ export default function Album() {
         </Grid>
         <Grid item style={{padding: '0 0 0 15px'}}>
           <div>
-            <Typography component="h1" variant="h4" color="black" gutterBottom>Tickets to my downfall</Typography>
-            <Typography component="h1" variant="h6" color="black" gutterBottom component={Link} to={"/artist/1"}>Machine Gun Kelly</Typography>
-            <Typography component="h1" color="black" gutterBottom>2020</Typography>
+            <Typography component="h1" variant="h4" color="black" gutterBottom>{album.name}</Typography>
+            <Typography component="h1" variant="h6" color="black" gutterBottom component={Link} to={"/artist/"+artist.id}>{artist.alias}</Typography>
+            <Typography component="h1" color="black" gutterBottom>{album.release_year}</Typography>
           </div>
         </Grid>
       </Grid>
