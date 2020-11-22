@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow, Grid, Typography } from '@material-ui/core'
-import { Add, Delete, Edit } from '@material-ui/icons'
+import { Add, Delete, Edit, Star } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
 import { useParams, Link } from "react-router-dom";
 
@@ -10,6 +10,7 @@ import DialogUpdateSong from './DialogUpdateSong'
 import DialogDeleteSong from './DialogDeleteSong'
 import AlbumService from '../lib/albumService'
 import SongService from '../lib/songService'
+import favoryService from '../lib/favoryService'
 
 
 export default function Album() {
@@ -101,6 +102,9 @@ export default function Album() {
                     setOpenDeleteDialog(true)
                     }}>
                     <Delete />
+                  </IconButton>
+                  <IconButton aria-label="ajout au favori" onClick={() => {favoryService.addFavorite("song", song.id)}}>
+                    <Star />
                   </IconButton>
                 </TableCell>
               </TableRow>

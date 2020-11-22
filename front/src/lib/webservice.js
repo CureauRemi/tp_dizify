@@ -34,6 +34,7 @@ export default class WebSersice {
 
     async add(entity) {
         const token = localStorage.getItem('token')
+        console.log(entity)
         return axios.post(this.entity_endpoint, entity,{headers:{
             'Authorization': `Bearer ${token}` 
         }});
