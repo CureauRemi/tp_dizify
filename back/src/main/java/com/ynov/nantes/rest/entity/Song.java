@@ -30,6 +30,8 @@ public class Song {
     @OneToOne(targetEntity = Artist.class, fetch = FetchType.EAGER)
     private Artist artist;
 
+    public Song() { }
+
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
     // -------------------------------------------------

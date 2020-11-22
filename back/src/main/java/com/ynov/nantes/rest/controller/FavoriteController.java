@@ -55,4 +55,22 @@ public class FavoriteController {
         return favoriteService.deleteFavorite(id);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("delete/song/{id}")
+    public HttpStatus deleteSongFromFavorite(@PathVariable("id") Integer id){
+        return favoriteService.deleteFavoriteSongToUser(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("delete/album/{id}")
+    public HttpStatus deleteAlbumFromFavorite(@PathVariable("id") Integer id){
+        return favoriteService.deleteFavoriteAlbumToUser(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("delete/artist/{id}")
+    public HttpStatus deleteArtistFromFavorite(@PathVariable("id") Integer id){
+        return favoriteService.deleteFavoriteArtistToUser(id);
+    }
+
 }

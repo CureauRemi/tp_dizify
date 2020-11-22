@@ -115,6 +115,58 @@ public class FavoriteService {
         }
     }
 
+    public HttpStatus deleteFavoriteSongToUser(Integer songId) {
+        try {
+            Song songToAdd = songRepository.getById(songId);
+            Favorite myFavorite = getAllFavoriteByUser();
+            for(Song a: myFavorite.getFavoriteSongs()){
+                if (a.getId().equals(songToAdd.getId())) {
+                    myFavorite.getFavoriteSongs().remove(a);
+                    break;
+                }
+            }
+            favoriteRepository.save(myFavorite);
+            return HttpStatus.OK;
+        } catch(Exception e) {
+            throw new FavoriteErrorException(e.getMessage());
+        }
+    }
+
+    public HttpStatus deleteFavoriteAlbumToUser(Integer albumId) {
+        try {
+            Album albumToAdd = albumRepository.getById(albumId);
+            Favorite myFavorite = getAllFavoriteByUser();
+            for(Album a: myFavorite.getFavoriteAlbums()){
+                if (a.getId().equals(albumToAdd.getId())) {
+                    myFavorite.getFavoriteAlbums().remove(a);
+                    break;
+                }
+            }
+            favoriteRepository.save(myFavorite);
+            return HttpStatus.OK;
+        } catch(Exception e) {
+            throw new FavoriteErrorException(e.getMessage());
+        }
+    }
+
+    public HttpStatus deleteFavoriteArtistToUser(Integer artistId) {
+        try {
+            Artist artistToRemove = artistRepository.getById(artistId);
+            Favorite myFavorite = getAllFavoriteByUser();
+            for (Artist a : myFavorite.getFavoriteArtists()) {
+                if (a.getId().equals(artistToRemove.getId())) {
+                    myFavorite.getFavoriteArtists().remove(a);
+                    break;
+                }
+            }
+            favoriteRepository.save(myFavorite);
+            return HttpStatus.OK;
+        } catch (Exception e) {
+            throw new PlaylistErrorException(e.getMessage());
+        }
+    }
+
+
 
 
 

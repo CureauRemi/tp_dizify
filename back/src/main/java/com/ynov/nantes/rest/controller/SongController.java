@@ -1,6 +1,7 @@
 package com.ynov.nantes.rest.controller;
 
 import com.ynov.nantes.rest.entity.Song;
+import com.ynov.nantes.rest.entity.dto.song.AddSongDto;
 import com.ynov.nantes.rest.entity.dto.song.SongDto;
 import com.ynov.nantes.rest.repository.SongRepository;
 import com.ynov.nantes.rest.service.SongService;
@@ -43,7 +44,7 @@ public class SongController {
 
     @ResponseBody
     @PostMapping
-    public Song addSong(@RequestBody Song song) {
+    public Song addSong(@RequestBody AddSongDto song) {
         return songService.addSong(song);
     }
 

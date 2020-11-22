@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ynov.nantes.rest.entity.Album;
+import com.ynov.nantes.rest.entity.dto.artist.ArtistBasicDto;
 import com.ynov.nantes.rest.entity.dto.artist.ArtistDto;
 import com.ynov.nantes.rest.entity.dto.artist.getArtistDto;
 import com.ynov.nantes.rest.repository.AlbumRepository;
@@ -28,7 +29,7 @@ public class ArtistController {
 
     @ResponseBody
     @PostMapping
-    public Artist addArtist(@RequestBody ArtistDto artist) {
+    public Artist addArtist(@RequestBody Artist artist) {
         return artistService.addArtist(artist);
     }
 
