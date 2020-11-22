@@ -84,7 +84,7 @@ export default function Favory() {
               <h1>Songs :</h1>
               <TableRow>
                 <TableCell>Nom</TableCell>
-                <TableCell>Artiste</TableCell>
+                <TableCell>Durée</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -94,7 +94,9 @@ export default function Favory() {
                   <TableCell>{favory.title}</TableCell>
                   <TableCell>{favory.duration}</TableCell>
                   <TableCell>
-                    <IconButton aria-label="Supprimer un favori" onClick={() =>favoryService.deleteFavorite("song",favory.id)}>
+                    <IconButton aria-label="Supprimer un favori" onClick={async() =>  { 
+                      await favoryService.deleteFavorite("song",favory.id) 
+                      init()}}>
                       <Delete />
                     </IconButton>
                   </TableCell>
@@ -111,7 +113,6 @@ export default function Favory() {
               <h1>Artistes :</h1>
               <TableRow>
                 <TableCell>Alias</TableCell>
-                <TableCell>Nom</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -119,9 +120,10 @@ export default function Favory() {
               {favoritesArtists.map((favory) => (
                 <TableRow key={favory.name}>
                   <TableCell>{favory.alias}</TableCell>
-                  <TableCell>{favory.name}</TableCell>
                   <TableCell>
-                    <IconButton aria-label="Supprimer un favori" onClick={() => favoryService.deleteFavorite("artist",favory.id)}>
+                    <IconButton aria-label="Supprimer un favori" onClick={async() => { 
+                      await favoryService.deleteFavorite("artist",favory.id) 
+                      init()}}>
                       <Delete />
                     </IconButton>
                   </TableCell>
