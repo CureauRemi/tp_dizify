@@ -44,9 +44,9 @@ public class FavoriteController {
 
 
     @ResponseBody
-    @PostMapping("add/playlist/{id}")
-    public Favorite addFavoriteArtist(@PathVariable("id") Integer playlistId) {
-        return favoriteService.addFavoritePlaylistToUser(playlistId) ;
+    @PostMapping("add/artist/{id}")
+    public Favorite addFavoriteArtist(@PathVariable("id") Integer idArtist) {
+        return favoriteService.addFavoriteArtistToUser(idArtist) ;
     }
 
     @ResponseStatus(HttpStatus.OK)
