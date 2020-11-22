@@ -1,22 +1,16 @@
 package com.ynov.nantes.rest.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.entity.dto.artist.ArtistDto;
 import com.ynov.nantes.rest.entity.dto.artist.getArtistDto;
-import com.ynov.nantes.rest.repository.AlbumRepository;
 import com.ynov.nantes.rest.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import com.ynov.nantes.rest.entity.Artist;
-import com.ynov.nantes.rest.repository.ArtistRepository;
 
 @RestController
 @RequestMapping("/artist")
