@@ -49,7 +49,8 @@ export default class WebSersice {
 
     async delete(id) {
         const token = localStorage.getItem('token')
-        return axios.delete(this.entity_endpoint + '/' + id,{headers:{
+        console.log(this.entity_endpoint + '/' + id)
+        return axios.delete(`${this.entity_endpoint}/${id}`,{},{headers:{
             'Authorization': `Bearer ${token}` 
         }});
     }

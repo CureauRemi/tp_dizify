@@ -10,7 +10,7 @@ export default function Favory() {
     const [loading, setLoading] = useState(true)
     const [favoritesAlbums, setFavoritesAlbums] = useState([])
     const [favoritesSongs, setFavoritesSongs] = useState([])
-    const [favoritesPlaylists, setFavoritesPlaylists] = useState([])
+    const [favoritesArtists, setFavoritesArtists] = useState([])
     const [openAlert, setOpenAlert] = useState(false)
   
     useEffect(() => {
@@ -23,12 +23,12 @@ export default function Favory() {
         let favorites = await favoryService.getAll();
         let favoritesAlbums = favorites.favoriteAlbums;
         let favoritesSongs = favorites.favoriteSongs;
-        let favoritesPlaylists = favorites.favoritePlaylists;
+        let favoritesArtists = favorites.favoritesArtists;
         console.log(favoritesAlbums)
        
         setFavoritesAlbums(favoritesAlbums)
         setFavoritesSongs(favoritesSongs)
-        setFavoritesPlaylists(favoritesPlaylists)
+        setFavoritesArtists(favoritesArtists)
 
         setTimeout(function () {
           setLoading(false)
@@ -91,7 +91,7 @@ export default function Favory() {
                   <TableCell>{favory.title}</TableCell>
                   <TableCell>{favory.duration}</TableCell>
                   <TableCell>
-                    <IconButton aria-label="Supprimer un favori" onClick={() => console.log('todo')}>
+                    <IconButton aria-label="Supprimer un favori" onClick={() =>favoryService.deleteFavorite(favory.id)}>
                       <Delete />
                     </IconButton>
                   </TableCell>
@@ -113,7 +113,7 @@ export default function Favory() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {favoritesPlaylists.map((favory) => (
+              {favoritesArtists.map((favory) => (
                 <TableRow key={favory.name}>
                   <TableCell>{favory.name}</TableCell>
                   <TableCell>{favory.artist}</TableCell>
