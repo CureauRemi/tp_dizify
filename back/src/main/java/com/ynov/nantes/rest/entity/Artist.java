@@ -22,6 +22,7 @@ public class Artist {
     
     private String image_artist;
 
+    @JsonIgnore
     @OneToMany(targetEntity = Album.class, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Album> albums;
 

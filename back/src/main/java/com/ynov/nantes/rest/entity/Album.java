@@ -3,7 +3,9 @@ package com.ynov.nantes.rest.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.aspectj.lang.annotation.Before;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,7 +33,7 @@ public class Album {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Song> songs;
 
-
+    @JsonIgnore
     @ManyToOne(targetEntity = Artist.class, fetch = FetchType.EAGER)
     private Artist artist;
     

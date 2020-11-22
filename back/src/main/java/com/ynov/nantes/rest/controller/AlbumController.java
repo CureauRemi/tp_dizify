@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.ynov.nantes.rest.entity.Artist;
-import com.ynov.nantes.rest.entity.dto.album.AddAlbumDto;
-import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
-import com.ynov.nantes.rest.entity.dto.album.AlbumNonBasicDto;
-import com.ynov.nantes.rest.entity.dto.album.getAlbumDto;
+import com.ynov.nantes.rest.entity.dto.album.*;
 import com.ynov.nantes.rest.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,14 +49,14 @@ public class AlbumController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @PostMapping
-    public Album addAlbum(@RequestBody AddAlbumDto album) {
+    public AlbumDto addAlbum(@RequestBody AddAlbumDto album) {
         return albumService.addAlbum(album);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @PutMapping
-    public Album updateAlbum(@RequestBody Album album) {
+    public AlbumDto updateAlbum(@RequestBody UpdateAlbumDto album) {
             return albumService.updateAlbum(album);
     }
 

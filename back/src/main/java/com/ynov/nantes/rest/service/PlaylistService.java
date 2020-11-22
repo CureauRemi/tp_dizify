@@ -3,7 +3,7 @@ package com.ynov.nantes.rest.service;
 import com.ynov.nantes.rest.entity.Playlist;
 import com.ynov.nantes.rest.entity.Utilisateur;
 import com.ynov.nantes.rest.entity.dto.playlist.PlaylistDto;
-import com.ynov.nantes.rest.entity.dto.playlist.getPlaylistDto;
+import com.ynov.nantes.rest.entity.dto.playlist.GetPlaylistDto;
 import com.ynov.nantes.rest.exception.playlist.PlaylistErrorException;
 import com.ynov.nantes.rest.exception.playlist.PlaylistNotFoundException;
 import com.ynov.nantes.rest.repository.PlaylistRepository;
@@ -24,10 +24,10 @@ public class PlaylistService {
     UserService userService;
 
 
-    public Page<getPlaylistDto> getAllPlaylist(Integer page, Integer limit) {
+    public Page<GetPlaylistDto> getAllPlaylist(Integer page, Integer limit) {
         try {
             PageRequest pageRequest = PageRequest.of(page, limit);
-            return playlistRepository.findAll(pageRequest).map(getPlaylistDto::new);
+            return playlistRepository.findAll(pageRequest).map(GetPlaylistDto::new);
         } catch (Exception e) {
             throw new PlaylistErrorException(e.getMessage());
         }
@@ -50,15 +50,17 @@ public class PlaylistService {
     }
 
 
-    public Playlist addAPlaylist(Playlist playlist) {
-        try{
-            Utilisateur currentUser = userService.getCurrentUser();
-            playlist.setUser(currentUser);
-            return playlistRepository.save(playlist);
-        } catch (Exception e) {
-            throw new PlaylistErrorException(e.getMessage() + " - cause : " + e.getCause());
-        }
-    }
+   // public Playlist addAPlaylist(AddPlaylistDto playlist) {
+   //     try{
+   //         Utilisateur currentUser = userService.getCurrentUser();
+   //         Playlist newPlaylist = new Playlist();
+   //         newPlaylist.setUser(currentUser);
+   //         newPlaylist.setName(playlist.getName());
+   //         return playlistRepository.save(newPlaylist);
+   //     } catch (Exception e) {
+   //         throw new PlaylistErrorException(e.getMessage() + " - cause : " + e.getCause());
+   //     }
+    // }
 
     public Playlist updatePlaylist(Playlist playlist) {
         try{
@@ -76,4 +78,6 @@ public class PlaylistService {
             throw new PlaylistErrorException(e.getMessage() + " - cause : " + e.getCause());
         }
     }
+
+
 }
