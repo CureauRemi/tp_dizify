@@ -53,7 +53,7 @@ mvn clean install
 
 ## Service
 /etc/systemd/system/dizifyback.service
-````bash
+```bash
 [Unit]
 Description=Dizify Rest server
 After=syslog.target
@@ -67,6 +67,7 @@ WantedBy=multi-user.target
 ```
 
 ## LAUNCH 
+```bash
 systemctl start dizifyback
-
+```
 
