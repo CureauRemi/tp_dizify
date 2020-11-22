@@ -87,9 +87,9 @@ export default function Favory() {
             </TableHead>
             <TableBody>
               {favoritesSongs.map((favory) => (
-                <TableRow key={favory.name}>
-                  <TableCell>{favory.name}</TableCell>
-                  <TableCell>{favory.artist}</TableCell>
+                <TableRow key={favory.title}>
+                  <TableCell>{favory.title}</TableCell>
+                  <TableCell>{favory.duration}</TableCell>
                   <TableCell>
                     <IconButton aria-label="Supprimer un favori" onClick={() => console.log('todo')}>
                       <Delete />
