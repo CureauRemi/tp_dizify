@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,17 +30,26 @@ public class AlbumService {
     AlbumMapper albumMapper;
 
 
-    public AlbumDto addAlbum(AddAlbumDto newAlbum) {
-        Artist artistFound = artistRepository.findOneByName(newAlbum.getArtist_name());
-        if(artistFound != null) {
-            Album albumToInsert = new Album();
-            albumToInsert.setArtist(artistFound);
-            albumToInsert.setName(newAlbum.getName());
-            albumToInsert.setImage_album(newAlbum.getImage_album());
-            albumToInsert.setRelease_year(newAlbum.getRelease_year());
-            albumToInsert.setSongs(null);
-            return new AlbumDto(albumRepository.save(albumToInsert));
-        } else {
+    public Album addAlbum(AddAlbumDto newAlbum) {
+        try{
+            Album albumToAdd = new Album();
+            Artist artistToInsert = artistRepository.findOneByName(newAlbum.getArtist_name());
+            if(artistToInsert != null) {
+                albumToAdd.setName(newAlbum.getName());
+                albumToAdd.setRelease_year(newAlbum.getRelease_year());
+                albumToAdd.setImage_album(newAlbum.getImage_album());
+                albumToAdd.setArtist(artistToInsert);
+
+                Album inserted = albumRepository.save(albumToAdd);
+                Set<Album> toInsert = new HashSet<>();
+                toInsert.add(inserted);
+                artistToInsert.setAlbums(toInsert);
+                artistRepository.save(artistToInsert);
+                return inserted;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
             throw new AlbumErrorException("There was an error during the creation of the album");
         }
     }

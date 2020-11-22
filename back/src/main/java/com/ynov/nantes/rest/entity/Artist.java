@@ -26,6 +26,9 @@ public class Artist {
     @OneToMany(targetEntity = Album.class, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Album> albums;
 
+    public Artist() { }
+
+
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
     // -------------------------------------------------

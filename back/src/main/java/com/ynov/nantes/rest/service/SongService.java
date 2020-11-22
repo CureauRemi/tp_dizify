@@ -1,9 +1,14 @@
 package com.ynov.nantes.rest.service;
 
+import com.ynov.nantes.rest.entity.Album;
+import com.ynov.nantes.rest.entity.Artist;
 import com.ynov.nantes.rest.entity.Song;
+import com.ynov.nantes.rest.entity.dto.song.AddSongDto;
 import com.ynov.nantes.rest.entity.dto.song.SongDto;
 import com.ynov.nantes.rest.exception.song.SongErrorException;
 import com.ynov.nantes.rest.exception.song.SongNotFoundException;
+import com.ynov.nantes.rest.repository.AlbumRepository;
+import com.ynov.nantes.rest.repository.ArtistRepository;
 import com.ynov.nantes.rest.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,12 +18,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SongService {
 
     @Autowired
     SongRepository songRepository;
+    @Autowired
+    AlbumRepository albumRepository;
+    @Autowired
+    ArtistRepository artistRepository;
+
+
 
     public List<SongDto> getSongByTitle(String name) {
         try {
@@ -52,11 +64,24 @@ public class SongService {
         }
     }
 
-    public Song addSong(Song song) {
+    public Song addSong(AddSongDto song) {
         try {
-            return songRepository.save(song);
+            Song newSong = new Song();
+            Album albumToInsert = albumRepository.getByName(song.getAlbum_name());
+            Artist artistToInsert = artistRepository.findOneByName(song.getAlbum_name());
+            newSong.setAlbum(albumToInsert);
+            newSong.setArtist(artistToInsert);
+            newSong.setTitle(song.getTitle());
+            newSong.setDuration(song.getDuration());
+            newSong.setImage_song(song.getImage_song());
+            Song inserted = songRepository.save(newSong);
+            List<Song> songsInAlbum = albumToInsert.getSongs();
+            songsInAlbum.add(inserted);
+            albumToInsert.setSongs(songsInAlbum);
+            albumRepository.save(albumToInsert);
+            return inserted;
         } catch (Exception e) {
-            throw  new SongNotFoundException();
+            throw  new SongErrorException(e.getMessage());
         }
     }
 

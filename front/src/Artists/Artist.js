@@ -96,7 +96,7 @@ export default function Artist() {
               <Card className={classes.card} key={album.name} component={Link} to={"/album/"+album.id}>
                 {album.image_album != null &&
                   <CardMedia
-                    image={process.env.PUBLIC_URL + '/img/' +album.image_album} 
+                    image={process.env.PUBLIC_URL + '/img/' +album.image_album}
                     title={album.name}
                     style={{ height: '140px', width: '140px', 'margin-top': '5px', 'margin-left': 'auto', 'margin-right': 'auto'}}
                   />
@@ -104,7 +104,7 @@ export default function Artist() {
                 {album.image_album == null &&
                   //<Avatar className={classes.avatar}>{album.name.substring(0,1)}</Avatar>
                   <CardMedia
-                    image={process.env.PUBLIC_URL + '/img/default_album.jpg'} 
+                    image={process.env.PUBLIC_URL + '/img/default_album.jpg'}
                     title={album.name}
                     style={{ height: '140px', width: '140px', 'margin-top': '5px', 'margin-left': 'auto', 'margin-right': 'auto'}}
                   />

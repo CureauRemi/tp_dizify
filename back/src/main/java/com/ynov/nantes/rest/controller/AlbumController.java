@@ -49,7 +49,7 @@ public class AlbumController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @PostMapping
-    public AlbumDto addAlbum(@RequestBody AddAlbumDto album) {
+    public Album addAlbum(@RequestBody AddAlbumDto album) {
         return albumService.addAlbum(album);
     }
 

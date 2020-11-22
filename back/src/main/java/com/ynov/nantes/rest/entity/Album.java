@@ -36,7 +36,10 @@ public class Album {
     @JsonIgnore
     @ManyToOne(targetEntity = Artist.class, fetch = FetchType.EAGER)
     private Artist artist;
-    
+
+    public Album() { }
+
+
     // -------------------------------------------------
     //                  GETTERS AND SETTERS
     // -------------------------------------------------

@@ -1,6 +1,7 @@
 package com.ynov.nantes.rest.service;
 
 import com.ynov.nantes.rest.entity.Artist;
+import com.ynov.nantes.rest.entity.dto.artist.ArtistBasicDto;
 import com.ynov.nantes.rest.entity.dto.artist.ArtistDto;
 import com.ynov.nantes.rest.entity.dto.artist.getArtistDto;
 import com.ynov.nantes.rest.exception.artist.ArtistErrorException;
@@ -24,13 +25,9 @@ public class ArtistService {
     AlbumRepository albumRepository;
 
 
-    public Artist addArtist(ArtistDto artist) {
+    public Artist addArtist(Artist artist) {
         try {
-            Artist artistToAdd = new Artist();
-            artistToAdd.setAlias(artist.getAlias());
-            artistToAdd.setImage_artist(artist.getImage_artist());
-            artistToAdd.setAlbums(null);
-            return artistRepository.save(artistToAdd);
+            return artistRepository.save(artist);
         } catch (Exception e) {
             throw new ArtistErrorException(e.getMessage());
         }
