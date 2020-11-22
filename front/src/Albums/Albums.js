@@ -91,7 +91,6 @@ export default function Albums() {
                     <Delete />
                   </IconButton>
                   <IconButton aria-label="favori album" onClick={() => {favoryService.addFavorite("album", album.id)
-
                     }}>
                     <Star />
                   </IconButton>

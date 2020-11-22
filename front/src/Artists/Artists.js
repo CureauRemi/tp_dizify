@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Box, CircularProgress, Fab, IconButton, Snackbar } from '@material-ui/core'
 import { Card, CardContent, CardMedia, Typography, Grid, makeStyles, Avatar} from '@material-ui/core'
-import { Add, Delete, Edit } from '@material-ui/icons'
+import { Add, Delete, Edit, Star } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
 import { Link } from "react-router-dom";
 
@@ -10,6 +10,7 @@ import DialogAddArtist from './DialogAddArtist'
 import DialogDeleteArtist from './DialogDeleteArtist'
 import DialogUpdateArtist from './DialogUpdateArtist'
 import artistService from '../lib/artistService'
+import favoryService from '../lib/favoryService'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,6 +61,7 @@ export default function Artists() {
     try {
       let artists = []
       artists = await artistService.getAll();
+      console.log(artists)
       setArtists(artists)
       setTimeout(function () {
         setLoading(false)
@@ -76,37 +78,6 @@ export default function Artists() {
       {loading ? (
         <CircularProgress />
       ) : (
-        // <Table size="small">
-        //   <TableHead>
-        //     <TableRow>
-        //       <TableCell>Nom</TableCell>
-        //       <TableCell></TableCell>
-        //       <TableCell/>
-        //     </TableRow>
-        //   </TableHead>
-        //   <TableBody>
-            // {artists.map((artist) => (
-        //       <TableRow key={artist.alias}>
-        //         <TableCell>{artist.alias}</TableCell>
-        //         <TableCell><img src={artist.image_artist}/></TableCell>
-        //         <TableCell>
-        //           <IconButton aria-label="Modifier un artiste" onClick={() => {
-        //             setArtistUpdate(artist)
-        //             setOpenUpdateDialog(true)
-        //             }}>
-        //             <Edit />
-        //           </IconButton>
-        //           <IconButton aria-label="Supprimer un artiste" onClick={() => {
-        //             setArtistDeleted(artist)
-        //             setOpenDeleteDialog(true)
-        //             }}>
-        //             <Delete />
-        //           </IconButton>
-        //         </TableCell>
-        //       </TableRow>
-        //     ))}
-        //   </TableBody>
-        // </Table>
         <Grid
           container
           spacing={2}
@@ -117,24 +88,23 @@ export default function Artists() {
         >
           {artists.map((artist) => (
             <Grid item xs={12} sm={6} md={3} key={artists.indexOf(artist)}>
-              <Card className={classes.card} key={artist.alias} component={Link} to={"/artist/"+artist.id}>
+              <Card className={classes.card} key={artist.alias}>
                     {artist.image_artist !== null &&
-                  <CardMedia
+                  <CardMedia component={Link} to={"/artist/"+artist.id}
                     image={process.env.PUBLIC_URL + '/img/'+ artist.image_artist}        
                     title={artist.alias}
                     style={{ height: '200px', width: '200px', 'border-radius': '100px', 'margin-top': '5px', 'margin-left': 'auto', 'margin-right': 'auto'}}
                   />
                 }
                 {artist.image_artist == null &&
-                  <Avatar className={classes.avatar}>{artist.alias.substring(0,1)}</Avatar>
+                  <Avatar component={Link} to={"/artist/"+artist.id} className={classes.avatar}>{artist.alias.substring(0,1)}</Avatar>
                 }
                 <div>
                   <CardContent>
-                    <Typography style={{ 'text-align': 'center', 'font-weight': 'bold'}}>
+                    <Typography component={Link} to={"/artist/"+artist.id} style={{'text-align': 'center', 'font-weight': 'bold'}}>
                       {artist.alias}
                     </Typography>
                   </CardContent>
-                  {isAdmin !== false && 
                     <div>
                       <IconButton aria-label="Modifier un artiste" onClick={() => {
                         setArtistUpdate(artist)
@@ -148,8 +118,12 @@ export default function Artists() {
                         }}>
                         <Delete />
                       </IconButton>
+                      <IconButton aria-label="favori artist" onClick={() => {
+                        favoryService.addFavorite("artist", artist.id)
+                      }}>
+                      <Star />
+                      </IconButton>
                     </div>
-                  }
                 </div>
               </Card>
             </Grid>
