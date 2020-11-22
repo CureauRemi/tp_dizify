@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.ynov.nantes.rest.entity.Artist;
+import com.ynov.nantes.rest.entity.dto.album.AddAlbumDto;
 import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
 import com.ynov.nantes.rest.entity.dto.album.AlbumNonBasicDto;
 import com.ynov.nantes.rest.entity.dto.album.getAlbumDto;
@@ -51,7 +52,7 @@ public class AlbumController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @PostMapping
-    public Album addAlbum(@RequestBody Album album) {
+    public Album addAlbum(@RequestBody AddAlbumDto album) {
         return albumService.addAlbum(album);
     }
 

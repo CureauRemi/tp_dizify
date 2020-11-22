@@ -14,5 +14,7 @@ public interface ArtistRepository extends PagingAndSortingRepository<Artist, Int
 
     Artist getById(Integer Id);
 
+    @Query("SELECT a FROM Artist a WHERE a.alias LIKE %:alias%")
+    Artist findOneByName(@Param("alias") String alias);
 
 }

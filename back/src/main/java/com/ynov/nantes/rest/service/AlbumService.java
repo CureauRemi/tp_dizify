@@ -2,6 +2,7 @@ package com.ynov.nantes.rest.service;
 
 import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.entity.Artist;
+import com.ynov.nantes.rest.entity.dto.album.AddAlbumDto;
 import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
 import com.ynov.nantes.rest.entity.dto.album.AlbumNonBasicDto;
 import com.ynov.nantes.rest.entity.dto.album.getAlbumDto;
@@ -30,8 +31,19 @@ public class AlbumService {
     AlbumMapper albumMapper;
 
 
-    public Album addAlbum(Album album) {
-        return albumRepository.save(album);
+    public Album addAlbum(AddAlbumDto newAlbum) {
+        Artist artistFound = artistRepository.findOneByName(newAlbum.getArtist_name());
+        if(artistFound != null) {
+            Album albumToInsert = new Album();
+            albumToInsert.setArtist(artistFound);
+            albumToInsert.setName(newAlbum.getName());
+            albumToInsert.setImage_album(newAlbum.getImage_album());
+            albumToInsert.setRelease_year(newAlbum.getRelease_year());
+            albumToInsert.setSongs(null);
+            return albumRepository.save(albumToInsert);
+        } else {
+            throw new AlbumErrorException("There was an error during the creation of the album");
+        }
     }
 
     public Album updateAlbum(Album album) {

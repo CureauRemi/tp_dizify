@@ -27,6 +27,7 @@ public class Album {
 
     private String image_album;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Song> songs;
 

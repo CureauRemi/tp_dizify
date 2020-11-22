@@ -22,6 +22,7 @@ public class Song {
 
     private String image_song;
 
+    @JsonIgnore
     @OneToOne(targetEntity = Album.class, fetch = FetchType.EAGER)
     private Album album;
 
