@@ -23,8 +23,8 @@ export default function Favory() {
         let favorites = await favoryService.getAll();
         let favoritesAlbums = favorites.favoriteAlbums;
         let favoritesSongs = favorites.favoriteSongs;
-        let favoritesArtists = favorites.favoritesArtists;
-        console.log(favoritesAlbums)
+        let favoritesArtists = favorites.favoriteArtists;
+        console.log(favoritesSongs)
        
         setFavoritesAlbums(favoritesAlbums)
         setFavoritesSongs(favoritesSongs)
@@ -63,7 +63,7 @@ export default function Favory() {
                   <TableCell>{favory.name}</TableCell>
                   <TableCell>{favory.release_year}</TableCell>
                   <TableCell>
-                    <IconButton aria-label="Supprimer un favori" onClick={() => console.log('todo')}>
+                    <IconButton aria-label="Supprimer un favori" onClick={() => favoryService.deleteFavorite("album",favory.id)}>
                       <Delete />
                     </IconButton>
                   </TableCell>
@@ -91,7 +91,7 @@ export default function Favory() {
                   <TableCell>{favory.title}</TableCell>
                   <TableCell>{favory.duration}</TableCell>
                   <TableCell>
-                    <IconButton aria-label="Supprimer un favori" onClick={() =>favoryService.deleteFavorite(favory.id)}>
+                    <IconButton aria-label="Supprimer un favori" onClick={() =>favoryService.deleteFavorite("song",favory.id)}>
                       <Delete />
                     </IconButton>
                   </TableCell>
@@ -118,7 +118,7 @@ export default function Favory() {
                   <TableCell>{favory.name}</TableCell>
                   <TableCell>{favory.artist}</TableCell>
                   <TableCell>
-                    <IconButton aria-label="Supprimer un favori" onClick={() => console.log('todo')}>
+                    <IconButton aria-label="Supprimer un favori" onClick={() => favoryService.deleteFavorite("artist",favory.id)}>
                       <Delete />
                     </IconButton>
                   </TableCell>

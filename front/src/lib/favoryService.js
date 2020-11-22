@@ -29,7 +29,7 @@ class FavoryService {
 
     async deleteFavorite(root,id) {
         const token = localStorage.getItem('token') 
-        return axios.delete(`favorite/delete/${root}`,id,{headers:{
+        return axios.delete(`favorite/delete/${root}/${id}`,{headers:{
             'Authorization': `Bearer ${token}` 
         }});
     }
