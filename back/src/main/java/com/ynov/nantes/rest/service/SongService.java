@@ -68,18 +68,24 @@ public class SongService {
         try {
             Song newSong = new Song();
             Album albumToInsert = albumRepository.getByName(song.getAlbum_name());
-            Artist artistToInsert = artistRepository.findOneByName(song.getAlbum_name());
-            newSong.setAlbum(albumToInsert);
-            newSong.setArtist(artistToInsert);
-            newSong.setTitle(song.getTitle());
-            newSong.setDuration(song.getDuration());
-            newSong.setImage_song(song.getImage_song());
-            Song inserted = songRepository.save(newSong);
-            List<Song> songsInAlbum = albumToInsert.getSongs();
-            songsInAlbum.add(inserted);
-            albumToInsert.setSongs(songsInAlbum);
-            albumRepository.save(albumToInsert);
-            return inserted;
+            Artist artistToInsert = artistRepository.findOneByName(song.getArtist_name());
+            System.out.println(albumToInsert);
+            System.out.println(artistToInsert);
+            if(albumToInsert != null && artistToInsert != null) {
+                newSong.setAlbum(albumToInsert);
+                newSong.setArtist(artistToInsert);
+                newSong.setTitle(song.getTitle());
+                newSong.setDuration(song.getDuration());
+                newSong.setImage_song(song.getImage_song());
+                Song inserted = songRepository.save(newSong);
+                List<Song> songsInAlbum = albumToInsert.getSongs();
+                songsInAlbum.add(inserted);
+                albumToInsert.setSongs(songsInAlbum);
+                albumRepository.save(albumToInsert);
+                return inserted;
+            } else {
+                return null;
+            }
         } catch (Exception e) {
             throw  new SongErrorException(e.getMessage());
         }
