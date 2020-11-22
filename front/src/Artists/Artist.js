@@ -9,7 +9,6 @@ import Title from '../components/Title'
 import DialogAddArtist from './DialogAddArtist'
 import DialogDeleteAlbum from '../Albums/DialogDeleteAlbum'
 import DialogUpdateAlbum from '../Albums/DialogUpdateAlbum'
-import albumService from '../lib/albumService'
 import artistService from '../lib/artistService'
 
 const useStyles = makeStyles((theme) => ({
@@ -53,11 +52,9 @@ export default function Artist() {
 
   const init = async () => {
     try {
-      let albums = [];
       let artist = []
-      albums = await albumService.getAll();
       artist = await artistService.getOne(id);
-      setAlbums(albums)
+      setAlbums(artist.albums)
       setArtist(artist)
       setTimeout(function () {
         setLoading(false)
@@ -99,7 +96,7 @@ export default function Artist() {
               <Card className={classes.card} key={album.name} component={Link} to={"/album/"+album.id}>
                 {album.image_album != null &&
                   <CardMedia
-                    image={process.env.PUBLIC_URL + album.image_album} 
+                    image={process.env.PUBLIC_URL + '/img/' +album.image_album} 
                     title={album.name}
                     style={{ height: '140px', width: '140px', 'margin-top': '5px', 'margin-left': 'auto', 'margin-right': 'auto'}}
                   />
@@ -107,7 +104,7 @@ export default function Artist() {
                 {album.image_album == null &&
                   //<Avatar className={classes.avatar}>{album.name.substring(0,1)}</Avatar>
                   <CardMedia
-                    image={process.env.PUBLIC_URL + '/img/défault_album.jpg'} 
+                    image={process.env.PUBLIC_URL + '/img/default_album.jpg'} 
                     title={album.name}
                     style={{ height: '140px', width: '140px', 'margin-top': '5px', 'margin-left': 'auto', 'margin-right': 'auto'}}
                   />
