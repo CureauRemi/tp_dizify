@@ -36,7 +36,7 @@ Build the app on the path '/'
 You need to change the field homepage in the package.json to change the path
 for example : 'http://localhost/dizify/'
 
-#Back server (Debian)
+# Back server (Debian)
 
 package installé:
 maven
