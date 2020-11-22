@@ -4,6 +4,7 @@ import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.entity.Artist;
 import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,9 +24,13 @@ public class ArtistDto {
         this.alias = artist.getAlias();
         this.image_artist = artist.getImage_artist();
         if(artist.getAlbums() != null) {
+            List<AlbumDto> stock = new ArrayList<>();
             for(Album a: artist.getAlbums()){
-              this.albums.add(new AlbumDto(a));
+              stock.add(new AlbumDto(a));
             }
+            this.albums = stock;
+        } else {
+            this.albums = null;
         }
     }
 

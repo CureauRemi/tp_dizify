@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,10 +35,9 @@ public class AlbumService {
 
     public Album updateAlbum(Album album) {
         try{
-            Optional<Album> toUpdate = albumRepository.findById(album.getId());
-            Album al = toUpdate.get();
-            albumMapper.map(album, al);
-            return albumRepository.save(al);
+            Album toUpdate = albumRepository.getById(album.getId());
+            albumMapper.map(album, toUpdate);
+            return albumRepository.save(toUpdate);
         } catch (Exception e) {
             throw new AlbumNotFoundException(album.getId());
         }
@@ -59,13 +57,12 @@ public class AlbumService {
     }
 
     public List<Album> getAlbumsByTitle(String name) {
-        List<Album> albums = albumRepository.findByName(name);
-        return albums;
+        return albumRepository.findByName(name);
     }
 
     public Page<getAlbumDto> getAllAlbums(Integer page, Integer limit) {
         PageRequest paginationSize = PageRequest.of(page, limit);
-        return albumRepository.findAll(paginationSize).map(album -> new getAlbumDto(album));
+        return albumRepository.findAll(paginationSize).map(getAlbumDto::new);
     }
 
     public AlbumDto getById(Integer id) {

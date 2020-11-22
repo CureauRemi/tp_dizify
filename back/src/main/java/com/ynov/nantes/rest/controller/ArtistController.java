@@ -39,6 +39,7 @@ public class ArtistController {
         return artistService.getArtistsByTitle(name);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @GetMapping("/{id}")
     public ArtistDto getArtistById(final @PathVariable("id") Integer artistId) {
