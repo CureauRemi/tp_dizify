@@ -5,7 +5,6 @@ import com.ynov.nantes.rest.entity.dto.artist.ArtistDto;
 import com.ynov.nantes.rest.entity.dto.artist.getArtistDto;
 import com.ynov.nantes.rest.exception.artist.ArtistErrorException;
 import com.ynov.nantes.rest.exception.artist.ArtistNotFoundException;
-import com.ynov.nantes.rest.repository.AlbumRepository;
 import com.ynov.nantes.rest.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +19,6 @@ public class ArtistService {
 
     @Autowired
     ArtistRepository artistRepository;
-    @Autowired
-    AlbumRepository albumRepository;
 
 
     public Artist addArtist(ArtistDto artist) {
