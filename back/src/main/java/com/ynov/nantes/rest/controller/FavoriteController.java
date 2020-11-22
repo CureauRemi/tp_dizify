@@ -5,6 +5,7 @@ import com.ynov.nantes.rest.service.FavoriteService;
 import com.ynov.nantes.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,6 +47,12 @@ public class FavoriteController {
     @PostMapping("add/playlist/{id}")
     public Favorite addFavoriteArtist(@PathVariable("id") Integer playlistId) {
         return favoriteService.addFavoritePlaylistToUser(playlistId) ;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("{id}")
+    public HttpStatus deleteFavorite(@PathVariable("id") Integer id){
+        return favoriteService.deleteFavorite(id);
     }
 
 }

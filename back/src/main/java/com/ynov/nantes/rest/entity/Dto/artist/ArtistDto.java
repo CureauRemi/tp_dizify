@@ -6,7 +6,6 @@ import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class ArtistDto {
 

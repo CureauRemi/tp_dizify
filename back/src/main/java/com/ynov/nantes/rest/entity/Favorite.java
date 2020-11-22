@@ -1,5 +1,7 @@
 package com.ynov.nantes.rest.entity;
 
+import org.hibernate.engine.spi.CascadeStyle;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -16,14 +18,14 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany(targetEntity = Song.class, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Song.class, fetch = FetchType.EAGER,  cascade = CascadeType.REMOVE)
     private Set<Song> favoriteSongs;
 
-    @OneToMany(targetEntity = Album.class, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Album.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Album> favoriteAlbums;
 
-    @OneToMany(targetEntity = Playlist.class, fetch = FetchType.EAGER)
-    private Set<Playlist> favoritePlaylist;
+    @OneToMany(targetEntity = Artist.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<Artist> favoriteArtist;
 
     @ManyToOne(targetEntity = Utilisateur.class)
     private Utilisateur user;
@@ -54,12 +56,12 @@ public class Favorite {
         this.favoriteAlbums = favoriteAlbums;
     }
 
-    public Set<Playlist> getFavoritePlaylists() {
-        return favoritePlaylist;
+    public Set<Artist> getFavoriteArtists() {
+        return favoriteArtist;
     }
 
-    public void setFavoritePlaylists(Set<Playlist> favoritePlaylist) {
-        this.favoritePlaylist = favoritePlaylist;
+    public void setFavoriteArtists(Set<Artist> favoriteArtist) {
+        this.favoriteArtist = favoriteArtist;
     }
 
     public Utilisateur getUser() {

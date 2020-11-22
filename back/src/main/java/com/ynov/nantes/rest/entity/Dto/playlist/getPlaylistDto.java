@@ -10,7 +10,7 @@ import com.ynov.nantes.rest.entity.dto.utilisateur.UtilisateurDto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class getPlaylistDto {
+public class GetPlaylistDto {
 
     private Integer id;
 
@@ -20,7 +20,7 @@ public class getPlaylistDto {
 
     private UtilisateurDto user;
 
-    public getPlaylistDto(Playlist playlist) {
+    public GetPlaylistDto(Playlist playlist) {
         this.id = playlist.getId();
         this.name = playlist.getName();
         if(playlist.getUser() != null) {
