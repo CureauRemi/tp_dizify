@@ -13,7 +13,7 @@ public class Favorite {
     // -------------------------------------------------
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @OneToMany(targetEntity = Song.class, fetch = FetchType.EAGER)

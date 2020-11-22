@@ -3,6 +3,7 @@ package com.ynov.nantes.rest.service;
 import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.entity.Artist;
 import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
+import com.ynov.nantes.rest.entity.dto.album.AlbumNonBasicDto;
 import com.ynov.nantes.rest.entity.dto.album.getAlbumDto;
 import com.ynov.nantes.rest.entity.mapper.AlbumMapper;
 import com.ynov.nantes.rest.exception.album.AlbumErrorException;
@@ -65,9 +66,9 @@ public class AlbumService {
         return albumRepository.findAll(paginationSize).map(getAlbumDto::new);
     }
 
-    public AlbumDto getById(Integer id) {
+    public AlbumNonBasicDto getById(Integer id) {
         try {
-            return new AlbumDto(albumRepository.getById(id));
+            return new AlbumNonBasicDto(albumRepository.getById(id));
         } catch (Exception e) {
             throw new AlbumErrorException(e.getMessage());
         }

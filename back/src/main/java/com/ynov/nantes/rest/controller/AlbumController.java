@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.ynov.nantes.rest.entity.Artist;
 import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
+import com.ynov.nantes.rest.entity.dto.album.AlbumNonBasicDto;
 import com.ynov.nantes.rest.entity.dto.album.getAlbumDto;
 import com.ynov.nantes.rest.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class AlbumController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     @GetMapping("/{id}")
-    public AlbumDto getAlbumById(final @PathVariable("id") Integer albumId) {
+    public AlbumNonBasicDto getAlbumById(final @PathVariable("id") Integer albumId) {
         return albumService.getById(albumId);
     }
 
