@@ -1,5 +1,5 @@
 const axios = require('axios');
-axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.baseURL = 'http://51.91.58.213:8080/';
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 

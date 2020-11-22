@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/dizify/static/js/main.09a08558.chunk.js",
+    "main.js.map": "/dizify/static/js/main.09a08558.chunk.js.map",
+    "runtime-main.js": "/dizify/static/js/runtime-main.af245dc0.js",
+    "runtime-main.js.map": "/dizify/static/js/runtime-main.af245dc0.js.map",
+    "static/js/2.af8c3550.chunk.js": "/dizify/static/js/2.af8c3550.chunk.js",
+    "static/js/2.af8c3550.chunk.js.map": "/dizify/static/js/2.af8c3550.chunk.js.map",
+    "index.html": "/dizify/index.html",
+    "static/js/2.af8c3550.chunk.js.LICENSE.txt": "/dizify/static/js/2.af8c3550.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.af245dc0.js",
+    "static/js/2.af8c3550.chunk.js",
+    "static/js/main.09a08558.chunk.js"
+  ]
+}

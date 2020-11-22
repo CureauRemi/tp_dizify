@@ -1,5 +1,6 @@
 {
   "name": "soap-react",
+  "homepage":"http://51.91.58.213/dizify/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
