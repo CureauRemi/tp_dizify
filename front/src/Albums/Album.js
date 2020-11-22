@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box, CircularProgress, Fab, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow, Grid, Typography } from '@material-ui/core'
-import { Add, Delete, Edit, Star } from '@material-ui/icons'
+import { Add, Delete, Edit, Star, QueueMusic } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
 import { useParams, Link } from "react-router-dom";
 
@@ -8,8 +8,10 @@ import Title from '../components/Title'
 import DialogAddSong from './DialogAddSong'
 import DialogUpdateSong from './DialogUpdateSong'
 import DialogDeleteSong from './DialogDeleteSong'
+import DialogAddSongToPlaylist from './DialogAddSongToPlaylist'
 import AlbumService from '../lib/albumService'
 import favoryService from '../lib/favoryService'
+import playlistService from '../lib/playlistService'
 
 
 export default function Album() {
@@ -23,6 +25,8 @@ export default function Album() {
   const [openUpdateDialog, setOpenUpdateDialog] = useState(false)
   const [songUpdate, setSongUpdate] = useState({})
   const [openAlert, setOpenAlert] = useState(false)
+  const [openAddSongToPlaylist, setOpenAddSongToPlaylist] = useState(false)
+  
   let { id } = useParams();
 
   useEffect(() => {
@@ -106,6 +110,9 @@ export default function Album() {
                   <IconButton aria-label="ajout au favori" onClick={() => {favoryService.addFavorite("song", song.id)}}>
                     <Star />
                   </IconButton>
+                  <IconButton aria-label="ajout a la playlist" onClick={() => setOpenAddSongToPlaylist(true)}>
+                    <QueueMusic />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
@@ -149,6 +156,17 @@ export default function Album() {
           handleClose={() => setOpenDeleteDialog(false)}
           reload={() => {
             setOpenDeleteDialog(false)
+            init()
+          }}
+        />
+      )}
+       {/* Add song to playlist */}
+       {openAddSongToPlaylist && (
+        <DialogAddSongToPlaylist
+          open={openAddSongToPlaylist}
+          handleClose={() => setOpenAddSongToPlaylist(false)}
+          reload={() => {
+            setOpenAddSongToPlaylist(false)
             init()
           }}
         />
