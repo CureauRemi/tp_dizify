@@ -2,6 +2,7 @@ package com.ynov.nantes.rest.entity.dto.album;
 
 import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.entity.Song;
+import com.ynov.nantes.rest.entity.dto.artist.ArtistBasicDto;
 import com.ynov.nantes.rest.entity.dto.song.SongBasicDto;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class AlbumNonBasicDto {
 
     private List<SongBasicDto> songs;
 
+    private ArtistBasicDto artist;
+
     public AlbumNonBasicDto(Album album) {
         this.id = album.getId();
         this.name = album.getName();
@@ -30,6 +33,9 @@ public class AlbumNonBasicDto {
                 stock.add(new SongBasicDto(s));
             }
             this.songs = stock;
+        }
+        if(album.getArtist() != null) {
+            this.artist = new ArtistBasicDto(album.getArtist());
         }
     }
 
@@ -71,5 +77,13 @@ public class AlbumNonBasicDto {
 
     public void setSongs(List<SongBasicDto> songs) {
         this.songs = songs;
+    }
+
+    public ArtistBasicDto getArtist() {
+        return artist;
+    }
+
+    public void setArtist(ArtistBasicDto artist) {
+        this.artist = artist;
     }
 }
