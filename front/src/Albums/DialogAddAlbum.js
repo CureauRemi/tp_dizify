@@ -6,16 +6,16 @@ export default function DialogAddAlbum({ open, handleClose, reload }) {
   const [name, setName] = useState('')
   const [image_album, setImage_Album] = useState('')
   const [year, setYear] = useState('')
-  const [artistId, setArtistId] = useState('')
+  const [artistName, setArtistName] = useState('')
 
   const addAlbum = async () => {
-    if (name === '' || year === '' || artistId === '') {
+    if (name === '' || year === '' || artistName === '') {
       return
     } else if (image_album === ''){
       setImage_Album(null)
     }
 
-    await AlbumService.add({name: name, image_album: image_album, release_year: year, artist_id: artistId})
+    await AlbumService.add({name: name, image_album: image_album, release_year: year, artist_name: artistName})
     reload()
   }
 
@@ -26,24 +26,8 @@ export default function DialogAddAlbum({ open, handleClose, reload }) {
         <DialogContentText>Pour ajouter un album, veuillez saisir les champs demandés</DialogContentText>
         <TextField autoFocus margin="dense" id="name" label="Nom" fullWidth onChange={(e) => setName(e.target.value)} required />
         <TextField margin="dense" id="image_album" label="Couverture" fullWidth onChange={(e) => setImage_Album(e.target.value)}/>
-        <TextField
-          margin="dense"
-          id="year"
-          label="Année de sortie"
-          type="number"
-          fullWidth
-          onChange={(e) => setYear(e.target.value)}
-          required
-        />
-        <TextField
-          margin="dense"
-          id="artistId"
-          label="Artist ID"
-          type="number"
-          fullWidth
-          onChange={(e) => setArtistId(e.target.value)}
-          required
-        />
+        <TextField margin="dense" id="year" label="Année de sortie" type="number" fullWidth onChange={(e) => setYear(e.target.value)} required/>
+        <TextField margin="dense" id="artistName" label="Nom de l'artiste" type="string" fullWidth onChange={(e) => setArtistName(e.target.value)} required/>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">

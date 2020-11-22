@@ -1,22 +1,47 @@
 import React, { useState } from 'react'
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core'
 import AlbumService from '../lib/albumService'
+import { ContactsOutlined } from '@material-ui/icons'
 
 export default function DialogUpdateAlbum({ open, handleClose, reload, album }) {
   const [name, setName] = useState('')
   const [image_album, setImage_Album] = useState('')
   const [year, setYear] = useState('') 
-  const [artistId, setArtistId] = useState('')
+  const [artistName, setArtistName] = useState('')
 
 
   const updateAlbum = async () => {
-    if (name === '' || year === '' || artistId === '') {
-      return
-    } else if (image_album === ''){
-      setImage_Album(null)
+    // if (album.name === '' || album.year === '' || album.artist.alias === '') {
+    //   return
+    // } else if (image_album === ''){
+    //   setImage_Album(null)
+    // }
+    let res = {}
+    res.id = album.id
+    if(name ===''){
+      res.name = album.name
+    }else{
+      res.name = name
     }
+    if(image_album === ""){
+      res.image_album = album.image_album
+    }else{
+      res.image_album = image_album
+    }
+    console.log(year)
+    if(year === null){
+      res.year = album.release_year
+    }else{
+      res.year = year
+    }
+    if(artistName === ""){
+      res.artistName = album.artist.alias
+    }else{
+      res.artistName = artistName
+    }
+    console.log(res)
     
-    await AlbumService.update({id: album.id, name: name, image_album: image_album, release_year: year})
+    await AlbumService.update(res)
     reload()
   }
 
@@ -26,26 +51,8 @@ export default function DialogUpdateAlbum({ open, handleClose, reload, album }) 
       <DialogContent>
         <TextField autoFocus margin="dense" id="name" label="Nom" defaultValue={album.name} fullWidth onChange={(e) => setName(e.target.value)} required />
         <TextField margin="dense" id="image_album" label="Couverture" fullWidth defaultValue={album.image_album} onChange={(e) => setImage_Album(e.target.value)}/>
-        <TextField
-          margin="dense"
-          id="year"
-          label="Année de sortie"
-          type="number"
-          fullWidth
-          defaultValue={album.release_year}
-          onChange={(e) => setYear(e.target.value)}
-          required
-        />
-        <TextField
-          margin="dense"
-          id="artistId"
-          label="Artist ID"
-          type="number"
-          fullWidth
-          defaultValue={album.artist_id}
-          onChange={(e) => setArtistId(e.target.value)}
-          required
-        />
+        <TextField margin="dense" id="year" label="Année de sortie" type="number" fullWidth defaultValue={album.release_year} onChange={(e) => setYear(e.target.value)} required/>
+        <TextField margin="dense" id="artistName" label="Nom de l'artiste" type="string" fullWidth defaultValue={album.artist.alias} onChange={(e) => setArtistName(e.target.value)} required/>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">

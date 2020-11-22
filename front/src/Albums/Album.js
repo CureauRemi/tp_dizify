@@ -121,6 +121,7 @@ export default function Album() {
       {openAddDialog && (
         <DialogAddSong
           open={openAddDialog}
+          album = {album}
           handleClose={() => setOpenAddDialog(false)}
           reload={() => {
             setOpenAddDialog(false)
