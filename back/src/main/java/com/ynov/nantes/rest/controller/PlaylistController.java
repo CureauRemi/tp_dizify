@@ -1,22 +1,17 @@
 package com.ynov.nantes.rest.controller;
 
-import com.ynov.nantes.rest.entity.Favorite;
+import com.ynov.nantes.rest.entity.Artist;
 import com.ynov.nantes.rest.entity.Playlist;
-import com.ynov.nantes.rest.entity.dto.artist.getArtistDto;
+import com.ynov.nantes.rest.entity.dto.playlist.AddPlaylistDto;
 import com.ynov.nantes.rest.entity.dto.playlist.PlaylistDto;
-import com.ynov.nantes.rest.entity.dto.playlist.getPlaylistDto;
-import com.ynov.nantes.rest.exception.playlist.PlaylistNotFoundException;
-import com.ynov.nantes.rest.repository.FavoriteRepository;
-import com.ynov.nantes.rest.repository.PlaylistRepository;
+import com.ynov.nantes.rest.entity.dto.playlist.GetPlaylistDto;
 import com.ynov.nantes.rest.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/playlist")
@@ -37,7 +32,7 @@ public class PlaylistController {
 
     @ResponseBody
     @GetMapping
-    public Page<getPlaylistDto> getPlaylists(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+    public Page<GetPlaylistDto> getPlaylists(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
         return playlistService.getAllPlaylist(page, limit);
     }
 
@@ -47,11 +42,11 @@ public class PlaylistController {
         return playlistService.getPlaylist(id);
     }
 
-    @ResponseBody
-    @PostMapping
-    public Playlist addPlaylist(@RequestBody Playlist playlist) {
-        return playlistService.addAPlaylist(playlist);
-    }
+    //@ResponseBody
+    //@PostMapping
+    //public Playlist addPlaylist(@RequestBody AddPlaylistDto playlist) {
+    //    return playlistService.addAPlaylist(playlist);
+    //}
 
     @ResponseBody
     @PutMapping

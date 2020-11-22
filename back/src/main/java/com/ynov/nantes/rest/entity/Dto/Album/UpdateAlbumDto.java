@@ -1,9 +1,8 @@
 package com.ynov.nantes.rest.entity.dto.album;
 
-import com.ynov.nantes.rest.entity.Artist;
+public class UpdateAlbumDto {
 
-public class AddAlbumDto {
-
+    private Integer id;
 
     private String name;
 
@@ -13,6 +12,14 @@ public class AddAlbumDto {
 
     private String artist_name;
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

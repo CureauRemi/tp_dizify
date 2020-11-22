@@ -4,14 +4,11 @@ import com.ynov.nantes.rest.entity.*;
 import com.ynov.nantes.rest.exception.favorite.FavoriteErrorException;
 import com.ynov.nantes.rest.exception.favorite.FavoriteNotFoundException;
 import com.ynov.nantes.rest.exception.playlist.PlaylistErrorException;
-import com.ynov.nantes.rest.repository.AlbumRepository;
-import com.ynov.nantes.rest.repository.FavoriteRepository;
-import com.ynov.nantes.rest.repository.PlaylistRepository;
-import com.ynov.nantes.rest.repository.SongRepository;
+import com.ynov.nantes.rest.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -24,7 +21,7 @@ public class FavoriteService {
     @Autowired
     private AlbumRepository albumRepository;
     @Autowired
-    private PlaylistRepository playlistRepository;
+    private ArtistRepository artistRepository;
     @Autowired
     private UserService userService;
 
@@ -85,27 +82,36 @@ public class FavoriteService {
         }
     }
 
-    public Favorite addFavoritePlaylistToUser(Integer playlistId) {
+    public Favorite addFavoritePlaylistToUser(Integer artistId) {
         try {
-            Playlist playlistToAdd = playlistRepository.getById(playlistId);
+            Artist playlistToAdd = artistRepository.getById(artistId);
             Favorite myFavorite = getAllFavoriteByUser();
             boolean isAlreadyInTheList = false;
-            for (Playlist p : myFavorite.getFavoritePlaylists()) {
+            for (Artist p : myFavorite.getFavoriteArtists()) {
                 if (p.getId().equals(playlistToAdd.getId())) {
                     isAlreadyInTheList = true;
                     break;
                 }
             }
             if (!isAlreadyInTheList) {
-                Set<Playlist> myFavoritePlaylists = myFavorite.getFavoritePlaylists();
-                myFavoritePlaylists.add(playlistToAdd);
-                myFavorite.setFavoritePlaylists(myFavoritePlaylists);
+                Set<Artist> myFavoriteArtists = myFavorite.getFavoriteArtists();
+                myFavoriteArtists.add(playlistToAdd);
+                myFavorite.setFavoriteArtists(myFavoriteArtists);
                 return favoriteRepository.save(myFavorite);
             } else {
                 return myFavorite;
             }
         } catch (Exception e) {
             throw new PlaylistErrorException(e.getMessage());
+        }
+    }
+
+    public HttpStatus deleteFavorite(Integer Id) {
+        try{
+            favoriteRepository.deleteById(Id);
+            return HttpStatus.OK;
+        } catch(Exception e) {
+            throw new FavoriteErrorException(e.getMessage());
         }
     }
 

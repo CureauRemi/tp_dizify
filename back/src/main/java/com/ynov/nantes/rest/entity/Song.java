@@ -26,6 +26,7 @@ public class Song {
     @OneToOne(targetEntity = Album.class, fetch = FetchType.EAGER)
     private Album album;
 
+    @JsonIgnore
     @OneToOne(targetEntity = Artist.class, fetch = FetchType.EAGER)
     private Artist artist;
 

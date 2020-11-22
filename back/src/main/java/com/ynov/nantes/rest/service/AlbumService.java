@@ -2,10 +2,7 @@ package com.ynov.nantes.rest.service;
 
 import com.ynov.nantes.rest.entity.Album;
 import com.ynov.nantes.rest.entity.Artist;
-import com.ynov.nantes.rest.entity.dto.album.AddAlbumDto;
-import com.ynov.nantes.rest.entity.dto.album.AlbumDto;
-import com.ynov.nantes.rest.entity.dto.album.AlbumNonBasicDto;
-import com.ynov.nantes.rest.entity.dto.album.getAlbumDto;
+import com.ynov.nantes.rest.entity.dto.album.*;
 import com.ynov.nantes.rest.entity.mapper.AlbumMapper;
 import com.ynov.nantes.rest.exception.album.AlbumErrorException;
 import com.ynov.nantes.rest.exception.album.AlbumNotFoundException;
@@ -31,7 +28,7 @@ public class AlbumService {
     AlbumMapper albumMapper;
 
 
-    public Album addAlbum(AddAlbumDto newAlbum) {
+    public AlbumDto addAlbum(AddAlbumDto newAlbum) {
         Artist artistFound = artistRepository.findOneByName(newAlbum.getArtist_name());
         if(artistFound != null) {
             Album albumToInsert = new Album();
@@ -40,20 +37,20 @@ public class AlbumService {
             albumToInsert.setImage_album(newAlbum.getImage_album());
             albumToInsert.setRelease_year(newAlbum.getRelease_year());
             albumToInsert.setSongs(null);
-            return albumRepository.save(albumToInsert);
+            return new AlbumDto(albumRepository.save(albumToInsert));
         } else {
             throw new AlbumErrorException("There was an error during the creation of the album");
         }
     }
 
-    public Album updateAlbum(Album album) {
-        try{
-            Album toUpdate = albumRepository.getById(album.getId());
-            albumMapper.map(album, toUpdate);
-            return albumRepository.save(toUpdate);
-        } catch (Exception e) {
-            throw new AlbumNotFoundException(album.getId());
+    public AlbumDto updateAlbum(UpdateAlbumDto updateAlbum) {
+        Artist artistFound = artistRepository.findOneByName(updateAlbum.getArtist_name());
+        //Artist
+        if (true) {
+        } else {
+            throw new AlbumErrorException("There was an error during the creation of the album");
         }
+        return null;
     }
 
     public Set<Album> getAlbumByArtist(Integer artistId){

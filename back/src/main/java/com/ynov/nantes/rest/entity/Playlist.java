@@ -1,5 +1,7 @@
 package com.ynov.nantes.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -17,10 +19,12 @@ public class Playlist {
 
     private String name;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Song> songs;
 
-    @ManyToOne @JoinColumn( name = "userId")
+    @ManyToOne
+    @JoinColumn( name = "userId")
     private Utilisateur user;
 
     // -------------------------------------------------
