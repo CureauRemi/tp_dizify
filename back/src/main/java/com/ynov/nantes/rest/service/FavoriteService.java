@@ -82,20 +82,20 @@ public class FavoriteService {
         }
     }
 
-    public Favorite addFavoritePlaylistToUser(Integer artistId) {
+    public Favorite addFavoriteArtistToUser(Integer artistId) {
         try {
-            Artist playlistToAdd = artistRepository.getById(artistId);
+            Artist artistToAdd = artistRepository.getById(artistId);
             Favorite myFavorite = getAllFavoriteByUser();
             boolean isAlreadyInTheList = false;
             for (Artist p : myFavorite.getFavoriteArtists()) {
-                if (p.getId().equals(playlistToAdd.getId())) {
+                if (p.getId().equals(artistToAdd.getId())) {
                     isAlreadyInTheList = true;
                     break;
                 }
             }
             if (!isAlreadyInTheList) {
                 Set<Artist> myFavoriteArtists = myFavorite.getFavoriteArtists();
-                myFavoriteArtists.add(playlistToAdd);
+                myFavoriteArtists.add(artistToAdd);
                 myFavorite.setFavoriteArtists(myFavoriteArtists);
                 return favoriteRepository.save(myFavorite);
             } else {
