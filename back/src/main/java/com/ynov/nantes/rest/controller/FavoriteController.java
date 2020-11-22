@@ -32,8 +32,7 @@ public class FavoriteController {
     @ResponseBody
     @PostMapping("add/song/{id}")
     public Favorite addFavoriteSong(@PathVariable("id") Integer idSong) {
-        //return favoriteService.
-        return null;
+        return favoriteService.addFavoriteSongToUser(idSong);
     }
 
     @ResponseBody

@@ -1,13 +1,11 @@
 package com.ynov.nantes.rest.service;
 
-import com.ynov.nantes.rest.entity.dto.UtilisateurOut;
 import com.ynov.nantes.rest.entity.Utilisateur;
 import com.ynov.nantes.rest.entity.mapper.UtilisateurMapper;
 import com.ynov.nantes.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

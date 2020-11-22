@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SongService {
@@ -39,7 +38,7 @@ public class SongService {
     public Page<SongDto> getAllSongs(Integer page, Integer limit) {
         try {
             PageRequest paginationSize = PageRequest.of(page, limit);
-            return songRepository.findAll(paginationSize).map(song -> new SongDto(song));
+            return songRepository.findAll(paginationSize).map(SongDto::new);
         } catch (Exception e) {
             throw new SongErrorException(e.getMessage());
         }

@@ -1,10 +1,10 @@
 package com.ynov.nantes.rest.controller;
 
 
-import com.ynov.nantes.rest.entity.dto.AuthenticationIn;
-import com.ynov.nantes.rest.entity.dto.UtilisateurAuthenticateOut;
-import com.ynov.nantes.rest.entity.dto.UtilisateurIn;
-import com.ynov.nantes.rest.entity.dto.UtilisateurOut;
+import com.ynov.nantes.rest.entity.dto.auth.AuthenticationIn;
+import com.ynov.nantes.rest.entity.dto.auth.UtilisateurAuthenticateOut;
+import com.ynov.nantes.rest.entity.dto.utilisateur.UtilisateurIn;
+import com.ynov.nantes.rest.entity.dto.utilisateur.UtilisateurOut;
 import com.ynov.nantes.rest.entity.Favorite;
 import com.ynov.nantes.rest.entity.Utilisateur;
 import com.ynov.nantes.rest.entity.mapper.UtilisateurMapper;

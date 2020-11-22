@@ -1,4 +1,4 @@
-package com.ynov.nantes.rest.entity.dto;
+package com.ynov.nantes.rest.entity.dto.auth;
 
 import lombok.Data;
 

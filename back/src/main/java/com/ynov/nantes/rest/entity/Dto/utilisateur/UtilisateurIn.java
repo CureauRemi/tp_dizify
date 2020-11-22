@@ -1,21 +1,13 @@
-package com.ynov.nantes.rest.entity.dto;
+package com.ynov.nantes.rest.entity.dto.utilisateur;
 
 import lombok.Data;
 
 @Data
-public class UtilisateurOut {
+public class UtilisateurIn {
 
-    private int id;
     private String email;
+    private String password;
     private String pseudo;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;
@@ -23,6 +15,14 @@ public class UtilisateurOut {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPseudo() {

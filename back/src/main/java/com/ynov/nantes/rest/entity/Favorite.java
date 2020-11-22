@@ -1,6 +1,7 @@
 package com.ynov.nantes.rest.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
