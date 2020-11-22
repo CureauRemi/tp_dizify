@@ -1,4 +1,4 @@
-package com.ynov.nantes.rest.entity.dto.playlist;
+package com.ynov.nantes.rest.entity.Dto.playlist;
 
 import com.ynov.nantes.rest.controller.SongController;
 import com.ynov.nantes.rest.entity.Playlist;

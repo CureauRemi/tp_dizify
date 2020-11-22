@@ -37,6 +37,7 @@ export default function Album() {
 
     try {
       let album = await AlbumService.getOne(id);
+      console.log(album)
       setArtist(album.artist)
       setAlbum(album)
       setSongs(album.songs)
@@ -71,7 +72,7 @@ export default function Album() {
         <Grid item style={{padding: '0 0 0 15px'}}>
           <div>
             <Typography component="h1" variant="h4" color="black" gutterBottom>{album.name}</Typography>
-            <Typography component="h1" variant="h6" color="black" gutterBottom component={Link} to={"/artist/"+artist.id}>{artist.alias}</Typography>
+            
             <Typography component="h1" color="black" gutterBottom>{album.release_year}</Typography>
           </div>
         </Grid>

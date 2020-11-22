@@ -2,8 +2,8 @@ package com.ynov.nantes.rest.service;
 
 import com.ynov.nantes.rest.entity.Playlist;
 import com.ynov.nantes.rest.entity.Utilisateur;
+import com.ynov.nantes.rest.entity.Dto.playlist.GetPlaylistDto;
 import com.ynov.nantes.rest.entity.dto.playlist.PlaylistDto;
-import com.ynov.nantes.rest.entity.dto.playlist.GetPlaylistDto;
 import com.ynov.nantes.rest.exception.playlist.PlaylistErrorException;
 import com.ynov.nantes.rest.exception.playlist.PlaylistNotFoundException;
 import com.ynov.nantes.rest.repository.PlaylistRepository;

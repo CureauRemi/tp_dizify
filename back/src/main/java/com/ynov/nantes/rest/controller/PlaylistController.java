@@ -2,9 +2,8 @@ package com.ynov.nantes.rest.controller;
 
 import com.ynov.nantes.rest.entity.Artist;
 import com.ynov.nantes.rest.entity.Playlist;
-import com.ynov.nantes.rest.entity.dto.playlist.AddPlaylistDto;
+import com.ynov.nantes.rest.entity.Dto.playlist.GetPlaylistDto;
 import com.ynov.nantes.rest.entity.dto.playlist.PlaylistDto;
-import com.ynov.nantes.rest.entity.dto.playlist.GetPlaylistDto;
 import com.ynov.nantes.rest.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
