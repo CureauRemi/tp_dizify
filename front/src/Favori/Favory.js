@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CircularProgress, IconButton, Snackbar, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core'
-import { Add, Delete } from '@material-ui/icons'
+import {  Delete } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert'
 
 import Title from '../components/Title'
@@ -21,15 +21,21 @@ export default function Favory() {
   
       try {
         let favorites = await favoryService.getAll();
-        let favoritesAlbums = favorites.favoriteAlbums;
-        let favoritesSongs = favorites.favoriteSongs;
-        let favoritesArtists = favorites.favoriteArtists;
-        console.log(favoritesArtists)
-        console.log(favorites)
-       
-        setFavoritesAlbums(favoritesAlbums)
-        setFavoritesSongs(favoritesSongs)
-        setFavoritesArtists(favoritesArtists)
+        if (favorites.favoriteArtists != null) {
+          setFavoritesArtists(favorites.favoriteArtists);
+        } else {
+          setFavoritesArtists([]);
+        }
+        if(favorites.favoriteAlbums != null) {
+          setFavoritesAlbums(favorites.favoriteAlbums)
+        } else {
+          setFavoritesAlbums([])
+        }
+        if(favorites.favoriteSongs != null) {
+          setFavoritesSongs(favorites.favoriteSongs)
+        } else {
+          setFavoritesSongs([])
+        }
 
         setTimeout(function () {
           setLoading(false)

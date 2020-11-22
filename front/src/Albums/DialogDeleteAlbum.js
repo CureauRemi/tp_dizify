@@ -5,7 +5,6 @@ import AlbumService from '../lib/albumService'
 export default function DialogDeleteAlbum({ open, handleClose, reload, album}) {
 
   const deleteAlbum = async () => {
-    console.log(album.id)
     await AlbumService.delete(album.id)
     reload()
   }

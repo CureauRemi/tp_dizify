@@ -10,15 +10,11 @@ export default function DialogAddSong({ open, handleClose, reload, album }) {
   
 
   const addSong = async () => {
-
     if (title === '' || duration === '') {
       return
     }
     let idArtist = album.artist.id
-    console.log(idArtist,'', album.id)
-
     await SongService.add({title: title, duration: duration, album_id : album.id ,artist_id: idArtist })
-
     reload()
   }
 

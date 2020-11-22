@@ -34,7 +34,6 @@ export default class WebSersice {
 
     async add(entity) {
         const token = localStorage.getItem('token')
-        console.log(entity)
         return axios.post(this.entity_endpoint, entity,{headers:{
             'Authorization': `Bearer ${token}` 
         }});
@@ -49,7 +48,6 @@ export default class WebSersice {
 
     async delete(id) {
         const token = localStorage.getItem('token')
-        console.log(this.entity_endpoint + '/' + id)
         return axios.delete(`${this.entity_endpoint}/${id}`,{headers:{
             'Authorization': `Bearer ${token}` 
         }});

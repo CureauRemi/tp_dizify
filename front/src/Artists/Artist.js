@@ -54,8 +54,16 @@ export default function Artist() {
     try {
       let artist = []
       artist = await artistService.getOne(id);
-      setAlbums(artist.albums)
-      setArtist(artist)
+      if(artist.albums != null) {
+        setAlbums(artist.albums)
+      } else {
+        setAlbums([])
+      }
+      if(artist != null) {
+        setArtist(artist)
+      } else {
+        setArtist({})
+      }
       setTimeout(function () {
         setLoading(false)
       }, 1500)

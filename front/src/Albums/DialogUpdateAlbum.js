@@ -28,7 +28,6 @@ export default function DialogUpdateAlbum({ open, handleClose, reload, album }) 
     }else{
       res.image_album = image_album
     }
-    console.log(year)
     if(year === null){
       res.year = album.release_year
     }else{
@@ -39,8 +38,6 @@ export default function DialogUpdateAlbum({ open, handleClose, reload, album }) 
     }else{
       res.artistName = artistName
     }
-    console.log(res)
-    
     await AlbumService.update(res)
     reload()
   }

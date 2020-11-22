@@ -11,7 +11,6 @@ import DialogDeleteSong from './DialogDeleteSong'
 import DialogAddSongToPlaylist from './DialogAddSongToPlaylist'
 import AlbumService from '../lib/albumService'
 import favoryService from '../lib/favoryService'
-import playlistService from '../lib/playlistService'
 
 
 export default function Album() {
@@ -37,10 +36,21 @@ export default function Album() {
 
     try {
       let album = await AlbumService.getOne(id);
-      console.log(album)
-      setArtist(album.artist)
-      setAlbum(album)
-      setSongs(album.songs)
+      if(album.artist != null) {
+        setArtist(album.artist)
+      } else {
+        setArtist({})
+      }
+      if(album != null) {
+        setAlbum(album)
+      } else {
+        setAlbum({})
+      }
+      if(album.songs != null) {
+        setSongs(album.songs)
+      } else {
+        setSongs([])
+      }
       setTimeout(function () {
         setLoading(false)
       }, 1500)
@@ -72,7 +82,7 @@ export default function Album() {
         <Grid item style={{padding: '0 0 0 15px'}}>
           <div>
             <Typography component="h1" variant="h4" color="black" gutterBottom>{album.name}</Typography>
-            
+            <Typography component="h1" variant="h5" color="black" gutterBottom component={Link} to={"/artist/"+artist.id}>{artist.alias}</Typography>
             <Typography component="h1" color="black" gutterBottom>{album.release_year}</Typography>
           </div>
         </Grid>
@@ -102,7 +112,6 @@ export default function Album() {
                     <Edit />
                   </IconButton>
                   <IconButton aria-label="Supprimer un song" onClick={() => {
-                    console.log(song)
                     setSongDeleted(song)
                     setOpenDeleteDialog(true)
                     }}>

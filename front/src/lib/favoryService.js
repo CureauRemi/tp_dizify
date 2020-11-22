@@ -11,7 +11,6 @@ class FavoryService {
             'Authorization': `Bearer ${token}` 
         }}).then(
             function(r){
-                console.log(r.data)
                 return r.data
             }
         );
@@ -19,9 +18,7 @@ class FavoryService {
     }
 
     async addFavorite(root,id) {
-        console.log(root, '', id)
         const token = await localStorage.getItem('token') 
-        console.log(token)
         return axios.post(`favorite/add/${root}/${id}`,{},{headers:{
             'Authorization': `Bearer ${token}` 
         }});

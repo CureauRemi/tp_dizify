@@ -61,8 +61,11 @@ export default function Artists() {
     try {
       let artists = []
       artists = await artistService.getAll();
-      console.log(artists)
-      setArtists(artists)
+      if (artists != null) {
+        setArtists(artists)
+      } else {
+        setArtists([])
+      }
       setTimeout(function () {
         setLoading(false)
       }, 1500)

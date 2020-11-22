@@ -30,8 +30,11 @@ export default function Albums() {
 
     try {
       let albums = await AlbumService.getAll();
-      
-      setAlbums(albums)
+      if(albums != null) {
+        setAlbums(albums)
+      } else {
+        setAlbums([])
+      }
       setTimeout(function () {
         setLoading(false)
       }, 1500)

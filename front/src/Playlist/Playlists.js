@@ -22,7 +22,6 @@ export default function Playlist() {
   
       try {
         let playlists = await PlaylistService.getAll();
-        console.log(playlists)
         setPlaylists(playlists)
         setTimeout(function () {
           setLoading(false)
